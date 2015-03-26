@@ -3,6 +3,7 @@ package com.getsocial.app.dao;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,34 @@ public class UserDaoImpl implements UserDao {
 			.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
 		
 		return list;
+	}
+
+	@Override
+	@Transactional
+	public User get(int id) {
+		String hql = "from User where id=" + id;
+		Query query = sessionFactory.getCurrentSession().createQuery(hql);
+		
+		@SuppressWarnings("unchecked")
+		List<User> users = (List<User>) query.list();
+		if(users != null && !users.isEmpty()) {
+			return users.get(0);
+		}
+		return null;
+	}
+
+	@Override
+	@Transactional
+	public void saveOrUpdate(User user) {
+		sessionFactory.getCurrentSession().saveOrUpdate(user);
+	}
+
+	@Override
+	@Transactional
+	public void delete(int id) {
+		User userToDelete = new User();
+		userToDelete.setId(id);
+		sessionFactory.getCurrentSession().delete(userToDelete);		
 	}
 
 }

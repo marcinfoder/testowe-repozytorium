@@ -10,19 +10,27 @@
     </head>
     <body>
         <div align="center">
-            <h1>Contact List</h1>
+            <h1>Users List</h1>
+            <h2><a href="new">New User</a></h2>
+             
             <table border="1">
                 <th>No</th>
-                <th>User name</th>
+                <th>Username</th>
                 <th>Email</th>
+                <th>Actions</th>
                  
                 <c:forEach var="user" items="${userList}" varStatus="status">
                 <tr>
                     <td>${status.index + 1}</td>
                     <td>${user.username}</td>
                     <td>${user.email}</td>
+                    <td>
+                        <a href="edit?id=${user.id}">Edit</a>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <a href="delete?id=${user.id}">Delete</a>
+                    </td>
                 </tr>
-                </c:forEach>              
+                </c:forEach>             
             </table>
         </div>
     </body>
