@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xsi:schemaLocation="
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd 
+		http://www.springframework.org/schema/oxm 
+		http://www.springframework.org/schema/oxm/spring-oxm-3.1.xsd 
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security-3.1.xsd" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xmlns:oxm="http://www.springframework.org/schema/oxm"
+ 	xmlns:context="http://www.springframework.org/schema/context"
+  	xmlns:p="http://www.springframework.org/schema/p" 
+ 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ 	xmlns="http://www.springframework.org/schema/beans"> 
+
+	<bean id="invokeJob" class="com.capgemini.job.InvokeJob" />
+
+	<bean id="invokeJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+  		<property name="targetObject" ref="invokeJob"/>
+  		<property name="targetMethod" value="run"/>
+  		<property name="concurrent" value="false"/>
+	</bean>
+
+	<bean id ="dlaStudentaJob" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="name">
+			<value>example</value>
+		</property>
+		<property name="group">
+			<value>examples</value>
+		</property>
+		<property name="description">
+			<value>sample job description</value>
+		</property>
+		<property name="jobClass">
+			<value>com.capgemini.job.DlaStudentaJob</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="www" value="http://www.dlastudenta.pl/" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id ="simpleJobDetail" class="org.springframework.scheduling.quartz.JobDetailBean">
+		<property name="name">
+			<value>example</value>
+		</property>
+		<property name="group">
+			<value>examples</value>
+		</property>
+		<property name="description">
+			<value>sample job description</value>
+		</property>
+		<property name="jobClass">
+			<value>com.capgemini.job.SimpleJob</value>
+		</property>
+		<property name="jobDataAsMap">
+			<map>
+				<entry key="param" value="myParam" />
+			</map>
+		</property>
+	</bean>
+
+	<bean id = "dlaStudentaTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean = "dlaStudentaJob"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 18 17 ? * MON-FRI</value>
+		</property>
+	</bean>
+
+	<bean id = "cronTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail">
+			<ref bean = "simpleJobDetail"/>
+		</property>
+		<property name="cronExpression">
+			<value>0 17 17 ? * MON-FRI</value>
+		</property>
+	</bean>
+	
+	<bean id = "simpleTrigger" class = "org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<ref bean="invokeJobDetail"/>
+		</property>
+		<property name="repeatInterval" value="10000"/>
+		<property name="startDelay">
+			<value>6000</value>
+		</property>
+	</bean>
+
+	<bean id = "simpleTriggerTransactional" class = "org.springframework.scheduling.quartz.SimpleTriggerBean">
+		<property name="jobDetail">
+			<ref bean="simpleJobDetail"/>
+		</property>
+		<property name="repeatInterval" value="15000"/>
+		<property name="startDelay">
+			<value>10000</value>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers"> 
+ 			<list>
+ 				<!--ref bean="simpleTrigger"/>
+ 				<ref bean="simpleTriggerTransactional"/>
+ 				<ref bean="cronTrigger"/-->
+ 				<ref bean="dlaStudentaTrigger"/>
+ 			</list>
+ 		</property>
+ 		<property name="schedulerContextAsMap">
+            <map>
+                <entry key="bookService" value-ref="bookService" />
+            </map>
+        </property>
+ 	</bean>
+
+	<context:annotation-config/>
+
+</beans>

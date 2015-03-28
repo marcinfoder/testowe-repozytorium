@@ -1,0 +1,56 @@
+Instrukcja jak uruchomić aplikację.
+
+
+1. Instalujemy MySQLa. Zostawiamy domyślne ustawienia, tzn. port 3306. Przyjąłem, że użytkownik 'root' ma hasło 'system'.
+Gdyby było inaczej to credentiale można zmienić w projekcie w plikach: 
+		/Rest/src/com/capgemini/rest/client/jdbc.properties
+		/Rest/resources/hibernate.cfg.xml
+
+2. Tworzymy schemat o nazwie 'rest'. Przez GUI albo sql: CREATE DATABASE `rest`
+
+3. Ściągamy eclipsa WTP https://eclipse.org/webtools/
+
+4. Importujemy podesłaną aplikację do workspace'a (Import existing java project)
+
+5. Zmieniamy runtime na JDK (Window -> Preferences -> Installed JRE's). Najlepiej w ogóle usunąć z tej listy JRE i dodać JDK.
+
+6. Ściągamy Tomcata 6 https://tomcat.apache.org/download-60.cgi
+
+7. Jeśli nie ma to dodajemy widoki Servers i Ant w eclipsie. Window -> open view...
+
+7. Dodajemy serwer tomcata w widoku "Servers". Ważne żeby korzystał z implementacji którą ściągneliście!
+
+8. Po dodaniu klikamy 2x na serwer i zmieniamy "Server locations" na "Use Tomcat installation..."
+
+9. Żeby móc deployować aplikację antem w odpowiednie miejsce dopasowujemy ścieżki do naszego tomcata w pliku /Rest/build.properties
+
+10. Przeciągamy plik build.xml do widoku Ant i odpalamy build: deploy-schema który odpowiedzialny jest za utworzenie tabel.
+
+11. W dowolnym kliencie bazodanowym musimy jeszcze wypełnić bazę danymi i dodać jedną tabelę potrzebną do logowania. Potrzebne skrypty są w pliku sql/create.sql (od linii 62 tylko!!!).
+
+12. Odpalamy build antowy deploy-container.
+
+13. Uruchamiamy tomcata.
+
+14. Powinniśmy być w stanie otworzyć stronę localhost:18080/rest/service/login (jeśli nie znajduje strony sprawdźcie konfigurację portów oraz czy przy starcie tomcata nie lecą wyjątki).
+
+15. Użytkownicy to rod i scott. Hasła są zawsze 'koala'.
+
+
+
+=============================================================================
+
+
+Co ten projekt zawiera? Szkielet prostej aplikacji webowej i do tego jeszcze wystawione RESTowe API.
+
+Co przejrzeć na początek? A co pominąć? Pominąć można implementację "monitora" (do podglądania requestów) i RESTową część implementacji.
+pakiety:
+com.capgemini.job - definicja jobów wykonywanych przez quartza. Ich częstotliwość zdefiniowana jest w pliku applicationContext-jobs.xml
+com.capgemini.security - definicja beanów decydujących o dostępie do aplikacji, podpina się je później w applicationContext-security.xml
+Wszystkie pliki applicationContext-*.xml
+Popatrzcie jak zorganizowane są serwisy, dao, obiekty danych, jak wyglądają proste strony .jsp
+Przeanalizujcie applicationContext-view.xml np. na resolvery które decydują na którą stronę jsp przekierować (jest ich więcej niż 1 ;))
+
+
+
+

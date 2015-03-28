@@ -1,0 +1,106 @@
+<project name="test" default="deploy-container" basedir=".">
+	<property file="build.properties" />
+	<property name="deploy.dir" value="${project.container.webapps.dir}${file.separator}${project.webapp.name}" />
+
+
+	<!-- Classpath declaration -->
+	<path id="project.classpath">
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar" />
+			<!--include name="**/*.zip" /-->
+		</fileset>
+		<fileset dir="${catalinalib.dir}">
+			<include name="**/*.jar" />
+			<!--include name="**/*.zip" /-->
+		</fileset>
+	</path>
+	<!-- Useful shortcuts -->
+	<patternset id="meta.files">
+		<include name="**/*.xml" />
+		<include name="**/*.properties" />
+	</patternset>
+
+	<!-- Clean up -->
+	<target name="clean">
+		<delete dir="${build.dir}" />
+		<mkdir dir="${build.dir}" />
+		<delete dir="${deploy.dir}" />
+		<mkdir dir="${deploy.dir}" />
+	</target>
+
+	<!-- Compile Java source -->
+	<target name="compile" depends="clean">
+		<mkdir dir="${build.dir}" />
+		<javac srcdir="${src.java.dir}" debug="true" destdir="${build.dir}" nowarn="on" >
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- Copy metadata to build classpath -->
+	<target name="copymetafiles">
+		<copy todir="${build.dir}">
+			<fileset dir="${src.java.dir}">
+				<patternset refid="meta.files" />
+
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="startDeployedContainer" depends="tomcat_stop, deploy-container, tomcat_start" />
+
+	<target name="deploy-container" depends="compile, copymetafiles" description="Deploys aplication">
+		<copy todir="${deploy.dir}">
+			<fileset dir="${webapp.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+
+		<copy todir="${deploy.dir}${file.separator}WEB-INF${file.separator}classes">
+			<fileset dir="${build.dir}">
+				<include name="**/*.class" />
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+			</fileset>
+			<fileset dir="${classes.dir}">
+				<include name="**/*.class" />
+			</fileset>
+		</copy>
+
+		<copy todir="${deploy.dir}${file.separator}WEB-INF${file.separator}lib">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+				<exclude name="servlet-api.jar" />
+				<exclude name="jsp-api.jar" />
+			</fileset>
+		</copy>
+
+	</target>
+
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="project.classpath" />
+	
+	<target name="deploy-schema" depends="compile, copymetafiles">
+		<hibernatetool destdir="etc">
+			<classpath>				
+				<path location="${build.dir}" />
+			</classpath>			
+			<annotationconfiguration configurationfile="${rsrc.java.dir}${file.separator}hibernate.cfg.xml" />
+			<!--hbm2ddl export="true" drop="true" create="true" outputfilename="create.sql" delimiter=";" format="true" /-->
+			<hbm2ddl export="true" drop="false" create="false" outputfilename="createMySql.sql" delimiter=";" format="true" />
+		</hibernatetool>
+	</target>
+
+	<target name="tomcat_stop">
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+			<arg line="stop" />
+		</java>
+	</target>
+
+	<!-- Start tomcat java -jar bootstrap.jar -->
+	<target name="tomcat_start">
+		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
+			<jvmarg value="-Dcatalina.home=${tomcat.home}" />
+		</java>
+	</target>
+
+</project>
