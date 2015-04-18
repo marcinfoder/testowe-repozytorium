@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/security 
+                        http://www.springframework.org/schema/security/spring-security-3.1.xsd
+                        http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context.xsd
+						http://www.springframework.org/schema/mvc
+						http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd" >
+
+	
+	<security:global-method-security pre-post-annotations="enabled" />
+	
+	<!--context:annotation-config/-->
+
+	<context:component-scan base-package="com.capgemini.service"/>
+ 	<context:component-scan base-package="com.capgemini.persistence"/>
+  	<context:component-scan base-package="com.capgemini.configuration"/>
+	
+	<security:http pattern="/static/**" security="none" />
+
+	<security:http use-expressions="true">
+		<security:access-denied-handler ref="accessDeniedHandler" />
+		<security:intercept-url pattern="/" access="permitAll" />
+		<security:intercept-url pattern="/service/login" access="permitAll" />
+        <security:intercept-url pattern="/service/logout" access="permitAll" />
+		<security:intercept-url pattern="/service/book*/**" access="permitAll" />
+		<security:intercept-url pattern="/service/image*/**" access="permitAll" />
+		<!--intercept-url pattern="/rest/service" access="isAuthenticated()"/><hasRole('ROLE_ADMIN')" /-->
+		<security:intercept-url pattern="/service/search/**" access="hasRole('ROLE_ADMIN')" />
+		<security:form-login login-page="/service/login" default-target-url="/service/search" authentication-failure-url="/service/loginfailed" />
+		<security:logout logout-success-url="/service/logout" />
+	</security:http>
+
+   	<bean id="accessDeniedHandler" class="com.capgemini.handler.MyAccessDeniedHandler">
+		<property name="accessDeniedUrl" value="403" />
+   	</bean>
+
+	<!-- it works too -->
+	<!--security:authentication-manager>
+		<security:authentication-provider ref="daoAuthenticationProvider" />
+	</security:authentication-manager-->
+
+
+	<security:authentication-manager>
+		<security:authentication-provider>
+		<security:password-encoder hash="md5" />
+		<security:jdbc-user-service data-source-ref="dataSource"
+		
+		users-by-username-query="
+		      select NAME as username,
+		             PASSWORD,
+		             1 as enabled
+		      from APP_USER where NAME=?" 
+ 
+		authorities-by-username-query="
+		      select u.NAME as username, a.AUTHORITY 
+		      from APP_USER u 
+		      join USER_AUTHORITY a on u.NAME = a.NAME
+		      where u.NAME = ?"
+ 
+		/>
+	   </security:authentication-provider>
+	</security:authentication-manager>
+
+
+
+	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
+		 <constructor-arg>
+			<list>
+				<bean class="com.capgemini.security.TimeVoter" />
+				<bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
+			</list>
+		</constructor-arg> 
+	</bean>
+
+	<!--bean class="com.capgemini.configuration.SecurityConfiguration" /-->
+
+	<!--authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="md5" />
+			<comment Usernames/Passwords are rod/koala scott/wombat>
+			<user-service>
+				<user name="rod" password="a564de63c2d0da68cf47586ee05984d7"
+					authorities="ROLE_ADMIN, ROLE_USER" />
+				<user name="scott" password="2b58af6dddbd072ed27ffc86725d7d3a"
+					authorities="ROLE_USER" />
+			</user-service>
+		</authentication-provider>
+	</authentication-manager-->
+
+	<!--beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
+
+	<beans:bean id ="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+		<beans:property name="passwordEncoder" ref="passwordEncoder" />
+		<beans:property name="setUserDetailsService" ref="databaseUserService" />
+	</beans:bean-->
+	
+		   <!--oracle-->
+		   <!--authorities-by-username-query="
+		   with a as (select name from app_user where name = ?)
+		      select name as username,
+		      		 (case 
+		      			when name in ('rod', 'scott') then 'ROLE_ADMIN' 
+		      	     end) as authority
+		      from a
+		   		union
+		      select name as username,
+		      	 	 (case 
+		      			when name in ('rod') then 'guest' 
+		      	     end) as authority
+		      from a
+		      
+		       select name as username,
+		      		 (case 
+		      			when name in ('rod', 'scott') then 'ROLE_ADMIN' 
+		      	     end) as authority
+		      from app_user
+		   		union
+		      select name as username,
+		      	 	 (case 
+		      			when ? in ('rod') then 'guest' 
+		      	     end) as authority
+		      from app_user;
+		      "-->
+	
+</beans>
