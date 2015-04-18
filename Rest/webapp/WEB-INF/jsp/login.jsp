@@ -26,30 +26,28 @@
 			Your login attempt was not successful, try again.<br /> Caused :
 			${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}
 		</div>
-		<hr />                        
-		<a href="<spring:url value="/j_spring_security_check" htmlEscape="true" />">Login</a>
 	</c:if>
  
 	<form name='f' action="<spring:url value='rest/j_spring_security_check' />" method='POST'>
  
 		<table>
 			<tr>
-				<td>User:</td>
+				<td><spring:message code="login.user" text="username" />:</td>
 				<td><input type='text' name='j_username' value=''>
 				</td>
 			</tr>
 			<tr>
-				<td>Password:</td>
+				<td><spring:message code="login.password" text="password"/>:</td>
 				<td><input type='password' name='j_password' />
 				</td>
 			</tr>
 			<tr>
 				<td colspan='2'><input name="submit" type="submit"
-					value="submit" />
+					value="Login" />
 				</td>
 			</tr>
 			<tr>
-				<td colspan='2'><input name="reset" type="reset" />
+				<td colspan='2'><input name="reset" type="reset" value="Reset"/>
 				</td>
 			</tr>
 		</table>

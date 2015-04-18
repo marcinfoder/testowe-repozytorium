@@ -14,7 +14,7 @@
 	<body>
 		<p>
 			<fmt:message key="welcome"/>
-			<sec:authentication property="principal.username"/>			
+			<sec:authentication property="principal.username"/>		
 		</p>
 		<p>
 		<spring:message code="search.language" text="my language" /> : <a href="?language=en">English</a>|<a href="?language=de">Deutsch</a>

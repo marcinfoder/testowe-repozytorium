@@ -1,5 +1,362 @@
-body
-{
-    COLOR: green;
-    FONT-FAMILY: 'Times New Roman';
+/*
+
+Projekt Zespolowy 2015
+
+- Tytul: GetSocial
+- Sklady grupy:
+	- Filip Jaszczuk
+	- Mateusz Jerzyk
+	- ..
+	- ..
+- Opiekun: Marek Piasecki
+- Opiekun biznesowy: Capgemini
+
+- Autor pliku: Filip Jaszczuk
+
+*/
+
+body {
+	font-family: 'Open Sans',Helvetica;
+	font-size: 14px;
+	background: #f5f5f5;
+}
+
+.accent-color {
+	color: #26C3B8;
+}
+
+	.accent-bg-color {
+		background-color: #26C3B8;
+	}
+	
+/* Typography */
+
+h1,h2,h3,h4,h5,h6 {
+	font-weight: 300;
+	color: #363636;
+	margin-bottom: 20px;
+}
+
+a {
+	text-decoration: none;
+	color: #27CFC3;
+}
+
+/* Page Header */
+
+#header {
+	background: #213035;
+	height: 50px;
+	position: fixed;
+	display: block;
+	width: 100%;
+	top: 0;
+	line-height: 50px;
+	z-index: 2;
+}
+
+	#header:after {
+		content: "";
+		clear: both;
+		display: block;
+	}
+
+	#site-logo {
+		float: left;
+		padding-left: 25px;
+	}
+	
+		#site-logo h1 {
+			color: #fff;
+			font-size: 24px;
+			-webkit-font-smoothing: antialiased;
+		}
+	
+		#site-logo span {
+			color: #26C3B8;
+			font-weight: normal;
+			-webkit-font-smoothing: subpixel-antialiased;
+		}
+	
+	#header-nav {
+		float: right;
+		font-weight: 300;
+		font-size: 13px;
+		padding-right: 25px;
+	}
+	
+		#header-nav:after,
+		#header-nav li.user-panel a:after {
+			display: block;
+			content: "";
+			clear: both;
+		}
+	
+	#header-nav li {
+		float: left;
+		list-style: none;
+	}
+		#header-nav li a {
+			color: #CACACA;
+			display: block;
+			transition: all .3s;
+		}
+		
+		#header-nav li.user-panel a {
+			padding: 0 10px;
+			height: 50px;
+		}
+		
+			#header-nav li a:hover {
+				background-color: #26C3B8;
+				color: #fff;
+			}
+		
+		#header-nav li.user-panel a > div {
+			float: left;
+		}
+		
+		#header-nav li.user-panel .user-avatar {
+			border-radius: 100%;
+			width: 36px;
+			height: 36px;
+			margin-top: 7px;
+			margin-right: 12px;
+		}
+		
+		#header-nav li.logout a {
+			font-size: 18px;
+			padding: 0 10px 0 14px;
+		}
+
+/* Page Content */
+
+#content-wrapper {
+	margin-top: 50px;
+	min-height: 600px;
+	position: relative;
+}
+
+/* Page Navigation */
+
+#navigation {
+	position: fixed;
+	left: 0;
+	width: 240px;
+	top: 50px;
+	bottom: 0;
+	background: #303B4A;
+	padding: 30px 0px;
+	font-weight: 300;
+	font-size: 15px;
+}
+
+	#navigation li {
+		list-style: none;
+	}
+	
+	#navigation li a {
+		padding: 10px 25px;
+		display: block;
+		transition: all .3s;
+		color: #fff;
+		position: relative;
+	}
+	
+		#navigation li a i {
+			opacity: 0.4;
+			font-size: 18px;
+			width: 25px;
+			transition: opacity .3s;
+		}
+	
+	#navigation li a:hover,
+	#navigation li.current-page a {
+		background: #26C3B8;
+	}
+	
+		#navigation li.current-page a:before {
+			content: "";
+			display: block;
+			width: 0; 
+			height: 0; 
+			border-top: 12px solid transparent;
+			border-bottom: 12px solid transparent;				
+			border-right: 12px solid #f5f5f5;
+			position: absolute;
+			right: 0;
+			top: 6px;
+		}
+		
+		#navigation li a:hover i,
+		#navigation li.current-page a i {
+			opacity: 1;
+		}
+		
+		/* Submenu */
+		
+		#navigation li.has-submenu > a:after {
+			font-family: FontAwesome;
+			-webkit-font-smoothing: antialiased;
+			content: "\f078";
+			position: absolute;
+			right: 15px;
+			top: 13px;
+			font-size: 12px;
+			opacity: 0.85;
+		}
+		
+		#navigation .submenu {
+			margin: 0;
+			background: #242C37;
+			padding: 6px 0;
+		}
+		
+		#navigation .submenu a {
+			padding-left: 40px;
+		}
+
+/* Page Content */
+
+#content {
+	padding: 30px 30px 30px 270px;
+}
+
+/* Grid layout */
+
+.grid-item {
+	float: left;
+	margin-right: 2%;
+	background: #fff;
+	box-shadow: 0 1px 1px rgba(0,0,0,0.06);
+	padding: 20px 25px;
+	box-sizing: border-box;
+	margin-bottom: 2%;
+}
+
+.grid-item.last {
+	margin-right: 0;
+}
+
+	.grid-item.last:after {
+		content: "";
+		display: block;
+		clear: both;
+	}
+
+.grid-item-10 {
+	width: 100%;
+}
+
+	.grid-item-9 {
+		width: 89%;
+	}
+	
+	.grid-item-8 {
+		width: 79%;
+	}
+	
+	.grid-item-7 {
+		width: 69%;
+	}
+	
+	.grid-item-6 {
+		width: 59%;
+	}
+	
+	.grid-item-5 {
+		width: 49%;
+	}
+	
+	.grid-item-4 {
+		width: 39%;
+	}
+	
+	.grid-item-3 {
+		width: 29%;
+	}
+	
+	.grid-item-2 {
+		width: 19%;
+	}
+	
+	.grid-item-1 {
+		width: 9%;
+	}
+	
+/* Opinie */
+
+.grid-opinie-pozytywne {
+	border-top: 3px solid rgb(70, 186, 52);
+}
+
+.grid-opinie-negatywne {
+	border-top: 3px solid rgb(244, 69, 69);
+}
+
+ul.opinie {
+	margin: 0;
+	font-weight: 300;
+}
+
+ul.opinie li {
+	list-style: none;
+	display: block;
+	padding: 15px 20px 0px 20px;
+	margin-bottom: 10px;
+	color: #444;
+	background: rgba(208, 208, 208, 0.1);
+}
+
+	ul.opinie li:last-child {
+		margin: 0;
+	}
+	
+		ul.opinie-pozytywne li p span {
+			color: rgb(56, 161, 56);
+			text-decoration: underline;
+		}
+	
+		ul.opinie-negatywne li p span {
+			color: rgb(210, 17, 17);
+			text-decoration: underline;
+		}
+		
+	ul.opinie .opinia-meta {
+		line-height: 30px;
+		font-size: 12px;
+		margin-top: 10px;
+		border-top: 1px solid rgba(0, 0, 0, 0.04);
+		color: #999;
+		font-weight: 300;
+	}
+	
+		ul.opinie .opinia-meta:after {
+			content: "";
+			display: block;
+			clear: both;
+		}
+	
+		ul.opinie .opinia-meta > div {
+			float: left;
+			margin-right: 10px;
+		}
+		
+		ul.opinie .opinia-meta span {
+			color: #cacaca;
+		}
+
+/* Page Footer */
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	height: 40px;
+	color: #fff;
+	padding: 0 20px;
+	font-size: 12px;
+	color: #5F6E83;
+	font-weight: normal;
 }
