@@ -11,7 +11,7 @@
 						<img class="user-avatar" src="/rest/static/img/avatar.jpg">
 					</div>
 					<div class="user-title">
-						<spring:message code="welcome" text="welcom" /> <sec:authentication property="principal.username"/>
+						<spring:message code="welcome" text="welcome" /> <sec:authentication property="principal.username"/>
 					</div>
 				</a>
 			</li>

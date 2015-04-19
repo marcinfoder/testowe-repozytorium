@@ -20,27 +20,7 @@
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		
 		<section id="content-wrapper">
-		
-			<div id="navigation">
-				
-				<ul id="main-navigation">
-					<li class="current-page"><a href="#"><i class="fa fa-home"></i> Kokpit</a></li>
-					<li class="has-submenu"><a href="#"><i class="fa fa-bar-chart"></i> Statystyki</a>
-						<ul class="submenu">
-							<li><a href="#"><i class="fa fa-eye"></i> Wyświetlenia</a></li>
-							<li><a href="#"><i class="fa fa-comments-o"></i> Opinie</a></li>
-							<li><a href="#"><i class="fa fa-globe"></i> Lokalizacja</a></li>
-						</ul>
-					</li>
-					<li><a href="#"><i class="fa fa-cloud-upload"></i> Wysyłanie</a></li>
-					<li><a href="#"><i class="fa fa-user"></i> Konto</a></li>
-					<li><a href="<spring:url value="/j_spring_security_logout" htmlEscape="true" />"><i class="fa fa-sign-out"></i> Wyloguj</a></li>
-				</ul>
-				
-				<footer id="footer">
-					© 2015 GetSocial 
-				</footer>
-			</div>
+			<%@ include file="/WEB-INF/jsp/navigation.jsp" %>
 			
 			<div id="content" class="grid">
 				
@@ -49,8 +29,7 @@
 					
 					<div class="grid-item-content">
 						<canvas id="wykres" height="220" width="600"></canvas>
-					</div>
-					
+					</div>			
 				</div>
 				
 				<div class="grid-item grid-item-5 grid-opinie-pozytywne">
@@ -168,14 +147,8 @@
 						</ul>
 					</div>
 				</div>
-
-				
 			</div>
-			
 		</section>
-		
-		
-		
 	</div>	
 	
 	<!-- Load Javascripts -->

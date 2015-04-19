@@ -38,7 +38,6 @@
 		</form:form>
 		<p/>
 		<br/>
-		<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 		<sec:authorize access="hasRole('guest')">
 			<h4>You are guest!</h4>
 		</sec:authorize>
