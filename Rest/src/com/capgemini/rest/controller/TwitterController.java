@@ -10,8 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import com.capgemini.persistence.IUserDao;
 import com.capgemini.rest.model.TwitterLoginForm;
 import com.capgemini.service.TwitterAccessService;
+import com.capgemini.service.UserService;
 
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -27,6 +30,9 @@ public class TwitterController {
 	
 	@Autowired
 	private TwitterAccessService twitterAccessService;
+	
+	@Autowired
+	private UserService userService; 
 
 	@Value("${oauth.consumerKey}")
 	private String consumerKey;
@@ -54,10 +60,11 @@ public class TwitterController {
 	
 	@RequestMapping(method = RequestMethod.POST, value = "/twitter-login")
 	public String getRegisterAccount(@ModelAttribute TwitterLoginForm tweet,
-			Model model) {
+			Model model, Principal principal) {
 		try {
 			AccessToken at = twitter.getOAuthAccessToken(tweet.getTwitterPin());
 			model.addAttribute("accessToken", at.getToken());
+			model.addAttribute("consumer", userService.getUserByLogin(principal.getName()));
 			twitterAccessService.addTwitterAccess(at.getToken());
 		} catch (TwitterException e) {
 			e.printStackTrace();
@@ -68,7 +75,8 @@ public class TwitterController {
 	@RequestMapping(method = RequestMethod.GET, value = "/twitter-login2")
 	public String getTwitterAccess(Model model, Principal principal) {
 		model.addAttribute("twitterLoginForm", new TwitterLoginForm());
-		model.addAttribute("consumer", twitterAccessService.findByLogin(principal.getName()));
+        model.addAttribute("consumer", userService.getUserByLogin(principal.getName()).toString());
+		model.addAttribute("secret", twitterAccessService.findByLogin(principal.getName()).toString());
 		return "twitter-login";
 	}
 

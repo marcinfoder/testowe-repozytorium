@@ -9,7 +9,7 @@
 				<param name="sequence">id_seq</param>
 			</generator>
 		</id>
-		<property name="userId" type="long" not-null="true">
+		<property name="groupId" type="long" not-null="true">
 			<column name="GroupId" />
 		</property>
 		

@@ -38,4 +38,13 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("userid:").append(id).
+		append("login:").append(login).
+		append("active:").append(active);
+		return sb.toString();
+	}
 }

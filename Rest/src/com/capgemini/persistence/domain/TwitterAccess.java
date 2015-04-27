@@ -3,11 +3,8 @@ package com.capgemini.persistence.domain;
 public class TwitterAccess {
 	
 	private long id;
-	
 	private String accessToken;
-	
-	private long userId;
-	
+	private long groupId;
 	private boolean active;
 	
 	public TwitterAccess() {
@@ -16,7 +13,7 @@ public class TwitterAccess {
 	
 	public TwitterAccess(long id, long userId, String accessToken, boolean active) {
 		this.id = id;
-		this.userId = userId;
+		this.groupId = userId;
 		this.accessToken = accessToken;
 		this.active = active;
 	}
@@ -37,14 +34,15 @@ public class TwitterAccess {
 		this.accessToken = accessToken;
 	}
 
-	public long getUserId() {
-		return userId;
+	public long getGroupId() {
+		return groupId;
 	}
 
-	public void setUserId(long userId) {
-		this.userId = userId;
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
+		this.groupId = 1;
 	}
-
+	
 	public boolean isActive() {
 		return active;
 	}
@@ -57,7 +55,7 @@ public class TwitterAccess {
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
 		builder.append("id: ").append(id)
-		.append("userId: ").append(userId)
+		.append("userId: ").append(groupId)
 		.append("accessToken: ").append(accessToken)
 		.append("active: ").append(active);
 		return builder.toString();

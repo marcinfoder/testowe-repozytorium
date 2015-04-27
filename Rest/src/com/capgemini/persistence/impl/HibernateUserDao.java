@@ -9,16 +9,13 @@ import org.springframework.stereotype.Repository;
 import com.capgemini.persistence.IUserDao;
 import com.capgemini.persistence.domain.User;
 
-@Repository
+@Repository("hibernateUserDao")
 public class HibernateUserDao extends AbstractDao<User> implements IUserDao {
 
 	@Autowired
 	public HibernateUserDao(SessionFactory sessionFactory) {
 		super(sessionFactory, User.class);
 	}
-
-	@Autowired
-	private SessionFactory sessionFactory;
 
 	@Override
 	public User findByName(String name) {

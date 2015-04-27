@@ -18,7 +18,7 @@ public class HibernateTwitterAccessDao extends AbstractDao<TwitterAccess> implem
 
 	@Override
 	public boolean add(TwitterAccess twitterAccess) {
-		save(twitterAccess);
+		super.saveOrUpdate(twitterAccess);
 		return true;
 	}
 
@@ -31,7 +31,7 @@ public class HibernateTwitterAccessDao extends AbstractDao<TwitterAccess> implem
 	public TwitterAccess deleteWith(long id) {
 		TwitterAccess ta = getById(id);
 		if(ta != null) {
-			delete(ta);
+			super.delete(ta);
 		}
 		return ta;
 	}
@@ -47,14 +47,15 @@ public class HibernateTwitterAccessDao extends AbstractDao<TwitterAccess> implem
 		query.setLong("userid", login);
 		return (TwitterAccess) query.list().get(0);
 	}
+	
 
 	@Override
 	public boolean add(long userId, String accessToken) {
 		TwitterAccess tw = new TwitterAccess();
 		tw.setActive(true);
 		tw.setAccessToken(accessToken);
-		tw.setUserId(userId);
-		super.save(tw);
+		tw.setGroupId(userId);
+		super.saveOrUpdate(tw);
 		return true;
 	}
 	
