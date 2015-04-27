@@ -38,7 +38,7 @@
 		</form:form>
 		<p/>
 		<br/>
-		<sec:authorize access="hasRole('guest')">
+		<sec:authorize access="hasRole('ADMIN')">
 			<h4>You are guest!</h4>
 		</sec:authorize>
 		

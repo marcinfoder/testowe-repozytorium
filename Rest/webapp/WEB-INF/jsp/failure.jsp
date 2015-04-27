@@ -11,9 +11,5 @@ Exception ex = (Exception) request.getAttribute("exception");
 <%
 ex.printStackTrace(new java.io.PrintWriter(out));
 %>
-
-<p/>
-<br/>
-<%@ include file="/WEB-INF/jsp/footer.jsp" %>
 </body>
 </html>

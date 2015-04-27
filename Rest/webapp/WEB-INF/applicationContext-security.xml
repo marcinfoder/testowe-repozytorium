@@ -31,13 +31,16 @@
         <security:intercept-url pattern="/service/logout" access="permitAll" />
 		<security:intercept-url pattern="/service/book*/**" access="permitAll" />
 		<security:intercept-url pattern="/service/image*/**" access="permitAll" />
-		<!--intercept-url pattern="/rest/service" access="isAuthenticated()"/><hasRole('ROLE_ADMIN')" /-->
-		<security:intercept-url pattern="/service/search/**" access="hasRole('ROLE_ADMIN')" />
+		<security:intercept-url pattern="/service/search/**" access="hasRole('ADMIN')" />
+		
+		<!-- getsocial pages -->
+		<security:intercept-url pattern="/service/twitter-login" access="isAuthenticated()" />
+		<security:intercept-url pattern="/service/start" access="isAuthenticated()" />
+		<security:intercept-url pattern="/service/myaccount" access="isAuthenticated()" />
+		
 		<security:form-login login-page="/service/login" default-target-url="/service/start" authentication-failure-url="/service/loginfailed" />
 		<security:logout logout-success-url="/service/logout" />
 		
-		<!-- getsocial pages -->
-		<security:intercept-url pattern="/service/twitter-login" access="permitAll" />
 		
 	</security:http>
 
@@ -57,22 +60,18 @@
 		<security:jdbc-user-service data-source-ref="dataSource"
 		
 		users-by-username-query="
-		      select NAME as username,
-		             PASSWORD,
-		             1 as ENABLED
-		      from APP_USER where NAME=?" 
+                select Login, Password, Active
+                from Users
+                where Login=?"
  
 		authorities-by-username-query="
-		      select u.NAME as username, a.AUTHORITY 
-		      from APP_USER u 
-		      join USER_AUTHORITY a on u.NAME = a.NAME
-		      where u.NAME = ?"
- 
+		    	select u.Login, a.Role 
+		    	from Users u
+                join Authorities a on u.UserId = a.UserId
+                where u.Login=?"
 		/>
 	   </security:authentication-provider>
 	</security:authentication-manager>
-
-
 
 	<bean id="accessDecisionManager" class="org.springframework.security.access.vote.UnanimousBased">
 		 <constructor-arg>
@@ -82,55 +81,4 @@
 			</list>
 		</constructor-arg> 
 	</bean>
-
-	<!--bean class="com.capgemini.configuration.SecurityConfiguration" /-->
-
-	<!--authentication-manager>
-		<authentication-provider>
-			<password-encoder hash="md5" />
-			<comment Usernames/Passwords are rod/koala scott/wombat>
-			<user-service>
-				<user name="rod" password="a564de63c2d0da68cf47586ee05984d7"
-					authorities="ROLE_ADMIN, ROLE_USER" />
-				<user name="scott" password="2b58af6dddbd072ed27ffc86725d7d3a"
-					authorities="ROLE_USER" />
-			</user-service>
-		</authentication-provider>
-	</authentication-manager-->
-
-	<!--beans:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
-
-	<beans:bean id ="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
-		<beans:property name="passwordEncoder" ref="passwordEncoder" />
-		<beans:property name="setUserDetailsService" ref="databaseUserService" />
-	</beans:bean-->
-	
-		   <!--oracle-->
-		   <!--authorities-by-username-query="
-		   with a as (select name from app_user where name = ?)
-		      select name as username,
-		      		 (case 
-		      			when name in ('rod', 'scott') then 'ROLE_ADMIN' 
-		      	     end) as authority
-		      from a
-		   		union
-		      select name as username,
-		      	 	 (case 
-		      			when name in ('rod') then 'guest' 
-		      	     end) as authority
-		      from a
-		      
-		       select name as username,
-		      		 (case 
-		      			when name in ('rod', 'scott') then 'ROLE_ADMIN' 
-		      	     end) as authority
-		      from app_user
-		   		union
-		      select name as username,
-		      	 	 (case 
-		      			when ? in ('rod') then 'guest' 
-		      	     end) as authority
-		      from app_user;
-		      "-->
-	
 </beans>

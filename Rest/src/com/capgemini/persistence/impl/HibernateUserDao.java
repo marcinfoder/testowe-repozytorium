@@ -23,7 +23,7 @@ public class HibernateUserDao extends AbstractDao<User> implements IUserDao {
 	@Override
 	public User findByName(String name) {
 		Criteria criteria = createCriteria();
-		criteria.add(Restrictions.eq("name", name));
+		criteria.add(Restrictions.eq("login", name));
 		return (User) criteria.uniqueResult();
 	}
 

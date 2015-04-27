@@ -3,8 +3,25 @@ package com.capgemini.persistence.domain;
 public class User {
 
 	private long id;
-	private String name;
+	private String login;
 	private String password;
+	private boolean active;
+
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	public long getId() {
 		return id;
@@ -14,14 +31,6 @@ public class User {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -29,5 +38,4 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
 }

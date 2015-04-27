@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+<beans xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:tx="http://www.springframework.org/schema/tx"
+        xmlns:context="http://www.springframework.org/schema/context"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-2.0.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+      
+ 	<!--
+	<context:property-placeholder id="t4jprops" location="webapp/WEB-INF/twitter4j.properties"/>
+ 	<bean id="confBuilder" class="twitter4j.conf.ConfigurationBuilder" >
+ 		p:OAuthConsumerKey="G0g28VVRjMeC3nGoHqFBOS1sS" p:OAuthConsumerSecret="6DqhxD9FriEd7yIeT7NGeE8LrAZLUdLiji3QSTtiWdH7DMN0h3" >
+        <property name="OAuthConsumerKey" value = "G0g28VVRjMeC3nGoHqFBOS1sS" />
+        <property name="OAuthConsumerSecret" value = "6DqhxD9FriEd7yIeT7NGeE8LrAZLUdLiji3QSTtiWdH7DMN0h3" />	
+ 	</bean>
+ 	-->
+ 	
+ 	<!-- 
+ 	<bean id="data" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject"><ref local="confBuilder" /></property>
+        <property name="targetMethod">
+			<value>setOAuthConsumerKey</value>
+        </property>
+        <property name="arguments">
+        <value>G0g28VVRjMeC3nGoHqFBOS1sS</value>
+        </property>
+	</bean>
+	<bean id="data1" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">        
+        <property name="targetObject"><ref local="confBuilder" /></property>
+        <property name="targetMethod">
+			<value>setOAuthConsumerSecret</value>
+        </property>
+        <property name="arguments">
+        	<value>6DqhxD9FriEd7yIeT7NGeE8LrAZLUdLiji3QSTtiWdH7DMN0h3</value>
+        </property>
+	</bean>
+ 	-->
+ 	
+ 	<!-- 
+    <bean id="twitterFactory" class="twitter4j.TwitterFactory">
+    	<constructor-arg type="twitter4j.conf.Configuration">
+    		<bean factory-bean="confBuilder" factory-method="build" />
+    	</constructor-arg>
+    </bean>
+    <bean id="twitter" class="twitter4j.Twitter"
+          factory-bean="twitterFactory" factory-method="getInstance"
+          depends-on="twitterFactory">
+    </bean>
+    
+ 	<bean id="data" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="targetObject"><ref local="twitter" /></property>
+        <property name="targetMethod">
+			<value>setOAuthConsumer</value>
+        </property>
+        <property name="arguments">
+	        <list>
+		        <value>G0g28VVRjMeC3nGoHqFBOS1sS</value>
+        		<value>6DqhxD9FriEd7yIeT7NGeE8LrAZLUdLiji3QSTtiWdH7DMN0h3</value>
+	        </list>
+        </property>
+	</bean>
+	-->
+</beans>
