@@ -24,7 +24,7 @@
 			
 			<div id="content" class="grid">
 				<spring:message code="acc.title" text="title"/>
-				${msg}
+				${msg} jakis tam message
 			</div>
 		</section>
 	</div>	
