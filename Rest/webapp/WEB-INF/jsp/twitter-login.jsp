@@ -29,7 +29,10 @@
                 	<a href="${twitterAuthUrl}" target="_blank" >
                 		<spring:message code="twitter.auth" text="twitter.authenticate" />
                 	</a>
-                	<form:input path="twitterPin" type="text" value="Twitter pin" />
+                	
+					<div class="login-input-holder">
+						<form:input type="text" path="twitterPin" placeholder="<spring:message code='twitter.pinInput' text='pinInput' />" class="login-text login-username"/>
+					</div>
                 	<form:errors path="twitterPin" />
                 	<input type="submit" value="<spring:message code='twitter.connect' text='twitter.connect'/>" />
                 </form:form>

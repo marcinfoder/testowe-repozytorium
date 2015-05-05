@@ -75,20 +75,6 @@
 		</copy>
 
 	</target>
-
-	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="project.classpath" />
-	
-	<target name="deploy-schema" depends="compile, copymetafiles">
-		<hibernatetool destdir="etc">
-			<classpath>				
-				<path location="${build.dir}" />
-			</classpath>			
-			<annotationconfiguration configurationfile="${rsrc.java.dir}${file.separator}hibernate.cfg.xml" />
-			<!--hbm2ddl export="true" drop="true" create="true" outputfilename="create.sql" delimiter=";" format="true" /-->
-			<hbm2ddl export="true" drop="false" create="false" outputfilename="createMySql.sql" delimiter=";" format="true" />
-		</hibernatetool>
-	</target>
-
 	<target name="tomcat_stop">
 		<java jar="${tomcat.home}/bin/bootstrap.jar" fork="true">
 			<jvmarg value="-Dcatalina.home=${tomcat.home}" />

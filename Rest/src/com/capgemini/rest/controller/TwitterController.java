@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.capgemini.persistence.IUserDao;
 import com.capgemini.rest.model.TwitterLoginForm;
 import com.capgemini.service.TwitterAccessService;
 import com.capgemini.service.UserService;

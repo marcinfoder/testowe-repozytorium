@@ -20,13 +20,16 @@
 				</li>
 			</ul>
 		</li>
+		<li><a href="<spring:url value='twitter-login' htmlEscape='true' />"><i class="fa fa-cloud-upload"></i>
+			<spring:message code="nav.connect" text="Connect" /></a>
+		</li>
 		<li><a href="#"><i class="fa fa-cloud-upload"></i>
 			<spring:message code="nav.messages" text="Messages" /></a>
 		</li>
 		<li><a href="<spring:url value='myaccount' htmlEscape='true' />"><i class="fa fa-user"></i>
 			<spring:message code="nav.account" text="Account" /></a>
 		</li>
-		<li><a href="<spring:url value="/j_spring_security_logout" htmlEscape="true" />">
+		<li><a href="<spring:url value='/j_spring_security_logout' htmlEscape='true' />">
 			<i class="fa fa-sign-out"></i>
 			<spring:message code="nav.logout" text="Logout" /></a>
 		</li>
