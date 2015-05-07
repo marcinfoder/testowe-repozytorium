@@ -17,30 +17,21 @@
 			<column name="AccessToken" length="256" />
 		</property>
 		
-		<property name="active" type="boolean" not-null="true">
-			<column name="Active" />
-		</property>
-	</class>
-	
-	<class name="User" table="Users" optimistic-lock="version">
-		<id name="id" type="long">
-			<column name="UserId" />
-			<generator class="native">
-				<param name="sequence">id_seq</param>
-			</generator>
-		</id>
-		
-		<property name="login" type="string" not-null="true">
-			<column name="Login" />
-		</property>
-		
-		<property name="password" type="string" not-null="true">
-			<column name="Password" />
+		<property name="accessTokenSecret" type="string" not-null="true">
+			<column name="AccessTokenSecret" length="256" />
 		</property>
 		
 		<property name="active" type="boolean" not-null="true">
 			<column name="Active" />
 		</property>
+		
+		<property name="createdAt" type="date">
+			<column name="CreatedAt" />
+		</property>
+		
+		<property name="updatedAt" type="date">
+			<column name="UpdatedAt" />
+		</property>
+		
 	</class>
-	
 </hibernate-mapping>

@@ -1,11 +1,16 @@
 package com.capgemini.persistence.domain;
 
+import java.util.Date;
+
 public class TwitterAccess {
 	
 	private long id;
 	private String accessToken;
+	private String accessTokenSecret;
 	private long groupId;
 	private boolean active;
+	private Date createdAt;
+	private Date updatedAt;
 	
 	public TwitterAccess() {
 		
@@ -17,6 +22,19 @@ public class TwitterAccess {
 		this.accessToken = accessToken;
 		this.active = active;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
+		builder.append("taid: ").append(id)
+		.append("groupId: ").append(groupId)
+		.append("accessToken: ").append(accessToken)
+		.append("active: ").append(active)
+		.append("createdAt").append(createdAt.toString())
+		.append("updatedAt").append(updatedAt.toString());
+		return builder.toString();
+	}
+	
 
 	public long getId() {
 		return id;
@@ -34,13 +52,20 @@ public class TwitterAccess {
 		this.accessToken = accessToken;
 	}
 
+	public String getAccessTokenSecret() {
+		return accessTokenSecret;
+	}
+
+	public void setAccessTokenSecret(String accessTokenSecret) {
+		this.accessTokenSecret = accessTokenSecret;
+	}
+
 	public long getGroupId() {
 		return groupId;
 	}
 
 	public void setGroupId(long groupId) {
 		this.groupId = groupId;
-		this.groupId = 1;
 	}
 	
 	public boolean isActive() {
@@ -50,15 +75,21 @@ public class TwitterAccess {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-	
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("id: ").append(id)
-		.append("userId: ").append(groupId)
-		.append("accessToken: ").append(accessToken)
-		.append("active: ").append(active);
-		return builder.toString();
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
 	}
 	
 }

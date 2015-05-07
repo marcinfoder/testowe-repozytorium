@@ -4,7 +4,7 @@ import javax.validation.constraints.Pattern;
 
 public class TwitterLoginForm {
 	
-	@Pattern(regexp = "\\d+")
+	@Pattern(regexp = "^\\d+$")
 	private String twitterPin;
 
 	public String getTwitterPin() {

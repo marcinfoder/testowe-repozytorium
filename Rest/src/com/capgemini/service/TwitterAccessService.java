@@ -6,5 +6,10 @@ public interface TwitterAccessService {
 
 	public TwitterAccess findByLogin(String login);
 	
-	public void addTwitterAccess(String accessToken);
+	public void addTwitterAccess(String accessToken, String accessTokenSecret);
+	
+	public void updateTwitterAccess(long twitterAccessId, String accessToken, String accessTokenSecret);
+	
+	public void deactivateTwitterAccess(long twitterAccessId);
+	
 }

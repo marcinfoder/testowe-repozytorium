@@ -17,6 +17,7 @@
 		<property name="format_sql">true</property>
 
 		<mapping resource="mapping/user.hbm.xml" />
+		<mapping resource="mapping/twitteraccess.hbm.xml" />
 		<mapping resource="mapping/book.hbm.xml" />		
 	</session-factory>
 </hibernate-configuration>

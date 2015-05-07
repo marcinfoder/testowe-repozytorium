@@ -6,11 +6,11 @@ import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.capgemini.persistence.IUserDao;
+import com.capgemini.persistence.UserDao;
 import com.capgemini.persistence.domain.User;
 
 @Repository("hibernateUserDao")
-public class HibernateUserDao extends AbstractDao<User> implements IUserDao {
+public class HibernateUserDao extends AbstractDao<User> implements UserDao {
 
 	@Autowired
 	public HibernateUserDao(SessionFactory sessionFactory) {

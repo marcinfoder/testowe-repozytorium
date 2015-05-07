@@ -6,9 +6,28 @@ public class User {
 	private String login;
 	private String password;
 	private boolean active;
+	private long groupId;
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("userid:").append(id).
+		append("groupid:").append(groupId).
+		append("login:").append(login).
+		append("active:").append(active);
+		return sb.toString();
+	}
+	
 	public String getLogin() {
 		return login;
+	}
+
+	public long getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(long groupId) {
+		this.groupId = groupId;
 	}
 
 	public void setLogin(String login) {
@@ -39,12 +58,4 @@ public class User {
 		this.password = password;
 	}
 	
-	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("userid:").append(id).
-		append("login:").append(login).
-		append("active:").append(active);
-		return sb.toString();
-	}
 }

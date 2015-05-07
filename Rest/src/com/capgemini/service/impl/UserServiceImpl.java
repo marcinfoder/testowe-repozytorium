@@ -6,7 +6,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capgemini.persistence.IUserDao;
+import com.capgemini.persistence.UserDao;
 import com.capgemini.persistence.domain.User;
 import com.capgemini.service.UserService;
 
@@ -14,7 +14,7 @@ import com.capgemini.service.UserService;
 public class UserServiceImpl implements UserService {
 
 	@Resource(name="hibernateUserDao")
-	IUserDao userDao;
+	UserDao userDao;
 	
 	@Override
 	@Transactional

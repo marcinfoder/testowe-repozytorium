@@ -9,12 +9,21 @@
 				<param name="sequence">id_seq</param>
 			</generator>
 		</id>
-		<property name="name" type="string" not-null="true">
-			<column name="Login" length="20" />
+		
+		<property name="login" type="string" not-null="true">
+			<column name="Login" />
 		</property>
 		
 		<property name="password" type="string" not-null="true">
-			<column name="Password" length="50" />
+			<column name="Password" />
+		</property>
+		
+		<property name="groupId" type="long" not-null="true">
+			<column name="GroupId" />
+		</property>
+		
+		<property name="active" type="boolean" not-null="true">
+			<column name="Active" />
 		</property>
 	</class>
 </hibernate-mapping>

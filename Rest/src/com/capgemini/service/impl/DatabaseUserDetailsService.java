@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.capgemini.persistence.IUserDao;
+import com.capgemini.persistence.UserDao;
 import com.capgemini.persistence.domain.User;
 
 @Service("databaseUserService")
@@ -21,7 +21,7 @@ import com.capgemini.persistence.domain.User;
 public class DatabaseUserDetailsService implements UserDetailsService {
 
 	@Autowired
-	private IUserDao userDao;
+	private UserDao userDao;
 
 	@Override
 	@Transactional

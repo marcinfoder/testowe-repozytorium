@@ -1,7 +1,9 @@
 package com.capgemini.persistence.impl;
 
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +20,7 @@ public class HibernateTwitterAccessDao extends AbstractDao<TwitterAccess> implem
 
 	@Override
 	public boolean add(TwitterAccess twitterAccess) {
-		super.saveOrUpdate(twitterAccess);
+		super.save(twitterAccess);
 		return true;
 	}
 
@@ -42,24 +44,10 @@ public class HibernateTwitterAccessDao extends AbstractDao<TwitterAccess> implem
 	}
 
 	@Override
-	public TwitterAccess getWithLogin(long login) {
-		Query query = createQuery("from TwitterAccess Where GroupId= :userid");
-		query.setLong("userid", login);
-		return (TwitterAccess) query.list().get(0);
+	public TwitterAccess getWithGroup(long id) {
+		Criteria crit = createCriteria();
+		crit.add(Restrictions.eq("groupId", id));
+		crit.add(Restrictions.eq("active", true));
+		return (TwitterAccess) crit.uniqueResult();
 	}
-	
-
-	@Override
-	public boolean add(long userId, String accessToken) {
-		TwitterAccess tw = new TwitterAccess();
-		tw.setActive(true);
-		tw.setAccessToken(accessToken);
-		tw.setGroupId(userId);
-		super.saveOrUpdate(tw);
-		return true;
-	}
-	
-	
-
-
 }
