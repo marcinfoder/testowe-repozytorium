@@ -25,6 +25,9 @@
 			<div id="content" class="grid">
 				<spring:message code="acc.title" text="title"/>
 				${msg} jakis tam message
+				<a href="http://www.google.pl" target="_blank"> <spring:message
+									code="twitter.auth" text="twitter.authenticate" />
+							</a>
 			</div>
 		</section>
 	</div>	
