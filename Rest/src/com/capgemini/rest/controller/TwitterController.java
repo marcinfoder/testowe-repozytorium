@@ -1,6 +1,7 @@
 package com.capgemini.rest.controller;
 
 import java.security.Principal;
+import java.util.Date;
 
 import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,35 +32,25 @@ public class TwitterController {
 
 	@RequestMapping(method = RequestMethod.GET, value = "/twitter-login")
 	public String getLoginPage(Model model, Principal user) {
-		TwitterAccess ta = twitterAccessService.findByLogin(user.getName());
-		model.addAttribute("twitterLoginForm", new TwitterLoginForm());
-
-		if (ta != null) {
-			model.addAttribute("isAccessToken", true);
-			model.addAttribute("accessToken", ta.getAccessToken());
-			prepareAccessToken(ta);
-		} else {
-			prepareLoginForm(model);
+		try {
+			TwitterAccess ta = twitterAccessService.findByLogin(user.getName());
+			model.addAttribute("twitterLoginForm", new TwitterLoginForm());
+			
+			if (ta != null) {
+				model.addAttribute("isAccessToken", true);
+				model.addAttribute("accessToken", ta.getAccessToken());
+				twitter.setOAuthAccessToken(new AccessToken(
+						ta.getAccessToken(), ta.getAccessTokenSecret()));
+                                twitter.updateStatus(new Date().toString());
+			} else {
+				RequestToken requestToken = twitter.getOAuthRequestToken();
+				model.addAttribute("twitterAuthUrl",
+						requestToken.getAuthorizationURL());
+			}
+		} catch (TwitterException ex) {
+			ex.printStackTrace();
 		}
 		return "twitter-login";
-	}
-
-	private void prepareAccessToken(TwitterAccess ta) {
-		twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), 
-				ta.getAccessTokenSecret()));
-		twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), 
-				ta.getAccessTokenSecret()));
-	}
-
-	private void prepareLoginForm(Model model) {
-		RequestToken requestToken;
-		try {
-			requestToken = twitter.getOAuthRequestToken();
-			model.addAttribute("twitterAuthUrl",
-					requestToken.getAuthorizationURL());
-		} catch (TwitterException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/twitter-login")
@@ -72,7 +63,8 @@ public class TwitterController {
 			model.addAttribute("accessToken", access.getToken());
 			twitterAccessService.addTwitterAccess(access.getToken(),
 					access.getTokenSecret());
-			
+			twitter.updateStatus("created");
+
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
