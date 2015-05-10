@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="CampaignWizzard">
+	<class name="Campaign" table="Campaigns" optimistic-lock="version">
+		<id name="campaignId" type="long">
+			<column name="CampaignId" precision="20" scale="0" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="groupId" type="long" not-null="true">
+			<column name="GroupId" />
+		</property>
+		
+		<property name="twitterConnection" type="boolean" not-null="true">
+			<column name="Twitter" />
+		</property>
+		
+		<property name="facebookConnection" type="boolean" not-null="true">
+			<column name="Facebook" />
+		</property>
+		
+		<property name="name" type="string" not-null="true">
+			<column name="Name" length="45" />
+		</property>
+		
+		<property name="description" type="string">
+			<column name="Description" length="500" />
+		</property>
+		
+		<property name="numberOfSteps" type="integer" not-null="true">
+			<column name="NumberOfSteps" />
+		</property>
+		
+		<property name="createdAt" type="date" not-null="true">
+			<column name="CreatedAt" />
+		</property>
+		
+		<property name="startDate" type="date" not-null="true">
+			<column name="StartDate" />
+		</property>
+		
+		<property name="endDate" type="date" not-null="true">
+			<column name="EndDate" />
+		</property>
+		
+	</class>
+</hibernate-mapping>

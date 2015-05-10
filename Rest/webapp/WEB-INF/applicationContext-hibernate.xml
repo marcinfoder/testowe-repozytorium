@@ -23,10 +23,9 @@
 			p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
 			p:username="${jdbc.username}" p:password="${jdbc.password}"/>
 	
-
 	<!-- Hibernate SessionFactory -->
 	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"
-			p:dataSource-ref="dataSource" p:mappingResources="mapping/book.hbm.xml, mapping/user.hbm.xml , mapping/twitteraccess.hbm.xml" p:useTransactionAwareDataSource="true">
+			p:dataSource-ref="dataSource" p:mappingResources="mapping/campaignstep.hbm.xml, mapping/campaign.hbm.xml, mapping/book.hbm.xml, mapping/user.hbm.xml , mapping/twitteraccess.hbm.xml" p:useTransactionAwareDataSource="true">
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
