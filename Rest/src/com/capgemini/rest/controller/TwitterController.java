@@ -39,9 +39,9 @@ public class TwitterController {
 			if (ta != null) {
 				model.addAttribute("isAccessToken", true);
 				model.addAttribute("accessToken", ta.getAccessToken());
+				model.addAttribute("accessTokenSecret", ta.getAccessTokenSecret());
 				twitter.setOAuthAccessToken(new AccessToken(
 						ta.getAccessToken(), ta.getAccessTokenSecret()));
-                                twitter.updateStatus(new Date().toString());
 			} else {
 				RequestToken requestToken = twitter.getOAuthRequestToken();
 				model.addAttribute("twitterAuthUrl",
