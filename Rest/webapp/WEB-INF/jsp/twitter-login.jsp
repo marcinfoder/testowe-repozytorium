@@ -46,8 +46,9 @@
 						</form:form>
 					</c:when>
 					<c:otherwise>
-						You already connected your account.\n
-						Your twitter access token: ${accessToken}
+						You already connected your account.<br>
+						Your twitter access token: ${accessToken}<br>	
+						Your twitter access token secret: ${accessTokenSecret}<br>
 						<p>${test}</p>
 					</c:otherwise>
 				</c:choose>

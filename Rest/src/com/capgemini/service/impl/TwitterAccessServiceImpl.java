@@ -34,7 +34,6 @@ public class TwitterAccessServiceImpl implements TwitterAccessService {
 	@Override
 	@Transactional
 	public void addTwitterAccess(String accessToken, String accessTokenSecret) {
-
 		String login = SecurityContextHolder.getContext().getAuthentication()
 				.getName();
 		User foundUser = userDao.findByName(login);
