@@ -37,6 +37,10 @@
 		<security:intercept-url pattern="/service/twitter-login" access="isAuthenticated()" />
 		<security:intercept-url pattern="/service/start" access="isAuthenticated()" />
 		<security:intercept-url pattern="/service/myaccount" access="isAuthenticated()" />
+		<security:intercept-url pattern="/service/campaigns" access="isAuthenticated()" />
+		<security:intercept-url pattern="/service/campaign-steps" access="isAuthenticated()" />
+		<security:intercept-url pattern="/service/campaign-add" access="isAuthenticated()" />
+		<security:intercept-url pattern="/service/campaign-step-add" access="isAuthenticated()" />
 		
 		<security:form-login login-page="/service/login" default-target-url="/service/start" authentication-failure-url="/service/loginfailed" />
 		<security:logout logout-success-url="/service/logout" />

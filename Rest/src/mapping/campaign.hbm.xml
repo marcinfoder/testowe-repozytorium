@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="CampaignWizzard">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="CampaignWizard">
 	<class name="Campaign" table="Campaigns" optimistic-lock="version">
 		<id name="campaignId" type="long">
 			<column name="CampaignId" precision="20" scale="0" />

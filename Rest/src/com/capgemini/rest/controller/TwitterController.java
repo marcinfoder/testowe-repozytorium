@@ -63,7 +63,6 @@ public class TwitterController {
 			model.addAttribute("accessToken", access.getToken());
 			twitterAccessService.addTwitterAccess(access.getToken(),
 					access.getTokenSecret());
-			twitter.updateStatus("created");
 
 		} catch (TwitterException e) {
 			e.printStackTrace();
