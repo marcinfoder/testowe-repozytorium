@@ -10,8 +10,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.persistence.CampaignDao;
 import com.capgemini.persistence.CampaignStepDao;
+import com.capgemini.persistence.UserDao;
 import com.capgemini.persistence.domain.Campaign;
 import com.capgemini.persistence.domain.CampaignStep;
+import com.capgemini.persistence.domain.User;
 import com.capgemini.service.CampaignService;
 
 @Service("CampignService")
@@ -22,6 +24,9 @@ public class CampaignServiceImpl implements CampaignService {
 	
 	@Resource(name = "hibernateCampaignStepDao")
 	private CampaignStepDao campaignStep;
+	
+	@Resource(name = "hibernateUserDao")
+	private UserDao userDao;
 	
 	@Override
 	@Transactional
@@ -87,6 +92,12 @@ public class CampaignServiceImpl implements CampaignService {
 		camp.setActive(true);
 		campaign.add(camp);
 		return true;
+	}
+
+	@Override
+	@Transactional
+	public List<?> getCampaignByUserLogin(String login) {
+		return getCampaignsByGroupId(userDao.findByName(login).getGroupId());
 	}
 
 }

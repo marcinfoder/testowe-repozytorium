@@ -25,4 +25,6 @@ public interface CampaignService {
 	
 	public boolean addCampaign(Campaign camp);
 	
+	public List<?> getCampaignByUserLogin(String login);
+	
 }

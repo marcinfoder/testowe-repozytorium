@@ -28,46 +28,53 @@ public class CampaignController {
 
 	@Autowired
 	CampaignService campService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/campaigns")
 	public String getCampaignsPage(Model model, Principal principal) {
 		User user = userService.getUserByLogin(principal.getName());
-		List<Campaign> campaignsList = (List<Campaign>) campService.getCampaignsByGroupId(user.getGroupId());
+		List<Campaign> campaignsList = (List<Campaign>) campService
+				.getCampaignsByGroupId(user.getGroupId());
 		model.addAttribute("campaignList", campaignsList);
 		return "campaign";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-steps/{campId}")
-	public String getStepsPage(Model model, Principal principal, @PathVariable long campId) {
-		List<Campaign> stepList = (List<Campaign>) campService.getStepsByCampaignId(campId);
+	public String getStepsPage(Model model, Principal principal,
+			@PathVariable long campId) {
+		List<Campaign> stepList = (List<Campaign>) campService
+				.getStepsByCampaignId(campId);
 		model.addAttribute("stepList", stepList);
 		model.addAttribute("campId", campId);
 		return "campaign-steps";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-step-delete")
-	public String removeStep(Model model, @RequestParam("stepId") int stepId, @RequestParam("campaignId") int campaignId) {
+	public String removeStep(Model model, @RequestParam("stepId") int stepId,
+			@RequestParam("campaignId") int campaignId) {
 		campService.deleteStepById(stepId);
 		return "redirect:/service/campaign-steps/" + campaignId;
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-delete")
-	public String removeStep(Model model, @RequestParam("campaignId") int campaignId) {
+	public String removeStep(Model model,
+			@RequestParam("campaignId") int campaignId) {
 		campService.deleteCampaignById(campaignId);
 		return "redirect:/service/campaigns";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-add")
 	public String getCampaignCreationPage(Model model, Principal principal) {
 		model.addAttribute("campaignForm", new CampaignForm());
 		return "campaign-add";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-add")
-	public String getCampaignCreationPage(@ModelAttribute CampaignForm campaignForm, Model model, Principal principal) {
+	public String getCampaignCreationPage(
+			@ModelAttribute CampaignForm campaignForm, Model model,
+			Principal principal) {
 		User user = userService.getUserByLogin(principal.getName());
 		Campaign campaign = new Campaign();
 		campaign.setCreatedAt(new Date());
@@ -79,22 +86,34 @@ public class CampaignController {
 		campaign.setFacebookConnection(campaignForm.isFacebookConnection());
 		campaign.setTwitterConnection(campaignForm.isTwitterConnection());
 		campService.addCampaign(campaign);
-		
+
 		model.addAttribute("campaignForm", new CampaignForm());
 		model.addAttribute("success", true);
 		model.addAttribute("campId", campaign.getCampaignId());
 		return "campaign-add";
 	}
-	
+
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-add")
+	public String getStepCreationPageWithComboBox(Model model, Principal principal) {
+		List<Campaign> campaignList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
+		model.addAttribute("comboBox", true);
+		model.addAttribute("campaignList", campaignList); 
+		model.addAttribute("campaignStepForm", new CampaignStepForm());
+		return "campaign-step-add";
+	}
+
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-add/{campId}")
-	public String getStepCreationPage(Model model, Principal principal, @PathVariable int campId) {
+	public String getStepCreationPage(Model model, Principal principal,
+			@PathVariable int campId) {
 		model.addAttribute("campaignStepForm", new CampaignStepForm());
 		model.addAttribute("campId", campId);
 		return "campaign-step-add";
 	}
-	
+
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-step-add")
-	public String getCreationPage(@ModelAttribute CampaignStepForm campaignForm, Model model, Principal principal) {
+	public String getCreationPage(
+			@ModelAttribute CampaignStepForm campaignForm, Model model,
+			Principal principal) {
 		CampaignStep campaign = new CampaignStep();
 		campaign.setCampaignId(campaignForm.getCampaignId());
 		campaign.setName(campaignForm.getName());
@@ -102,12 +121,11 @@ public class CampaignController {
 		campaign.setStartDate(campaignForm.getStartDate());
 		campaign.setEndDate(campaignForm.getEndDate());
 		campService.addStep(campaign);
-		
+
 		model.addAttribute("campaignStepForm", new CampaignStepForm());
 		model.addAttribute("success", true);
 		model.addAttribute("campId", campaign.getCampaignId());
 		return "campaign-step-add";
 	}
-	
-	
+
 }

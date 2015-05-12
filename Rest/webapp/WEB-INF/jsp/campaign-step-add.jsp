@@ -30,10 +30,18 @@
 					<div class="grid-item-content">
 						<c:choose>
 						<c:when test="${!success}">
-<spring:url value='/service/campaign-step-add' var="actionUrl" htmlEscape='true' />
+						<spring:url value='/service/campaign-step-add' var="actionUrl" htmlEscape='true' />
 						<form:form modelAttribute="campaignStepForm"
 						 name="campaignStepForm" action="${actionUrl}" method="post" >
 						
+							<c:if test="${comboBox}">
+							<div class="form-item">
+								<label>Kampania: </label>
+								<form:select path="campaignId" name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" >
+								</form:select>
+							</div>
+							</c:if>
+							 
 							<div class="form-item">
 								<label>Nazwa kroku: </label>
 								<form:input path="name" type="text" placeholder="Nazwa kroku" />
@@ -54,7 +62,10 @@
 								<form:input path="endDate" type="date" name="EndDate" />
 							</div>
 							
-							<form:hidden path="campaignId" value="${campId}"/>	
+							<c:if test="${!comboBox}">
+								<form:hidden path="campaignId" value="${campId}"/>	
+							</c:if>
+							
 							<div class="form-item">
 								<input type="submit" class="button" value="Dodaj krok">
 							</div>	

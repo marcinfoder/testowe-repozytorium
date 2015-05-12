@@ -31,8 +31,9 @@
 						
                         <c:choose>
 						<c:when test="${!success}">
+						<spring:url value='/service/campaign-add' var='actionUrl' htmlEscape='true' />
 						<form:form modelAttribute="campaignForm"
-						 name="campaignForm" action="/service/campaign-add" method="post" >
+						 name="campaignForm" action="${actionUrl}" method="post" >
 						
 							<div class="form-item">
 								<label>Nazwa kampanii: </label>

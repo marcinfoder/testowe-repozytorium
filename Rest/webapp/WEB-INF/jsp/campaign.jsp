@@ -58,14 +58,11 @@
 									<td><a href="#" class="button"><i class="fa fa-picture-o"></i></a></td>
 									<td><a href="<spring:url value='campaign-steps/${camp.campaignId}' htmlEscape='true' />" class="button">${camp.numberOfSteps}</a></td>
 									<td>
-										<form action="<spring:url value='/service/campaign-step-add' htmlEscape='true'/>" method="POST">
-											<input type="hidden" value="${camp.campaignId}" name="id_kampanii"> <!-- Tutaj przechowujemy ID kampanii -->
-											<input type="submit" class="button" value="Dodaj kroki">
-										</form>
+										<a class="button" href="<spring:url value='/service/campaign-step-add/${camp.campaignId}' htmlEscape='true'/>">Dodaj kroki</a>
 									</td>
 									<td>
-										<form action="<spring:url value='/service/campaign-step-edit' htmlEscape='true'/>" method="POST">
-											<input type="hidden" value="${camp.campaignId}" name="id_kampanii"> <!-- Tutaj przechowujemy ID kampanii -->
+										<form action="<spring:url value='/service/campaign-edit' htmlEscape='true'/>" method="POST">
+											<input type="hidden" value="${camp.campaignId}" name="campaignId"> <!-- Tutaj przechowujemy ID kampanii -->
 											<input type="submit" class="button" value="Edytuj">
 										</form>
 									</td>
