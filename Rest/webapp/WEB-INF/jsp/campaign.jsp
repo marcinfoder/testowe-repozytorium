@@ -58,20 +58,20 @@
 									<td><a href="#" class="button"><i class="fa fa-picture-o"></i></a></td>
 									<td><a href="<spring:url value='campaign-steps/${camp.campaignId}' htmlEscape='true' />" class="button">${camp.numberOfSteps}</a></td>
 									<td>
-										<form action="<spring:url value='/campaign-step-add' htmlEscape='true'/>" method="POST">
+										<form action="<spring:url value='/service/campaign-step-add' htmlEscape='true'/>" method="POST">
 											<input type="hidden" value="${camp.campaignId}" name="id_kampanii"> <!-- Tutaj przechowujemy ID kampanii -->
 											<input type="submit" class="button" value="Dodaj kroki">
 										</form>
 									</td>
 									<td>
-										<form action="<spring:url value='/campaign-step-edit' htmlEscape='true'/>" method="POST">
+										<form action="<spring:url value='/service/campaign-step-edit' htmlEscape='true'/>" method="POST">
 											<input type="hidden" value="${camp.campaignId}" name="id_kampanii"> <!-- Tutaj przechowujemy ID kampanii -->
 											<input type="submit" class="button" value="Edytuj">
 										</form>
 									</td>
 									<td>
-										<form action="<spring:url value='/campaign-step-delete' htmlEscape='true'/>" method="POST">
-											<input type="hidden" value="${camp.campaignId}" name="id_kampanii"> <!-- Tutaj przechowujemy ID kampanii -->
+										<form action="<spring:url value='/service/campaign-delete' htmlEscape='true'/>" method="POST">
+											<input type="hidden" value="${camp.campaignId}" name="campaignId"> <!-- Tutaj przechowujemy ID kampanii -->
 											<input type="submit" class="button button-red" value="Usuń">
 										</form>
 									</td>
@@ -79,7 +79,7 @@
 								</c:forEach>
 							</tbody>
 						</table>
-						<a class="button" href="<spring:url value='/campaign-add' htmlEscape='true' />">Dodaj nową kampanię</a>
+						<a class="button" href="<spring:url value='/service/campaign-add' htmlEscape='true' />">Dodaj nową kampanię</a>
 					</div>			
 				</div>
 			</div>

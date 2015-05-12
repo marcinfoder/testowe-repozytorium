@@ -17,4 +17,12 @@ public interface CampaignService {
 	
 	public List<?> getStepsByCampaignId(long campaignId);
 	
+	public void deleteStepById(long id);
+	
+	public void deleteCampaignById(long id);
+	
+	public boolean addStep(CampaignStep campStep);
+	
+	public boolean addCampaign(Campaign camp);
+	
 }

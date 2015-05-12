@@ -62,4 +62,31 @@ public class CampaignServiceImpl implements CampaignService {
 		return campaignStep.getListByCampaignId(campaignId);
 	}
 
+	@Override
+	@Transactional
+	public void deleteStepById(long id) {
+		campaignStep.deleteWith(id);
+	}
+
+	@Override
+	@Transactional
+	public void deleteCampaignById(long id) {
+		campaign.deleteWith(id);
+	}
+
+	@Override
+	@Transactional
+	public boolean addStep(CampaignStep campStep) {
+		campaignStep.add(campStep);
+		return true;
+	}
+
+	@Override
+	@Transactional
+	public boolean addCampaign(Campaign camp) {
+		camp.setActive(true);
+		campaign.add(camp);
+		return true;
+	}
+
 }

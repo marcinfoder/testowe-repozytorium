@@ -28,46 +28,45 @@
 					<h2 class="section-title">Campaign steps for campaign: Campaign name</h2>
 					
 					<div class="grid-item-content">
-						<form action="#" method="POST">
+						<c:choose>
+						<c:when test="${!success}">
+<spring:url value='/service/campaign-step-add' var="actionUrl" htmlEscape='true' />
+						<form:form modelAttribute="campaignStepForm"
+						 name="campaignStepForm" action="${actionUrl}" method="post" >
 						
 							<div class="form-item">
-								<label>Kampania: </label>
-								<select name="CampaignID">
-									<option value="1">Kampania Jeden</option>
-									<option value="2">Nazwa Kampanii 2</option>
-									<option value="3">Nazwa Kampanii 3</option>
-								</select>
-							</div>
-							
-							<div class="form-item">
 								<label>Nazwa kroku: </label>
-								<input type="text" name="Name" placeholder="Krok nr 1">
+								<form:input path="name" type="text" placeholder="Nazwa kroku" />
 							</div>
 							
 							<div class="form-item">
 								<label>Opis kroku: </label>
-								<input type="text" name="Description" placeholder="Krótki opis kroku">
+								<form:input path="description" type="text" name="Description" placeholder="Krótki opis kroku" />
 							</div>
 							
 							<div class="form-item">
 								<label>Data rozpoczęcia: </label>
-								<input type="date" name="StartDate">
+								<form:input path="startDate" type="date" name="StartDate" />
 							</div>
 							
 							<div class="form-item">
 								<label>Data zakończenia: </label>
-								<input type="date" name="EndDate">
+								<form:input path="endDate" type="date" name="EndDate" />
 							</div>
 							
-							<div class="form-item">
-								<label>Facebook: </label>
-								<input type="text" name="Facebook" value="1">
-							</div>
-							
+							<form:hidden path="campaignId" value="${campId}"/>	
 							<div class="form-item">
 								<input type="submit" class="button" value="Dodaj krok">
 							</div>	
-						</form>
+						</form:form>
+						</c:when>
+						<c:otherwise>
+							<div class="msg success-msg">
+								Krok został poprawnie dodany!
+							</div>
+							<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Dodaj kolejny krok</a>
+						</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 			</div>

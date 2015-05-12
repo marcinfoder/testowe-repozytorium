@@ -13,6 +13,7 @@ public class Campaign {
 	private Date createdAt;
 	private Date startDate;
 	private Date endDate;
+	private boolean active;
 	
 	@Override
 	public String toString() {
@@ -108,6 +109,14 @@ public class Campaign {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 	
 	

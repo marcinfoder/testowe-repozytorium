@@ -26,25 +26,25 @@
 			</a>
 			<ul class="submenu">
             	<li>
-                	<a href="<spring:url value="campaigns" htmlEscape='true' />">
+                	<a href="<spring:url value="/service/campaigns" htmlEscape='true' />">
                 		<i class="fa fa-eye"></i>
                 		<spring:message code="nav.preview" text="Preview" />
                 	</a>
 				</li>
                 <li class="current-page">
-                	<a href="<spring:url value='campaign-add' htmlEscape='true' />">
+                	<a href="<spring:url value='/service/campaign-add' htmlEscape='true' />">
                 		<i class="fa fa-plus-circle"></i>
                 		<spring:message code="nav.addCampaig" text="Add campaign" />
                 	</a>
                 </li>
                 <li>
-                	<a href="<spring:url value='campaign-step-add' htmlEscape='true' />">
+                	<a href="<spring:url value='/service/campaign-step-add' htmlEscape='true' />">
                 		<i class="fa fa-forward"></i>
                 		<spring:message code="nav.addSteps" text="Add steps" />
                 	</a>
                 </li>
                 <li>
-                	<a href="<spring:url value='messages' htmlEscape='true' />"><i class="fa fa-comments-o"></i>
+                	<a href="<spring:url value='/service/messages' htmlEscape='true' />"><i class="fa fa-comments-o"></i>
                 		<spring:message code="nav.messages" text="Messages" />
                 	</a>
                 </li>
@@ -56,10 +56,10 @@
 				</li>
 			</ul>
        	</li>
-		<li><a href="<spring:url value='twitter-login' htmlEscape='true' />"><i class="fa fa-cloud-upload"></i>
+		<li><a href="<spring:url value='/service/twitter-login' htmlEscape='true' />"><i class="fa fa-cloud-upload"></i>
 			<spring:message code="nav.connect" text="Connect" /></a>
 		</li>
-		<li><a href="<spring:url value='myaccount' htmlEscape='true' />"><i class="fa fa-user"></i>
+		<li><a href="<spring:url value='/service/myaccount' htmlEscape='true' />"><i class="fa fa-user"></i>
 			<spring:message code="nav.account" text="Account" /></a>
 		</li>
 		<li><a href="<spring:url value='/j_spring_security_logout' htmlEscape='true' />">

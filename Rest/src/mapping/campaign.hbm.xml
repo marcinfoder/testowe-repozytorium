@@ -46,5 +46,8 @@
 			<column name="EndDate" />
 		</property>
 		
+		<property name="active" type="boolean" not-null="true">
+			<column name="Active" />
+		</property>
 	</class>
 </hibernate-mapping>

@@ -52,7 +52,7 @@
 									<td><a href="#" class="button">Pokaż zawartość</a></td>
 									<td>
 										
-										<form action="#" method="POST">
+										<form action="<spring:url value='/service/campaign-step-edit' />" method="POST">
 											<input type="hidden" value="${step.stepId}" name="id_step"> <!-- Tutaj przechowujemy ID step -->
 											<input type="submit" class="button" value="Edytuj">
 									
@@ -60,8 +60,9 @@
 										
 									</td>
 									<td>
-										<form action="" method="POST">
-											<input type="hidden" value="${step.stepId}" name="id_kampanii"> <!-- Tutaj przechowujemy ID step -->
+										<form action="<spring:url value='/service/campaign-step-delete' htmlEscape='true' />" method="POST">
+											<input type="hidden" value="${step.campaignId}" name="campaignId"> <!-- Tutaj przechowujemy ID step -->
+											<input type="hidden" value="${step.stepId}" name="stepId"> <!-- Tutaj przechowujemy ID step -->
 											<input type="submit" class="button button-red" value="Usuń">
 										</form>
 									</td>
@@ -70,8 +71,8 @@
 							</tbody>
 						</table>
 						
-						<a class="button" href="<spring:url value='/campaign-step-add' htmlEscape='true' />">Dodaj nowy krok</a>
-						<a class="button" href="<spring:url value='/campaigns' htmlEscape='true' />">Powrót do widoku kampanii</a>
+						<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Dodaj nowy krok</a>
+						<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Powrót do widoku kampanii</a>
 					</div>			
 				</div>
 			</div>

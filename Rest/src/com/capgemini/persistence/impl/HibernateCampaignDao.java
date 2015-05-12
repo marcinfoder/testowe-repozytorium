@@ -2,7 +2,9 @@ package com.capgemini.persistence.impl;
 
 import java.util.List;
 
+import org.eclipse.jdt.internal.compiler.lookup.CaptureBinding;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,20 +37,25 @@ public class HibernateCampaignDao extends AbstractDao<Campaign> implements Campa
 	public Campaign deleteWith(long id) {
 		Campaign campaign = getById(id);
 		if(campaign != null) {
-			super.delete(campaign);
+			campaign.setActive(false);
+			super.update(campaign);
 		}
 		return campaign;
 	}
 
 	@Override
 	public Campaign getWith(long id) {
-		return getById(id);
+		Criteria crit = createCriteria();
+		crit.add(Restrictions.eq("campaignId", id));
+		crit.add(Restrictions.eq("active", true));
+		return (Campaign) crit.uniqueResult();
 	}
 
 	@Override
 	public List<?> getListByGroupId(long groupId) {
 		Criteria crit = createCriteria();
 		crit.add(Restrictions.eq("groupId", groupId));
+		crit.add(Restrictions.eq("active", true));
 		return crit.list();
 	}
 
@@ -56,6 +63,7 @@ public class HibernateCampaignDao extends AbstractDao<Campaign> implements Campa
 	public List<?> getListByName(String name) {
 		Criteria crit = createCriteria();
 		crit.add(Restrictions.like("name", name));
+		crit.add(Restrictions.like("active", true));
 		return crit.list();
 	}
 

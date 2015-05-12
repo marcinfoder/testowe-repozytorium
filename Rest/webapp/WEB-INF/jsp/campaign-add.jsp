@@ -28,42 +28,54 @@
 					<h2 class="section-title">Campaign steps for campaign: Campaign name</h2>
 					
 					<div class="grid-item-content">
-						<form action="#" method="POST">
+						
+                        <c:choose>
+						<c:when test="${!success}">
+						<form:form modelAttribute="campaignForm"
+						 name="campaignForm" action="/service/campaign-add" method="post" >
 						
 							<div class="form-item">
 								<label>Nazwa kampanii: </label>
-								<input type="text" name="Name" placeholder="Moja kampania">
+								<form:input path="name" type="text" placeholder="Moja kampania" />
 							</div>
 							
 							<div class="form-item">
 								<label>Opis kampanii: </label>
-								<input type="text" name="Description" value="Kowalski">
-							</div>
-							
-							<div class="form-item">
-								<label>Grupa: </label>
-								<select name="GroupID">
-									<option value="1">Grupa 1</option>
-									<option value="2">Grupa 2</option>
-									<option value="3">Grupa 3</option>
-								</select>
+								<form:input path="description" type="text" name="Description" value="Kowalski" />
 							</div>
 							
 							<div class="form-item">
 								<label>Twitter: </label>
-								<input type="text" name="Twitter" value="1">
+								<form:checkbox path="twitterConnection" name="twitterChecked" />
 							</div>
 							
 							<div class="form-item">
 								<label>Facebook: </label>
-								<input type="text" name="Facebook" value="1">
+								<form:checkbox path="facebookConnection" name="facebookChecked" />
+							</div>
+							
+							<div class="form-item">
+								<label>Start date: </label>
+								<form:input path="startDate" type="date" name="startDate" />
+							</div>
+							
+							<div class="form-item">
+								<label>End date: </label>
+								<form:input path="endDate" type="date" name="endDate" />
 							</div>
 							
 							<div class="form-item">
 								<input type="submit" class="button" value="Dodaj kampanię">
 							</div>	
-						
-						</form>
+						</form:form>
+						</c:when>
+						<c:otherwise>
+							<div class="msg success-msg">
+								Kampania została poprawnie dodana!
+							</div>
+							<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Dodaj step</a>
+						</c:otherwise>
+                        </c:choose>
 					</div>
 				</div>
 			</div>
