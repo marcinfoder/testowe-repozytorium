@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="CampaignWizard">
+	<class name="Message" table="Messages" optimistic-lock="version">
+		<id name="messageId" type="long">
+			<column name="MessageId" precision="20" scale="0" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="groupId" type="long" not-null="true">
+			<column name="GroupId" />
+		</property>
+		
+		<property name="userId" type="long" not-null="true">
+			<column name="UserId" />
+		</property>
+		
+		<property name="campaignId" type="long" not-null="true">
+			<column name="CampaignId" />
+		</property>
+		
+		<property name="stepId" type="long" not-null="true">
+			<column name="StepId"/>
+		</property>
+		
+		<property name="twitterContent" type="string">
+			<column name="TwitterContent" length="120" />
+		</property>
+		
+		<property name="facebookContent" type="string">
+			<column name="facebookContent" />
+		</property>
+		
+		<property name="twitterPublishAt" type="date" not-null="true">
+			<column name="TwitterPublishAt" />
+		</property>
+		
+		<property name="facebookPublishAt" type="date" not-null="true">
+			<column name="FacebookPublishAt" />
+		</property>
+		
+		<property name="twitterPublish" type="boolean" not-null="true" default="false">
+			<column name="TwitterPublish" />
+		</property>
+		
+		<property name="facebookPublish" type="boolean" not-null="true" default="false">
+			<column name="FacebookPublish" />
+		</property>
+		
+		<property name="createdAt" type="date" not-null="true">
+			<column name="CreatedAt" />
+		</property>		
+		
+	</class>
+</hibernate-mapping>

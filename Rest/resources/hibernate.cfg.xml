@@ -21,6 +21,7 @@
 		<mapping resource="mapping/book.hbm.xml" />		
 		<mapping resource="mapping/campaign.hbm.xml" />
 		<mapping resource="mapping/campaignstep.hbm.xml" />
+		<mapping resource="mapping/message.hbm.xml" />
 	</session-factory>
 </hibernate-configuration>
 

@@ -36,7 +36,7 @@ import twitter4j.auth.AccessToken;
 
 
 import com.capgemini.persistence.domain.TwitterAccess;
-import com.capgemini.rest.model.MessagesForm;
+import com.capgemini.rest.model.MessageForm;
 import com.capgemini.service.TwitterAccessService;
 
 @Controller
@@ -85,7 +85,7 @@ public class MessagesController
 			e.printStackTrace();
 		}
 		
-		model.addAttribute("messagesForm", new MessagesForm());
+		model.addAttribute("messagesForm", new MessageForm());
 		return "messages";
 	}
 	
@@ -94,13 +94,13 @@ public class MessagesController
 
 
 	@RequestMapping(method = RequestMethod.POST, value = "/send")
-	public String send(@Valid @ModelAttribute("messagesForm") MessagesForm message, BindingResult bindingResult, Model model, Principal user) 
+	public String send(@Valid @ModelAttribute("messagesForm") MessageForm message, BindingResult bindingResult, Model model, Principal user) 
 	{
 		if (bindingResult.hasErrors()) {
 			return "messages";
 		}
 
-		String wiadomosc = message.getTweet();
+		String wiadomosc = message.getContent();
 		
 		try {
 			TwitterAccess ta = twitterAccessService.findByLogin(user.getName());

@@ -19,7 +19,7 @@ public class CampaignForm {
 	
 	@Size(max = 500)
 	private String description;
-
+	
 	@NotEmpty
 	private Date startDate;
 	
