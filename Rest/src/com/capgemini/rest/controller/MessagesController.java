@@ -14,8 +14,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -65,147 +67,96 @@ public class MessagesController
 		model.addAttribute("campaignStepList", campaignStepList); 
 		model.addAttribute("MessageForm", new MessageForm());
 		
-		try 
-		{
-			TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
-			twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));
-
-			ArrayList<String> tweetList = new ArrayList<String>();
-	        try 
-	        {
-	        	
-	         //   Query query = new Query(user.getName());
-	            Query query = new Query("Cotytunato");
-	            QueryResult result;
-	            do 
-	            {
-	                result = twitter.search(query);
-	                List<Status> tweets2 = result.getTweets();
-	                for (Status tweet : tweets2) 
-	                {
-	                    tweetList.add(tweet.getText());            
-	                }
-	            } while ((query = result.nextQuery()) != null);
-	        } 
-	        catch (TwitterException te) 
-	        {
-	            te.printStackTrace();
-	        }
-	        
-			model.addAttribute("Tweets", tweetList);
-			
-		} catch (Exception e) 
-		{		
-			e.printStackTrace();
-		}
-		
+		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(8);
+	       
+		model.addAttribute("Tweets", messageList);
+					
 		return "messages";
 	}
 	
+	@RequestMapping(method = RequestMethod.GET, value = "/messages/{index}")
+	public String getMessagesPageWithComboBoxIndex(@PathVariable int index, Model model, Principal principal) {
+		List<Campaign> campaignList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
+		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campaignList.get(index).getCampaignId());
+		
+		model.addAttribute("comboBox1", true);
+		model.addAttribute("comboBox2", true);
+		model.addAttribute("campaignList", campaignList); 
+		model.addAttribute("campaignStepList", campaignStepList); 
+		model.addAttribute("MessageForm", new MessageForm());
+		
+		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campaignList.get(index).getCampaignId());
+	       
+		model.addAttribute("Tweets", messageList);
+					
+		return "messages";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-messages/{campId}/{stepId}")
+	public String getMessagesByStep(@PathVariable long campId, @PathVariable long stepId,  Model model, Principal principal) {
+		
+		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignIdByStepId(campId, stepId);
+		   
+		model.addAttribute("messageList", messageList);
+		model.addAttribute("campId", campId);	
+		model.addAttribute("stepId", stepId);
+		return "campaign-step-messages";
+	}
+	
 	@RequestMapping(method = RequestMethod.POST, value = "/messages")
-	public String getCreationPage(@ModelAttribute MessageForm messageForm, Model model, Principal principal) {
+	public String sendMessage(@ModelAttribute MessageForm messageForm, @RequestParam String button, Model model, Principal principal) {
 		
 		Message message = new Message();
 		User user = userService.getUserByLogin(principal.getName());
-		
+		    
+		try 
+		{
+			
+		    if(button.equals("Dodaj"))
+		    {
+				message.setTwitterPublishAt(messageForm.getPublishDate());
+				message.setTwitterPublished(false);
+				message.setFacebookPublishAt(messageForm.getPublishDate());
+				message.setFacebookPublished(false);
+		    }
+		    else if(button.equals("Wyslij"))
+		    {
+		    	TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
+				twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
+				twitter.updateStatus(messageForm.getText());
+				
+				message.setTwitterPublishAt(new Date());
+				message.setTwitterPublished(true);
+				message.setFacebookPublishAt(new Date());
+				message.setFacebookPublished(true);
+		    }
+		    else
+		    {  	
+		    }	
+						
 		message.setCampaignId(messageForm.getCampaignId());
-		System.out.println(messageForm.getCampaignId());
-		message.setStepId(messageForm.getStepId());
-		System.out.println(messageForm.getStepId());
-		message.setCreatedAt(new Date());
-		System.out.println(new Date());
+		message.setStepId(messageForm.getStepId());		
 		message.setGroupId(user.getGroupId());
 		message.setUserId(user.getId());
-
-		message.setTwitterContent(messageForm.getText());
-		message.setTwitterPublishAt(new Date()); //data teraz
-		message.setTwitterPublished(true);
-		message.setFacebookContent(messageForm.getText());  //na razie tylko tweeter
-		message.setFacebookPublishAt(new Date());
-		message.setFacebookPublished(true);
+		message.setCreatedAt(new Date());
 		
+		message.setTwitterContent(messageForm.getText());			
+		message.setFacebookContent(messageForm.getText());  //na razie tylko twitter	
 		
-		try {
-//		TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
-//		twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
-//		twitter.updateStatus(messageForm.getText());
 		messageService.addMessage(message);
-	    } catch (Exception e) 
+	    } 
+		catch (Exception e) 
 		{
 		e.printStackTrace();
 	    }
 		
-
 		model.addAttribute("messageForm", new MessageForm());
 		model.addAttribute("success", true);
 		//model.addAttribute("campId", campaign.getCampaignId());
 		return "messages";
 	}
 	
-//	@RequestMapping(method = RequestMethod.GET, value = "/messages")
-//	public String emptyPage(Model model, Principal user) {
-//		try 
-//		{
-//			TwitterAccess ta = twitterAccessService.findByLogin(user.getName());
-//			twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));
-//
-//			ArrayList<String> tweetList = new ArrayList<String>();
-//	        try 
-//	        {
-//	        	
-//	         //   Query query = new Query(user.getName());
-//	            Query query = new Query("Cotytunato");
-//	            QueryResult result;
-//	            do 
-//	            {
-//	                result = twitter.search(query);
-//	                List<Status> tweets2 = result.getTweets();
-//	                for (Status tweet : tweets2) 
-//	                {
-//	                    tweetList.add(tweet.getText());            
-//	                }
-//	            } while ((query = result.nextQuery()) != null);
-//	        } 
-//	        catch (TwitterException te) 
-//	        {
-//	            te.printStackTrace();
-//	        }
-//	        
-//			model.addAttribute("Tweets", tweetList);
-//			
-//		} catch (Exception e) 
-//		{		
-//			e.printStackTrace();
-//		}
-//		
-//		model.addAttribute("messagesForm", new MessageForm());
-//		return "messages";
-//	}
 	
-	
-
-
-
-//	@RequestMapping(method = RequestMethod.POST, value = "/send")
-//	public String send(@Valid @ModelAttribute("messagesForm") MessageForm message, BindingResult bindingResult, Model model, Principal user) 
-//	{
-//		if (bindingResult.hasErrors()) {
-//			return "messages";
-//		}
-//
-//		String wiadomosc = message.getContent();
-//		
-//		try {
-//			TwitterAccess ta = twitterAccessService.findByLogin(user.getName());
-//			twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
-//			twitter.updateStatus(wiadomosc);
-//		} catch (TwitterException e) {
-//			e.printStackTrace();
-//		}
-//
-//		//model.addAttribute("tweets", tweets);
-//		return "messages"; 
-//	}
 
 
 }

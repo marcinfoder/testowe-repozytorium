@@ -10,6 +10,8 @@ public interface MessageDao {
 	
 	public List getListByStepId(long stepId);
 	
+	public List getListByCampaignIdByStepId(long campaignId, long stepId);
+	
 	public Message getWith(long messageId);
 	
 	public boolean add(Message message);

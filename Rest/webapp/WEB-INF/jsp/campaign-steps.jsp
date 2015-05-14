@@ -49,7 +49,7 @@
 									<td>${step.startDate}</td>
 									<td>${step.endDate}</td>
 									<td>${step.stepOrder}</td>
-									<td><a href="#" class="button">Pokaż zawartość</a></td>
+									<td><a class="button" href="<spring:url value='/service/campaign-step-messages/${step.campaignId}/${step.stepId}' htmlEscape='true' />">Pokaż zawartość</a></td>
 									<td>
 										
 										<form action="<spring:url value='/service/campaign-step-edit' />" method="POST">

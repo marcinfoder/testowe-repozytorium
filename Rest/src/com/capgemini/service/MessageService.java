@@ -6,9 +6,11 @@ import com.capgemini.persistence.domain.Message;
 
 public interface MessageService {
 	
-	public List<?> getMessageByCampaignId(long groupId);
+	public List<?> getMessageByCampaignId(long campaignId);
 	
 	public List<?> getMessageByStepId(long stepId);
+	
+	public List<?> getMessageByCampaignIdByStepId(long campaignId, long stepId);
 	
 	public Message getMessageById(long messageId);
 	

@@ -45,6 +45,14 @@ public class HibernateMessageDao extends AbstractDao<Message> implements Message
 		return true;
 	}
 
+	@Override
+	public List<?> getListByCampaignIdByStepId(long campaignId, long stepId) {
+		Criteria crit = createCriteria();
+		crit.add(Restrictions.eq("campaignId", campaignId));
+		crit.add(Restrictions.eq("stepId", stepId));
+		return crit.list();
+	}
+
 
 
 }

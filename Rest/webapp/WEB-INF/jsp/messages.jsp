@@ -30,15 +30,16 @@
 						<c:choose>
 						<c:when test="${!success}">
 						<spring:url value='/service/messages' var="actionUrl" htmlEscape='true' />
-						
 						<form:form modelAttribute="MessageForm"
-						 name="MessageForm" action="${actionUrl}" method="post" >
+						 name="MessageForm" action="${actionUrl}" method="POST" >
 						
 							<c:if test="${comboBox1}">
 							<div class="form-item">
 								<label>Kampania: </label>
 								<form:select path="campaignId" name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" >
-								</form:select>
+								
+								</form:select>													
+								
 							</div>
 							</c:if>
 							
@@ -51,26 +52,36 @@
 							</c:if>
 							
 						
-							
+							<div class="form-item">
+								<label>Data: </label>
+								<form:input path="publishDate" type="text" name="publishDate"  />
+							</div>
 							
 							<div class="form-item">
 								<label>Treść: </label>
 								<form:input path="text" type="text" name="text"  />
 							</div>
-							
-							
+														
 							<div class="form-item">
-								<input type="submit" class="button" value="Wyślij">
+															
+							<input type="submit" class="button" value="Wyslij" name="button" >	
 							
-								<input type="submit" class="button" value="Dodaj">
+							<input type="submit" class="button" value="Dodaj" name="button" >	
+							
 							</div>	
-							
+											
 						</form:form>
+						
 						</c:when>
 						<c:otherwise>
 							<div class="msg success-msg">
 								Krok został poprawnie dodany!
+								
+								<form action="<spring:url value='/service/messages-add' htmlEscape='true'/>" method="POST">
+								<input type="submit" class="button" value="Dodaj2">
+							</form>
 							</div>
+							
 						</c:otherwise>
 						</c:choose>
 					</div>
@@ -88,7 +99,8 @@
 		    </tr>
 				    <c:forEach items="${Tweets}" var="tweet" varStatus="status">
 				        <tr>
-				            <td>${tweet}</td>
+				        	<td>${tweet.twitterPublishAt}</td>
+				            <td>${tweet.twitterContent}</td> 
 				        </tr>
 				    </c:forEach>
 			</table>
