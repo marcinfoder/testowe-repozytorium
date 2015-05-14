@@ -15,38 +15,71 @@
 	</head>
 	<body>
 	
-		<div id="wrapper">
+	<div id="wrapper">
 		<%@ include file="/WEB-INF/jsp/header.jsp" %>
 		
 		<section id="content-wrapper">
 			<%@ include file="/WEB-INF/jsp/navigation.jsp" %>
 			
 			<div id="content" class="grid">
-
-					<p>
-			
-			<spring:message code="send.Tweet" text="Tweet" />
-	
-		</p>
-	
-		<form:form modelAttribute="messagesForm" method="POST" action="send">
-
-			<table>
-				<tr>
-					<td><form:input path="Tweet"/></td>
-				</tr>
-				<tr>	
-					<td colspan="1"><input type="submit" value="send" /></td>
-				</tr>
-
-			</table>
-
-		</form:form>
-		<p/>
-		<br/>
-		
-
+				
+				<div class="grid-item grid-item-10 last">
+					<h2 class="section-title">Messages</h2>
+					
+					<div class="grid-item-content">
+						<c:choose>
+						<c:when test="${!success}">
+						<spring:url value='/service/messages' var="actionUrl" htmlEscape='true' />
+						
+						<form:form modelAttribute="MessageForm"
+						 name="MessageForm" action="${actionUrl}" method="post" >
+						
+							<c:if test="${comboBox1}">
+							<div class="form-item">
+								<label>Kampania: </label>
+								<form:select path="campaignId" name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" >
+								</form:select>
+							</div>
+							</c:if>
+							
+							<c:if test="${comboBox2}">
+							<div class="form-item">
+								<label>Krok: </label>
+								<form:select path="stepId" name="stepId"  items="${campaignStepList}" itemLabel="name" itemValue="stepId" >
+								</form:select>
+							</div>
+							</c:if>
+							
+						
+							
+							
+							<div class="form-item">
+								<label>Treść: </label>
+								<form:input path="text" type="text" name="text"  />
+							</div>
+							
+							
+							<div class="form-item">
+								<input type="submit" class="button" value="Wyślij">
+							
+								<input type="submit" class="button" value="Dodaj">
+							</div>	
+							
+						</form:form>
+						</c:when>
+						<c:otherwise>
+							<div class="msg success-msg">
+								Krok został poprawnie dodany!
+							</div>
+						</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
 			</div>
+		</section>
+	</div>	
+	
+
 			<div id="content" class="grid">
 				
 			<table>
@@ -64,6 +97,8 @@
 			</div>
 		</section>
 	</div>	
+	
+
 		
 		
 		 

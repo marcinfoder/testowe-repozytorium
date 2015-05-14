@@ -13,7 +13,6 @@ import com.capgemini.persistence.CampaignStepDao;
 import com.capgemini.persistence.UserDao;
 import com.capgemini.persistence.domain.Campaign;
 import com.capgemini.persistence.domain.CampaignStep;
-import com.capgemini.persistence.domain.User;
 import com.capgemini.service.CampaignService;
 
 @Service("CampignService")

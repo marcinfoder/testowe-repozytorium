@@ -31,7 +31,7 @@
 		</property>
 		
 		<property name="facebookContent" type="string">
-			<column name="facebookContent" />
+			<column name="FacebookContent" />
 		</property>
 		
 		<property name="twitterPublishAt" type="date" not-null="true">
@@ -42,12 +42,12 @@
 			<column name="FacebookPublishAt" />
 		</property>
 		
-		<property name="twitterPublish" type="boolean" not-null="true" default="false">
-			<column name="TwitterPublish" />
+		<property name="twitterPublished" type="boolean" not-null="true">
+			<column name="TwitterPublished" />
 		</property>
 		
-		<property name="facebookPublish" type="boolean" not-null="true" default="false">
-			<column name="FacebookPublish" />
+		<property name="facebookPublished" type="boolean" not-null="true">
+			<column name="FacebookPublished" />
 		</property>
 		
 		<property name="createdAt" type="date" not-null="true">
