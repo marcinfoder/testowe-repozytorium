@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="CampaignWizard">
+	<class name="Photo" table="Photo" optimistic-lock="version">
+		<id name="photoId" type="long">
+			<column name="PhotoId" precision="20" scale="0" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="galleryId" type="long" not-null="true">
+			<column name="GalleryId" />
+		</property>
+		
+		<property name="name" type="string" not-null="true">
+			<column name="Name" length="45" />
+		</property>
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="CampaignWizard">
+	<class name="Gallery" table="Gallery" optimistic-lock="version">
+		<id name="galleryId" type="long">
+			<column name="GalleryId" precision="20" scale="0" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="groupId" type="long" not-null="true">
+			<column name="GroupId" />
+		</property>
+		
+		<property name="campaignId" type="long" not-null="true">
+			<column name="CampaignId" />
+		</property>
+		
+		<property name="name" type="string" not-null="true">
+			<column name="Name" length="45" /> <!-- lenght change might be needed -->
+		</property>
+		
+		<property name="createdAt" type="date" not-null="true">
+			<column name="CreatedAt" />
+		</property>
+		
+		<property name="updatedAt" type="date" not-null="true">
+			<column name="UpdatedAt" />
+		</property>
+		
+	</class>
+</hibernate-mapping>
