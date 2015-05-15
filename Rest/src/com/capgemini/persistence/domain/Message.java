@@ -17,9 +17,6 @@ public class Message {
 	private boolean facebookPublished;
 	private Date createdAt;
 	
-	
-	
-
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

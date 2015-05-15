@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.capgemini.NavigationNames;
 import com.capgemini.persistence.CampaignDao;
 import com.capgemini.persistence.domain.Campaign;
 import com.capgemini.persistence.domain.CampaignStep;
@@ -37,7 +38,10 @@ public class CampaignController {
 		User user = userService.getUserByLogin(principal.getName());
 		List<Campaign> campaignsList = (List<Campaign>) campService
 				.getCampaignsByGroupId(user.getGroupId());
+		
 		model.addAttribute("campaignList", campaignsList);
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
 		return "campaign";
 	}
 
@@ -48,6 +52,8 @@ public class CampaignController {
 				.getStepsByCampaignId(campId);
 		model.addAttribute("stepList", stepList);
 		model.addAttribute("campId", campId);
+
+		model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
 		return "campaign-steps";
 	}
 
@@ -68,6 +74,9 @@ public class CampaignController {
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-add")
 	public String getCampaignCreationPage(Model model, Principal principal) {
 		model.addAttribute("campaignForm", new CampaignForm());
+		model.addAttribute("page", "campaign-add");
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
 		return "campaign-add";
 	}
 
@@ -90,6 +99,8 @@ public class CampaignController {
 		model.addAttribute("campaignForm", new CampaignForm());
 		model.addAttribute("success", true);
 		model.addAttribute("campId", campaign.getCampaignId());
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
 		return "campaign-add";
 	}
 
@@ -99,6 +110,8 @@ public class CampaignController {
 		model.addAttribute("comboBox", true);
 		model.addAttribute("campaignList", campaignList); 
 		model.addAttribute("campaignStepForm", new CampaignStepForm());
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
 		return "campaign-step-add";
 	}
 
@@ -107,6 +120,7 @@ public class CampaignController {
 			@PathVariable int campId) {
 		model.addAttribute("campaignStepForm", new CampaignStepForm());
 		model.addAttribute("campId", campId);
+		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
 		return "campaign-step-add";
 	}
 
@@ -125,6 +139,8 @@ public class CampaignController {
 		model.addAttribute("campaignStepForm", new CampaignStepForm());
 		model.addAttribute("success", true);
 		model.addAttribute("campId", campaign.getCampaignId());
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
 		return "campaign-step-add";
 	}
 

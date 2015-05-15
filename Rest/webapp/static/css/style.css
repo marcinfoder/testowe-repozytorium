@@ -491,7 +491,9 @@ ul.opinie li {
 	margin-bottom: 10px;
 }
 
-input,
+input[type=text],
+input[type=date],
+input[type=file],
 textarea {
 	width: 300px;
 	padding: 10px 13px;

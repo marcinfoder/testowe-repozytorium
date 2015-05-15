@@ -26,6 +26,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 
+import com.capgemini.NavigationNames;
 import com.capgemini.persistence.domain.Campaign;
 import com.capgemini.persistence.domain.CampaignStep;
 import com.capgemini.persistence.domain.Message;
@@ -70,7 +71,7 @@ public class MessagesController
 		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(8);
 	       
 		model.addAttribute("Tweets", messageList);
-					
+		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
 	
@@ -103,6 +104,7 @@ public class MessagesController
 			 
 		model.addAttribute("Tweets", messageList);
 					
+		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
 	
@@ -113,6 +115,8 @@ public class MessagesController
 		   
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("campId", campId);	
+		model.addAttribute("page", "campaign-messages");
+		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "campaign-step-messages";
 	}
 	
@@ -166,6 +170,7 @@ public class MessagesController
 		model.addAttribute("messageForm", new MessageForm());
 		model.addAttribute("success", true);
 		//model.addAttribute("campId", campaign.getCampaignId());
+		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.capgemini.NavigationNames;
 import com.capgemini.persistence.domain.TwitterAccess;
 import com.capgemini.rest.model.TwitterLoginForm;
 import com.capgemini.service.TwitterAccessService;
@@ -50,6 +51,8 @@ public class TwitterController {
 		} catch (TwitterException ex) {
 			ex.printStackTrace();
 		}
+		
+		model.addAttribute("page", NavigationNames.CONNECT);
 		return "twitter-login";
 	}
 
@@ -67,6 +70,7 @@ public class TwitterController {
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
+		model.addAttribute("page", NavigationNames.CONNECT);
 		return "twitter-login";
 	}
 }
