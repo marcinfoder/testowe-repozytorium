@@ -74,19 +74,33 @@ public class MessagesController
 		return "messages";
 	}
 	
-	@RequestMapping(method = RequestMethod.GET, value = "/messages/{index}")
-	public String getMessagesPageWithComboBoxIndex(@PathVariable int index, Model model, Principal principal) {
+	@RequestMapping(method = RequestMethod.GET, value = "/messages/{campId}")
+	public String getMessagesPageWithComboBoxByCampId(@PathVariable long campId, Model model, Principal principal) {
 		List<Campaign> campaignList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
-		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campaignList.get(index).getCampaignId());
 		
+		
+		int index = 0;
+		for(Campaign camp : campaignList)
+		{
+			if(camp.getCampaignId() == campId)
+			{
+				break; 
+			}
+			index++;
+		}
+		
+		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campaignList.get(index).getCampaignId());
+		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campaignList.get(index).getCampaignId());
+	    String campName = campService.getCampaignById(campId).getName(); 
+	    System.out.println(campName);
 		model.addAttribute("comboBox1", true);
 		model.addAttribute("comboBox2", true);
 		model.addAttribute("campaignList", campaignList); 
 		model.addAttribute("campaignStepList", campaignStepList); 
 		model.addAttribute("MessageForm", new MessageForm());
-		
-		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campaignList.get(index).getCampaignId());
-	       
+		model.addAttribute("campaign", campName);
+
+			 
 		model.addAttribute("Tweets", messageList);
 					
 		return "messages";
@@ -99,7 +113,6 @@ public class MessagesController
 		   
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("campId", campId);	
-		model.addAttribute("stepId", stepId);
 		return "campaign-step-messages";
 	}
 	

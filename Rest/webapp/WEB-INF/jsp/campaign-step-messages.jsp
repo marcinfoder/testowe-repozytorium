@@ -46,8 +46,8 @@
 							</tbody>
 						</table>
 						
-						<a class="button" href="<spring:url value='/service/messages' htmlEscape='true' />">Dodaj nową wiadomość</a>
-						<a class="button" href="<spring:url value='/service/campaign-steps/${campId}/${stepId}' htmlEscape='true' />">Powrót</a>
+						<a class="button" href="<spring:url value='/service/messages/${campId}' htmlEscape='true' />">Dodaj nową wiadomość</a>
+						<a class="button" href="<spring:url value='/service/campaign-steps/${campId}' htmlEscape='true' />">Powrót</a>
 					</div>			
 				</div>
 			</div>

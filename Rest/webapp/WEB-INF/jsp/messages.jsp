@@ -36,8 +36,8 @@
 							<c:if test="${comboBox1}">
 							<div class="form-item">
 								<label>Kampania: </label>
-								<form:select path="campaignId" name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" >
-								
+								<form:select path="campaignId"  name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" selected="${campaign}">
+
 								</form:select>													
 								
 							</div>
