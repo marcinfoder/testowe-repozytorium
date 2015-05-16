@@ -33,6 +33,7 @@
 								<tr>
 									<td class="table_cell_username">Data</td>
 									<td>Treść</td>
+									<td>Usuń</td>	
 
 								</tr>	
 							</thead>
@@ -41,6 +42,14 @@
 								<tr>
 									<td>${message.twitterPublishAt}</td>
 									<td>${message.twitterContent}</td>
+									<td>
+										<form action="<spring:url value='/service/campaign-step-message-delete' htmlEscape='true' />" method="POST">
+											<input type="hidden" value="${message.messageId}" name="messageId">
+											<input type="hidden" value="${message.stepId}" name="stepId">
+											<input type="hidden" value="${message.campaignId}" name="campId">
+											<input type="submit" class="button button-red" value="Usuń">
+										</form>
+									</td>
 								</tr>
 								</c:forEach>	
 							</tbody>

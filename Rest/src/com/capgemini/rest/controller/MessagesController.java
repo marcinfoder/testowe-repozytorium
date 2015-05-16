@@ -164,4 +164,10 @@ public class MessagesController
 		return "messages";
 	}
 	
+	@RequestMapping(method = RequestMethod.POST, value = "/campaign-step-message-delete")
+	public String removeMessage(@RequestParam("messageId") long messageId, @RequestParam("stepId") long stepId, @RequestParam("campId") long campId, Model model) {
+		messageService.deleteMessageById(messageId);
+		return "redirect:/service/campaign-step-messages/" + campId + "/" + stepId;
+	}
+	
 }

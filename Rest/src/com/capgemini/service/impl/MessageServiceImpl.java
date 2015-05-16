@@ -52,4 +52,10 @@ public class MessageServiceImpl implements MessageService{
 		return true;
 	}
 
+	@Override
+	@Transactional
+	public void deleteMessageById(long messageId) {
+		message.deleteWith(messageId);
+	}
+
 }

@@ -2,6 +2,7 @@ package com.capgemini.persistence;
 
 import java.util.List;
 
+import com.capgemini.persistence.domain.CampaignStep;
 import com.capgemini.persistence.domain.Message;
 
 public interface MessageDao {
@@ -15,5 +16,7 @@ public interface MessageDao {
 	public Message getWith(long messageId);
 	
 	public boolean add(Message message);
+	
+	public Message deleteWith(Long messageId);
 
 }
