@@ -10,8 +10,6 @@ public interface MessageService {
 	
 	public List<?> getMessageByStepId(long stepId);
 	
-	public List<?> getMessageByCampaignIdByStepId(long campaignId, long stepId);
-	
 	public Message getMessageById(long messageId);
 	
 	public boolean addMessage(Message message);

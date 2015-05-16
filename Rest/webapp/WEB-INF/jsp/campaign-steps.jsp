@@ -52,8 +52,7 @@
 									<td><a class="button" href="<spring:url value='/service/campaign-step-messages/${step.campaignId}/${step.stepId}' htmlEscape='true' />">Pokaż zawartość</a></td>
 									<td>
 										
-										<form action="<spring:url value='/service/campaign-step-edit' />" method="POST">
-											<input type="hidden" value="${step.stepId}" name="id_step"> <!-- Tutaj przechowujemy ID step -->
+										<form action="<spring:url value='/service/campaign-step-edit/${step.stepId}' />" method="GET">
 											<input type="submit" class="button" value="Edytuj">
 									
 										</form>

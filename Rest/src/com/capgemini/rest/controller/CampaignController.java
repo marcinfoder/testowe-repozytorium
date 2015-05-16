@@ -77,7 +77,6 @@ public class CampaignController {
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-add")
 	public String getCampaignCreationPage(Model model, Principal principal) {
 		model.addAttribute("campaignForm", new CampaignForm());
-		model.addAttribute("page", "campaign-add");
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
 		return "campaign-add";
@@ -110,7 +109,6 @@ public class CampaignController {
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-edit")
 	public String getCampaignEditionPage(Model model, Principal principal) {
 		model.addAttribute("campaignForm", new CampaignForm());
-		model.addAttribute("page", "campaign-add");
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
 		return "campaign-edit";
@@ -130,15 +128,16 @@ public class CampaignController {
 		cForm.setEndDate(camp.getEndDate());
 		
 		model.addAttribute("campaignForm", cForm);
+		model.addAttribute("campId", camp.getCampaignId());
 			
 		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
 		return "campaign-edit";
 	}	
 
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-edit")
-	public String getCampaignEditionPage(@ModelAttribute CampaignForm campaignForm, @RequestParam String button, Model model, Principal principal) {
+	public String getCampaignEditionPage(@ModelAttribute CampaignForm campaignForm, @RequestParam String button, @RequestParam long campId,  Model model, Principal principal) {
 		
-		Campaign campaign = campService.getCampaignById(9);
+		Campaign campaign = campService.getCampaignById(campId);
 		
 		campaign.setName(campaignForm.getName());
 		campaign.setDescription(campaignForm.getDescription());
@@ -160,6 +159,7 @@ public class CampaignController {
 	    }
 	    else if(button.equals("Anuluj"))
 	    {
+	    	model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
 	    	return "campaigns";
 	    }
 	    else
@@ -170,6 +170,69 @@ public class CampaignController {
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
 		return "campaign-edit";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-edit")
+	public String getCampaignStepEditionPage(Model model, Principal principal) {
+		model.addAttribute("campaignStepForm", new CampaignStepForm());
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
+		return "campaign-step-edit";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-edit/{stepId}")
+	public String getCampaignStepEditionPageId( @PathVariable long stepId, Model model, Principal principal) {
+		
+		CampaignStep campStep = campService.getStepById(stepId);
+		CampaignStepForm cStepForm = new CampaignStepForm();
+		
+		cStepForm.setName(campStep.getName());
+		cStepForm.setDescription(campStep.getDescription());
+		cStepForm.setStartDate(campStep.getStartDate());
+		cStepForm.setEndDate(campStep.getEndDate());
+		
+		model.addAttribute("campaignStepForm", cStepForm);
+		model.addAttribute("stepId", campStep.getStepId());
+		model.addAttribute("campId", campStep.getCampaignId());
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
+		return "campaign-step-edit";
+	}	
+
+	@RequestMapping(method = RequestMethod.POST, value = "/campaign-step-edit")
+	public String getCampaignStepEditionPage(@ModelAttribute CampaignStepForm campaignStepForm, @RequestParam String button, @RequestParam long stepId, Model model, Principal principal) {
+		
+		CampaignStep campaignStep = campService.getStepById(stepId);
+		
+		campaignStep.setName(campaignStepForm.getName());
+		campaignStep.setDescription(campaignStepForm.getDescription());
+		campaignStep.setStartDate(campaignStepForm.getStartDate());
+		campaignStep.setEndDate(campaignStepForm.getEndDate());
+	
+	    if(button.equals("Aktualizuj"))
+	    {
+			try
+			{
+			campService.stepUpdate(campaignStep);
+			}
+			catch (Exception e) 
+			{
+			e.printStackTrace();
+		    }
+	    }
+	    else if(button.equals("Anuluj"))
+	    {
+	    	model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
+	    	return "campaign-steps";
+	    }
+	    else
+	    {  	
+	    }
+		
+		model.addAttribute("success", true);
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
+		return "campaign-step-edit";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-add")

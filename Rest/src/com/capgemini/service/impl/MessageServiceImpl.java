@@ -52,11 +52,4 @@ public class MessageServiceImpl implements MessageService{
 		return true;
 	}
 
-	@Override
-	@Transactional
-	public List<?> getMessageByCampaignIdByStepId(long campaignId, long stepId) {
-		return message.getListByCampaignIdByStepId(campaignId, stepId);
-	}
-
-
 }

@@ -100,7 +100,7 @@ public class MessagesController
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-messages/{campId}/{stepId}")
 	public String getMessagesByStep(@PathVariable long campId, @PathVariable long stepId,  Model model, Principal principal) {
 		
-		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignIdByStepId(campId, stepId);
+		List<Message> messageList = (List<Message>) messageService.getMessageByStepId(stepId);
 		Collections.sort(messageList, new DateComparator());  
 		
 		model.addAttribute("messageList", messageList);
