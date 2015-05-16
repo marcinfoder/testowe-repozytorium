@@ -130,12 +130,13 @@ public class MessagesController
 		    {
 		    	TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
 				twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
-				twitter.updateStatus(messageForm.getText());
+				Status status = twitter.updateStatus(messageForm.getText());
 				
 				message.setTwitterPublishAt(new Date());
 				message.setTwitterPublished(true);
 				message.setFacebookPublishAt(new Date());
 				message.setFacebookPublished(true);
+				message.setTweetId(status.getId());
 		    }
 		    else
 		    {  	

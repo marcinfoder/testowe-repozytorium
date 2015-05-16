@@ -50,8 +50,12 @@
 			<column name="FacebookPublished" />
 		</property>
 		
-		<property name="createdAt" type="date" not-null="true">
+		<property name="createdAt" type="java.sql.Timestamp" not-null="true">
 			<column name="CreatedAt" />
+		</property>	
+		
+		<property name="tweetId" type="long">
+			<column name="TweetId" />
 		</property>		
 		
 	</class>

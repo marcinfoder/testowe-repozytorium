@@ -16,7 +16,8 @@ public class Message {
 	private boolean twitterPublished;
 	private boolean facebookPublished;
 	private Date createdAt;
-	
+	private Long tweetId;
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -143,6 +144,14 @@ public class Message {
 
 	public void setCreatedAt(Date createdAt) {
 		this.createdAt = createdAt;
+	}
+	
+	public Long getTweetId() {
+		return tweetId;
+	}
+
+	public void setTweetId(Long tweetId) {
+		this.tweetId = tweetId;
 	}
 	
 }
