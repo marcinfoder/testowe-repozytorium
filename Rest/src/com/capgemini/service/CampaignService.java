@@ -15,6 +15,10 @@ public interface CampaignService {
 	
 	public CampaignStep getStepById(long id);
 	
+	public void campaignUpdate(Campaign campaign);
+	
+	public void stepUpdate(CampaignStep campaignStep);
+	
 	public List<?> getStepsByCampaignId(long campaignId);
 	
 	public void deleteStepById(long id);

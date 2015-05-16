@@ -30,31 +30,24 @@
 						<c:choose>
 						<c:when test="${!success}">
 						<spring:url value='/service/messages' var="actionUrl" htmlEscape='true' />
-						<form:form modelAttribute="MessageForm"
-						 name="MessageForm" action="${actionUrl}" method="POST" >
+						<form:form modelAttribute="MessageForm" name="MessageForm" action="${actionUrl}" method="POST" >
 						
-							<c:if test="${comboBox1}">
 							<div class="form-item">
 								<label>Kampania: </label>
-								<form:select path="campaignId"  name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" selected="${campaign}">
-
+								<form:select path="campaignId"  name="button" items="${campaignList}" itemLabel="name" itemValue="campaignId" value="${campId}" selected="true" onchange="this.MessageForm.submit()">
 								</form:select>													
 								
 							</div>
-							</c:if>
 							
-							<c:if test="${comboBox2}">
 							<div class="form-item">
 								<label>Krok: </label>
 								<form:select path="stepId" name="stepId"  items="${campaignStepList}" itemLabel="name" itemValue="stepId" >
 								</form:select>
 							</div>
-							</c:if>
-							
-						
+												
 							<div class="form-item">
 								<label>Data: </label>
-								<form:input path="publishDate" type="text" name="publishDate"  />
+								<form:input path="publishDate" type="text" name="publishDate" value="${currDate}" />
 							</div>
 							
 							<div class="form-item">
@@ -75,13 +68,14 @@
 						</c:when>
 						<c:otherwise>
 							<div class="msg success-msg">
-								Krok został poprawnie dodany!
-								
-								<form action="<spring:url value='/service/messages-add' htmlEscape='true'/>" method="POST">
-								<input type="submit" class="button" value="Dodaj2">
+								Dodano wiadomość!
+														
+							</div>
+							<div class="form-item">
+							<form action="<spring:url value='/service/messages' htmlEscape='true'/>" method="GET">
+								<input type="submit" class="button" value="Powrót">
 							</form>
 							</div>
-							
 						</c:otherwise>
 						</c:choose>
 					</div>

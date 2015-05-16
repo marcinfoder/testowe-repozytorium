@@ -99,4 +99,16 @@ public class CampaignServiceImpl implements CampaignService {
 		return getCampaignsByGroupId(userDao.findByName(login).getGroupId());
 	}
 
+	@Override
+	@Transactional
+	public void campaignUpdate(Campaign campaign) {
+		this.campaign.update(campaign);
+	}
+
+	@Override
+	@Transactional
+	public void stepUpdate(CampaignStep campaignStep) {
+			this.campaignStep.update(campaignStep);
+	}
+
 }

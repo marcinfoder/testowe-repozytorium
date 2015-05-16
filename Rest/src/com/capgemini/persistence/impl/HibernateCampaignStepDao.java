@@ -24,6 +24,11 @@ public class HibernateCampaignStepDao extends AbstractDao<CampaignStep> implemen
 		super.save(step);
 		return true;
 	}
+	
+	@Override
+	public void update(CampaignStep step) {
+		super.update(step);
+	}
 
 	@Override
 	public CampaignStep getWith(long id) {

@@ -3,7 +3,9 @@ package com.capgemini.rest.controller;
 import java.security.Principal;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +28,7 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 import twitter4j.auth.AccessToken;
 
+import com.capgemini.DateComparator;
 import com.capgemini.NavigationNames;
 import com.capgemini.persistence.domain.Campaign;
 import com.capgemini.persistence.domain.CampaignStep;
@@ -59,48 +62,34 @@ public class MessagesController
 	MessageService messageService;
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/messages")
-	public String getMessagesPageWithComboBox(Model model, Principal principal) {
+	public String getMessages(Model model, Principal principal) {
 		List<Campaign> campaignList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
 		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campaignList.get(0).getCampaignId());
-		model.addAttribute("comboBox1", true);
-		model.addAttribute("comboBox2", true);
+		
 		model.addAttribute("campaignList", campaignList); 
 		model.addAttribute("campaignStepList", campaignStepList); 
 		model.addAttribute("MessageForm", new MessageForm());
+		model.addAttribute("currDate", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
 		
 		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(8);
-	       
+	    Collections.sort(messageList, new DateComparator());
+	    
 		model.addAttribute("Tweets", messageList);
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/messages/{campId}")
-	public String getMessagesPageWithComboBoxByCampId(@PathVariable long campId, Model model, Principal principal) {
+	public String getMessagesByCampId(@PathVariable long campId, Model model, Principal principal) {
 		List<Campaign> campaignList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
-		
-		
-		int index = 0;
-		for(Campaign camp : campaignList)
-		{
-			if(camp.getCampaignId() == campId)
-			{
-				break; 
-			}
-			index++;
-		}
-		
-		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campaignList.get(index).getCampaignId());
-		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campaignList.get(index).getCampaignId());
-	    String campName = campService.getCampaignById(campId).getName(); 
-	    System.out.println(campName);
-		model.addAttribute("comboBox1", true);
-		model.addAttribute("comboBox2", true);
+			
+		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campId);
+		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campId);
+	    
 		model.addAttribute("campaignList", campaignList); 
 		model.addAttribute("campaignStepList", campaignStepList); 
 		model.addAttribute("MessageForm", new MessageForm());
-		model.addAttribute("campaign", campName);
-
+		model.addAttribute("campId", campId);
 			 
 		model.addAttribute("Tweets", messageList);
 					
@@ -112,7 +101,8 @@ public class MessagesController
 	public String getMessagesByStep(@PathVariable long campId, @PathVariable long stepId,  Model model, Principal principal) {
 		
 		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignIdByStepId(campId, stepId);
-		   
+		Collections.sort(messageList, new DateComparator());  
+		
 		model.addAttribute("messageList", messageList);
 		model.addAttribute("campId", campId);	
 		model.addAttribute("page", "campaign-messages");
@@ -125,7 +115,7 @@ public class MessagesController
 		
 		Message message = new Message();
 		User user = userService.getUserByLogin(principal.getName());
-		    
+			
 		try 
 		{
 			
@@ -169,12 +159,8 @@ public class MessagesController
 		
 		model.addAttribute("messageForm", new MessageForm());
 		model.addAttribute("success", true);
-		//model.addAttribute("campId", campaign.getCampaignId());
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
 	
-	
-
-
 }

@@ -14,10 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import twitter4j.auth.AccessToken;
+
 import com.capgemini.NavigationNames;
 import com.capgemini.persistence.CampaignDao;
 import com.capgemini.persistence.domain.Campaign;
 import com.capgemini.persistence.domain.CampaignStep;
+import com.capgemini.persistence.domain.TwitterAccess;
 import com.capgemini.persistence.domain.User;
 import com.capgemini.rest.model.CampaignForm;
 import com.capgemini.rest.model.CampaignStepForm;
@@ -102,6 +105,71 @@ public class CampaignController {
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
 		return "campaign-add";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-edit")
+	public String getCampaignEditionPage(Model model, Principal principal) {
+		model.addAttribute("campaignForm", new CampaignForm());
+		model.addAttribute("page", "campaign-add");
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
+		return "campaign-edit";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-edit/{campId}")
+	public String getCampaignEditionPageId(@PathVariable long campId, Model model, Principal principal) {
+		
+		Campaign camp = campService.getCampaignById(campId);	
+		CampaignForm cForm = new CampaignForm();
+		
+		cForm.setFacebookConnection(camp.isFacebookConnection());
+		cForm.setTwitterConnection(camp.isTwitterConnection());
+		cForm.setName(camp.getName());
+		cForm.setDescription(camp.getDescription());
+		cForm.setStartDate(camp.getStartDate());
+		cForm.setEndDate(camp.getEndDate());
+		
+		model.addAttribute("campaignForm", cForm);
+			
+		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
+		return "campaign-edit";
+	}	
+
+	@RequestMapping(method = RequestMethod.POST, value = "/campaign-edit")
+	public String getCampaignEditionPage(@ModelAttribute CampaignForm campaignForm, @RequestParam String button, Model model, Principal principal) {
+		
+		Campaign campaign = campService.getCampaignById(9);
+		
+		campaign.setName(campaignForm.getName());
+		campaign.setDescription(campaignForm.getDescription());
+		campaign.setStartDate(campaignForm.getStartDate());
+		campaign.setEndDate(campaignForm.getEndDate());
+		campaign.setFacebookConnection(campaignForm.isFacebookConnection());
+		campaign.setTwitterConnection(campaignForm.isTwitterConnection());
+	
+	    if(button.equals("Aktualizuj"))
+	    {
+			try
+			{
+			campService.campaignUpdate(campaign);
+			}
+			catch (Exception e) 
+			{
+			e.printStackTrace();
+		    }
+	    }
+	    else if(button.equals("Anuluj"))
+	    {
+	    	return "campaigns";
+	    }
+	    else
+	    {  	
+	    }
+		
+		model.addAttribute("success", true);
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
+		return "campaign-edit";
 	}
 
 	@RequestMapping(method = RequestMethod.GET, value = "/campaign-step-add")

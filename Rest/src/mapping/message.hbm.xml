@@ -34,11 +34,11 @@
 			<column name="FacebookContent" />
 		</property>
 		
-		<property name="twitterPublishAt" type="date" not-null="true">
+		<property name="twitterPublishAt" type="java.sql.Timestamp" not-null="true">
 			<column name="TwitterPublishAt" />
 		</property>
 		
-		<property name="facebookPublishAt" type="date" not-null="true">
+		<property name="facebookPublishAt" type="java.sql.Timestamp" not-null="true">
 			<column name="FacebookPublishAt" />
 		</property>
 		
