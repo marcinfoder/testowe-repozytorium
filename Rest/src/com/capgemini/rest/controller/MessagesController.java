@@ -71,7 +71,7 @@ public class MessagesController
 		model.addAttribute("MessageForm", new MessageForm());
 		model.addAttribute("currDate", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
 		
-		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(8);
+		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campaignList.get(0).getCampaignId());
 	    Collections.sort(messageList, new DateComparator());
 	    
 		model.addAttribute("Tweets", messageList);
@@ -85,10 +85,13 @@ public class MessagesController
 			
 		List<CampaignStep> campaignStepList = (List<CampaignStep>) campService.getStepsByCampaignId(campId);
 		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campId);
-	    
+		Collections.sort(messageList, new DateComparator());
+		
 		model.addAttribute("campaignList", campaignList); 
 		model.addAttribute("campaignStepList", campaignStepList); 
 		model.addAttribute("MessageForm", new MessageForm());
+		model.addAttribute("currDate", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
+		
 		model.addAttribute("campId", campId);
 			 
 		model.addAttribute("Tweets", messageList);
@@ -113,33 +116,53 @@ public class MessagesController
 	@RequestMapping(method = RequestMethod.POST, value = "/messages")
 	public String sendMessage(@ModelAttribute MessageForm messageForm, @RequestParam String button, Model model, Principal principal) {
 		
+		Date date = new Date();
 		Message message = new Message();
 		User user = userService.getUserByLogin(principal.getName());
-			
-		try 
-		{
-			
+		
+		
+		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
+						
 		    if(button.equals("Dodaj"))
 		    {
+		    	if(date.before(messageForm.getPublishDate()))
+		    	{
 				message.setTwitterPublishAt(messageForm.getPublishDate());
 				message.setTwitterPublished(false);
 				message.setFacebookPublishAt(messageForm.getPublishDate());
 				message.setFacebookPublished(false);
+		    	}
+		    	else
+		    	{
+		    		model.addAttribute("messageForm", messageForm);
+		    		model.addAttribute("success", false);
+		    		model.addAttribute("submited", true); 
+		    		return "messages";
+		    	}
 		    }
 		    else if(button.equals("Wyslij"))
 		    {
 		    	TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
 				twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
-				Status status = twitter.updateStatus(messageForm.getText());
+				Status status;
+				try 
+				{
+					status = twitter.updateStatus(messageForm.getText());
+					message.setTweetId(status.getId());
+				} 
+				catch (TwitterException e) 
+				{
+					e.printStackTrace();
+				}
 				
 				message.setTwitterPublishAt(new Date());
 				message.setTwitterPublished(true);
 				message.setFacebookPublishAt(new Date());
 				message.setFacebookPublished(true);
-				message.setTweetId(status.getId());
 		    }
 		    else
-		    {  	
+		    {  
+		    	
 		    }	
 						
 		message.setCampaignId(messageForm.getCampaignId());
@@ -151,7 +174,9 @@ public class MessagesController
 		message.setTwitterContent(messageForm.getText());			
 		message.setFacebookContent(messageForm.getText());  //na razie tylko twitter	
 		
-		messageService.addMessage(message);
+		try 
+		{		
+		messageService.addMessage(message);		
 	    } 
 		catch (Exception e) 
 		{
@@ -159,8 +184,8 @@ public class MessagesController
 	    }
 		
 		model.addAttribute("messageForm", new MessageForm());
+		model.addAttribute("submited", true);
 		model.addAttribute("success", true);
-		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
 	

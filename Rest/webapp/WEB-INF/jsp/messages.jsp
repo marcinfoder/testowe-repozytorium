@@ -28,7 +28,7 @@
 					
 					<div class="grid-item-content">
 						<c:choose>
-						<c:when test="${!success}">
+						<c:when test="${!submited}">
 						<spring:url value='/service/messages' var="actionUrl" htmlEscape='true' />
 						<form:form modelAttribute="MessageForm" name="MessageForm" action="${actionUrl}" method="POST" >
 						
@@ -58,7 +58,7 @@
 							<div class="form-item">
 															
 							<input type="submit" class="button" value="Wyslij" name="button" >	
-							
+							<input type="hidden" value="${MessageForm.publishDate}" name="addDate">
 							<input type="submit" class="button" value="Dodaj" name="button" >	
 							
 							</div>	
@@ -67,15 +67,34 @@
 						
 						</c:when>
 						<c:otherwise>
-							<div class="msg success-msg">
-								Dodano wiadomość!
-														
-							</div>
-							<div class="form-item">
-							<form action="<spring:url value='/service/messages' htmlEscape='true'/>" method="GET">
-								<input type="submit" class="button" value="Powrót">
-							</form>
-							</div>
+						<c:choose>
+							<c:when test="${success}">
+								<div class="msg success-msg">
+									Dodano wiadomość!
+															
+								</div>
+								<div class="form-item">
+								<form action="<spring:url value='/service/messages' htmlEscape='true'/>" method="GET">
+									<input type="submit" class="button" value="Powrót">
+								</form>
+								</div>
+							</c:when>
+							<c:otherwise>
+								<div class="msg error-msg">
+									Podano błędną datę! Nie dodano wiadomości.
+															
+								</div>
+								
+								<div class="form-item">
+								<form action="<spring:url value='/service/messages' htmlEscape='true'/>" method="GET">
+									<input type="submit" class="button" value="Powrót">
+								</form>
+								</div>
+								
+							</c:otherwise>
+					   </c:choose>
+						
+							
 						</c:otherwise>
 						</c:choose>
 					</div>
