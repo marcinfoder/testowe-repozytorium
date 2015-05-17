@@ -154,4 +154,16 @@ public class Message {
 		this.tweetId = tweetId;
 	}
 	
+	public boolean isAlreadySent(){
+		
+		Date date = new Date();
+		
+		if( date.before(this.twitterPublishAt) && date.before(this.facebookPublishAt) )
+		{
+			return false;
+		}
+		else
+			return true;
+	}
+	
 }

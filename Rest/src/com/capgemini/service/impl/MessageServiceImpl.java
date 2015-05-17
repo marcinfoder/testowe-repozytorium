@@ -54,8 +54,18 @@ public class MessageServiceImpl implements MessageService{
 
 	@Override
 	@Transactional
-	public void deleteMessageById(long messageId) {
-		message.deleteWith(messageId);
+	public boolean deleteMessageById(long messageId) {
+		
+		Message ms = message.deleteWith(messageId);
+		
+		if(ms == null)
+		{
+			return false;
+		}
+		else 
+		return true;
+		
+		
 	}
 
 }

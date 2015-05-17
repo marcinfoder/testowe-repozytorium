@@ -14,6 +14,6 @@ public interface MessageService {
 	
 	public boolean addMessage(Message message);
 	
-	public void deleteMessageById(long messageId);
+	public boolean deleteMessageById(long messageId);
 	
 }

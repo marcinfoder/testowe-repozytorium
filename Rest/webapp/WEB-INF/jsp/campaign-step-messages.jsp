@@ -47,7 +47,14 @@
 											<input type="hidden" value="${message.messageId}" name="messageId">
 											<input type="hidden" value="${message.stepId}" name="stepId">
 											<input type="hidden" value="${message.campaignId}" name="campId">
-											<input type="submit" class="button button-red" value="Usuń">
+											<c:choose>
+												<c:when test="${!message.alreadySent}">
+													<input type="submit" class="button button-red" value="Usuń">
+												</c:when>
+												<c:otherwise>
+												
+												</c:otherwise>
+											</c:choose>
 										</form>
 									</td>
 								</tr>
