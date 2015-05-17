@@ -26,6 +26,8 @@ public class CampaignForm {
 	@NotEmpty
 	private Date endDate;
 	
+	private String hashTag;
+	
 	public boolean isTwitterConnection() {
 		return twitterConnection;
 	}
@@ -62,6 +64,12 @@ public class CampaignForm {
 	}
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+	public String getHashTag() {
+		return hashTag;
+	}
+	public void setHashTag(String hashTag) {
+		this.hashTag = hashTag;
 	}
 	
 }

@@ -25,6 +25,8 @@ public class CampaignStepForm {
 	
 	@NotEmpty
 	private Date endDate;
+	
+	private String hashTag;
 
 	public long getCampaignId() {
 		return campaignId;
@@ -72,6 +74,14 @@ public class CampaignStepForm {
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getHashTag() {
+		return hashTag;
+	}
+
+	public void setHashTag(String hashTag) {
+		this.hashTag = hashTag;
 	}
 	
 	

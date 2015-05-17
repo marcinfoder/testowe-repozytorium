@@ -32,6 +32,7 @@
 							<thead>
 								<tr>
 									<td class="table_cell_username">Nazwa Kroku</td>
+									<td>Tag</td>
 									<td>Opis</td>
 									<td>Data rozpoczęcia</td>	
 									<td>Data ukończenia</td>
@@ -45,6 +46,7 @@
 								<c:forEach var="step" items="${stepList}">
 								<tr>
 									<td>${step.name}</td>
+									<td>${step.hashTag}</td>
 									<td>${step.description}</td>
 									<td>${step.startDate}</td>
 									<td>${step.endDate}</td>

@@ -29,7 +29,7 @@
 					
 					<div class="grid-item-content">
 						<c:choose>
-						<c:when test="${!success}">
+						<c:when test="${!submited}">
 						<spring:url value='/service/campaign-step-add' var="actionUrl" htmlEscape='true' />
 						<form:form modelAttribute="campaignStepForm"
 						 name="campaignStepForm" action="${actionUrl}" method="post" >
@@ -45,6 +45,11 @@
 							<div class="form-item">
 								<label>Nazwa kroku: </label>
 								<form:input path="name" type="text" placeholder="Nazwa kroku" />
+							</div>
+							
+							<div class="form-item">
+								<label>Tag: </label>
+								<form:input path="hashTag" type="text" name="Hashtag" />
 							</div>
 							
 							<div class="form-item">

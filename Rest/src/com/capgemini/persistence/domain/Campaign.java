@@ -14,6 +14,7 @@ public class Campaign {
 	private Date startDate;
 	private Date endDate;
 	private boolean active;
+	private String hashTag;
 	
 	@Override
 	public String toString() {
@@ -117,6 +118,14 @@ public class Campaign {
 
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+
+	public String getHashTag() {
+		return hashTag;
+	}
+
+	public void setHashTag(String hashTag) {
+		this.hashTag = hashTag;
 	}
 	
 	

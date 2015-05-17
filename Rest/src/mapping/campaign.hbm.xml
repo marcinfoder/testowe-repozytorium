@@ -49,5 +49,9 @@
 		<property name="active" type="boolean" not-null="true">
 			<column name="Active" />
 		</property>
+		
+		<property name="hashTag" type="string">
+			<column name="HashTag" length="50" />
+		</property>
 	</class>
 </hibernate-mapping>

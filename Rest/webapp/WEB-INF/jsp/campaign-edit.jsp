@@ -30,7 +30,7 @@
 					<div class="grid-item-content">
 						
                         <c:choose>
-						<c:when test="${!success}">
+						<c:when test="${!submited}">
 						<spring:url value='/service/campaign-edit' var='actionUrl' htmlEscape='true' />
 						<form:form modelAttribute="campaignForm"
 						 name="campaignForm" action="${actionUrl}" method="post" >
@@ -38,6 +38,11 @@
 							<div class="form-item">
 								<label>Nazwa kampanii: </label>
 								<form:input path="name" type="text" />
+							</div>
+							
+							<div class="form-item">
+								<label>Tag: </label>
+								<form:input path="hashTag" type="text" name="Hashtag" />
 							</div>
 							
 							<div class="form-item">

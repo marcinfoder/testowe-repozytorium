@@ -33,5 +33,9 @@
 		<property name="endDate" type="date" not-null="true">
 			<column name="EndDate" />
 		</property>
+		
+		<property name="hashTag" type="string">
+			<column name="HashTag" length="50" />
+		</property>
 	</class>
 </hibernate-mapping>

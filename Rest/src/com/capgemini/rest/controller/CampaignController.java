@@ -87,6 +87,7 @@ public class CampaignController {
 			@ModelAttribute CampaignForm campaignForm, Model model,
 			Principal principal) {
 		User user = userService.getUserByLogin(principal.getName());
+		
 		Campaign campaign = new Campaign();
 		campaign.setCreatedAt(new Date());
 		campaign.setGroupId(user.getGroupId());
@@ -96,10 +97,12 @@ public class CampaignController {
 		campaign.setEndDate(campaignForm.getEndDate());
 		campaign.setFacebookConnection(campaignForm.isFacebookConnection());
 		campaign.setTwitterConnection(campaignForm.isTwitterConnection());
+		campaign.setHashTag(campaignForm.getHashTag());
+		
 		campService.addCampaign(campaign);
 
 		model.addAttribute("campaignForm", new CampaignForm());
-		model.addAttribute("success", true);
+		model.addAttribute("submited", true);
 		model.addAttribute("campId", campaign.getCampaignId());
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_ADD);
@@ -145,7 +148,8 @@ public class CampaignController {
 		campaign.setEndDate(campaignForm.getEndDate());
 		campaign.setFacebookConnection(campaignForm.isFacebookConnection());
 		campaign.setTwitterConnection(campaignForm.isTwitterConnection());
-	
+		campaign.setHashTag(campaignForm.getHashTag());
+		
 	    if(button.equals("Aktualizuj"))
 	    {
 			try
@@ -166,7 +170,7 @@ public class CampaignController {
 	    {  	
 	    }
 		
-		model.addAttribute("success", true);
+		model.addAttribute("submited", true);
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
 		return "campaign-edit";
@@ -208,6 +212,7 @@ public class CampaignController {
 		campaignStep.setDescription(campaignStepForm.getDescription());
 		campaignStep.setStartDate(campaignStepForm.getStartDate());
 		campaignStep.setEndDate(campaignStepForm.getEndDate());
+		campaignStep.setHashTag(campaignStepForm.getHashTag());
 	
 	    if(button.equals("Aktualizuj"))
 	    {
@@ -229,7 +234,7 @@ public class CampaignController {
 	    {  	
 	    }
 		
-		model.addAttribute("success", true);
+		model.addAttribute("submited", true);
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);
 		return "campaign-step-edit";
@@ -265,10 +270,11 @@ public class CampaignController {
 		campaign.setDescription(campaignForm.getDescription());
 		campaign.setStartDate(campaignForm.getStartDate());
 		campaign.setEndDate(campaignForm.getEndDate());
+		campaign.setHashTag(campaignForm.getHashTag());
 		campService.addStep(campaign);
 
 		model.addAttribute("campaignStepForm", new CampaignStepForm());
-		model.addAttribute("success", true);
+		model.addAttribute("submited", true);
 		model.addAttribute("campId", campaign.getCampaignId());
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_STEP_ADD);

@@ -10,7 +10,8 @@ public class CampaignStep {
 	private String description;
 	private Date startDate;
 	private Date endDate;
-	
+	private String hashTag;
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
@@ -80,5 +81,12 @@ public class CampaignStep {
 		this.endDate = endDate;
 	}
 	
+	public String getHashTag() {
+		return hashTag;
+	}
+
+	public void setHashTag(String hashTag) {
+		this.hashTag = hashTag;
+	}
 	
 }

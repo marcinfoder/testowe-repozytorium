@@ -119,18 +119,25 @@ public class MessagesController
 		Date date = new Date();
 		Message message = new Message();
 		User user = userService.getUserByLogin(principal.getName());
+		CampaignStep campStep = campService.getStepById(messageForm.getStepId());
+		Campaign campaign = campService.getCampaignById(messageForm.getCampaignId());
 		
+		String messageContent = campaign.getHashTag() + " " 
+				+ campStep.getHashTag() + " "
+				+ messageForm.getText();
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 						
 		    if(button.equals("Dodaj"))
 		    {
-		    	if(date.before(messageForm.getPublishDate()))
+		    	if(date.before(messageForm.getPublishDate()) 
+		    			&& messageForm.getPublishDate().before(campStep.getEndDate()) 
+		    			&& messageForm.getPublishDate().after(campStep.getStartDate()))
 		    	{
-				message.setTwitterPublishAt(messageForm.getPublishDate());
-				message.setTwitterPublished(false);
-				message.setFacebookPublishAt(messageForm.getPublishDate());
-				message.setFacebookPublished(false);
+					message.setTwitterPublishAt(messageForm.getPublishDate());
+					message.setTwitterPublished(false);
+					message.setFacebookPublishAt(messageForm.getPublishDate());
+					message.setFacebookPublished(false);
 		    	}
 		    	else
 		    	{
@@ -141,24 +148,33 @@ public class MessagesController
 		    	}
 		    }
 		    else if(button.equals("Wyslij"))
-		    {
-		    	TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
-				twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
-				Status status;
-				try 
-				{
-					status = twitter.updateStatus(messageForm.getText());
-					message.setTweetId(status.getId());
-				} 
-				catch (TwitterException e) 
-				{
-					e.printStackTrace();
-				}
-				
-				message.setTwitterPublishAt(new Date());
-				message.setTwitterPublished(true);
-				message.setFacebookPublishAt(new Date());
-				message.setFacebookPublished(true);
+		    {    	
+		    	if(date.before(campStep.getEndDate()) && date.after(campStep.getStartDate()))
+		    	{
+			    	TwitterAccess ta = twitterAccessService.findByLogin(principal.getName());
+					twitter.setOAuthAccessToken(new AccessToken(ta.getAccessToken(), ta.getAccessTokenSecret()));	
+					Status status;
+					try 
+					{
+						status = twitter.updateStatus(messageContent);
+						message.setTweetId(status.getId());
+					} 
+					catch (TwitterException e) 
+					{
+						e.printStackTrace();
+					}
+					
+					message.setTwitterPublishAt(new Date());
+					message.setTwitterPublished(true);
+					message.setFacebookPublishAt(new Date());
+					message.setFacebookPublished(true);
+		    	}
+		    	else
+		    	{
+		    		model.addAttribute("success", false);
+		    		model.addAttribute("submited", true); 
+		    		return "messages";
+		    	}
 		    }
 		    else
 		    {  
@@ -171,8 +187,8 @@ public class MessagesController
 		message.setUserId(user.getId());
 		message.setCreatedAt(new Date());
 		
-		message.setTwitterContent(messageForm.getText());			
-		message.setFacebookContent(messageForm.getText());  //na razie tylko twitter	
+		message.setTwitterContent(messageContent);			
+		message.setFacebookContent(messageContent);  //na razie tylko twitter	
 		
 		try 
 		{		

@@ -32,6 +32,7 @@
 							<thead>
 								<tr>
 									<td class="table_cell_username">Nazwa Kampanii</td>
+									<td>Tag</td>
 									<td>Opis</td>
 									<td>Twitter</td>	
 									<td>Facebook</td>										
@@ -49,6 +50,7 @@
 								<c:forEach var="camp" items="${campaignList}">
 								<tr>
 									<td>${camp.name}</td>
+									<td>${camp.hashTag}</td>
 									<td>${camp.description}</td>
 									<td>${camp.twitterConnection}</td>
 									<td>${camp.facebookConnection}</td>

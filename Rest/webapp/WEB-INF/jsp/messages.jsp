@@ -81,7 +81,7 @@
 							</c:when>
 							<c:otherwise>
 								<div class="msg error-msg">
-									Podano błędną datę! Nie dodano wiadomości.
+									Błędna data! Nie dodano wiadomości.
 															
 								</div>
 								
