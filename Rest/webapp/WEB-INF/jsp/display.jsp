@@ -25,7 +25,7 @@
 			<div id="content" class="grid">
 				
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Statystyki Wyświetleń</h2>
+					<h2 class="section-title">Statystyki ulubionych</h2>
 					
 					<div class="grid-item-content">
 						<canvas id="wykres1" height="220" width="600"></canvas>
@@ -38,6 +38,14 @@
 					
 					<div class="grid-item-content">
 						<canvas id="wykres2" height="220" width="600"></canvas>
+					</div>
+				</div>
+				
+				<div class="grid-item grid-item-10 last">
+					<h2 class="section-title">Statystyki tweetów</h2>
+					
+					<div class="grid-item-content">
+						<canvas id="wykres3" height="220" width="600"></canvas>
 					</div>
 				</div>
 
@@ -110,6 +118,36 @@
 		]
 
 	}
+	// Drugi wykres
+	
+	var daneY3 =	[
+		<c:forEach items="${twitterCountList}" var="twitterCount" > 
+			${twitterCount.tweets},
+        </c:forEach>
+	];
+	
+	var daneX3 = [
+	<c:forEach items="${twitterCountList}" var="twitterCount" > 
+		"${twitterCount.date}",
+	</c:forEach>
+	];
+	
+	var lineChartData3 = {
+		labels : daneX3,
+		datasets : [
+			{
+				label: "Facebook",
+				fillColor : "rgba(220,220,220,0.2)",
+				strokeColor : "rgba(220,220,220,1)",
+				pointColor : "rgba(220,220,220,1)",
+				pointStrokeColor : "#fff",
+				pointHighlightFill : "#fff",
+				pointHighlightStroke : "rgba(220,220,220,1)",
+				data : daneY3
+			}
+		]
+
+	}
 		
 	// Inicjalizacja przy załadowaniu całej strony
 	
@@ -120,6 +158,10 @@
 		});
 		var ctx2 = document.getElementById("wykres2").getContext("2d");
 		window.myLine = new Chart(ctx2).Line(lineChartData2, {
+			responsive: true
+		});
+		var ctx3 = document.getElementById("wykres3").getContext("2d");
+		window.myLine = new Chart(ctx3).Line(lineChartData3, {
 			responsive: true
 		});
 	}	
