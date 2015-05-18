@@ -2,28 +2,27 @@ package com.capgemini.rest.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class CampaignStepForm {
 
-	@NotEmpty
 	private long campaignId;
 	
-	@NotEmpty
 	private int stepOrder;
 	
-	@NotEmpty
+	@NotEmpty(message = "{camp.err.name}")
 	private String name;
 	
-	@Size(max = 500)
+	@Size(max = 500, message = "camp.err.desc")
 	private String description;
 	
-	@NotEmpty
+	@NotNull(message = "camp.err.startDate")
 	private Date startDate;
 	
-	@NotEmpty
+	@NotNull(message = "camp.err.endDate")
 	private Date endDate;
 	
 	private String hashTag;
@@ -81,7 +80,7 @@ public class CampaignStepForm {
 	}
 
 	public void setHashTag(String hashTag) {
-		this.hashTag = hashTag;
+		this.hashTag = hashTag.replaceAll("\\s+", "");
 	}
 	
 	

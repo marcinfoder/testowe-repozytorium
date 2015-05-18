@@ -15,7 +15,6 @@ import com.capgemini.persistence.domain.Campaign;
 
 @Repository("hibernateCampaignDao")
 public class HibernateCampaignDao extends AbstractDao<Campaign> implements CampaignDao {
-//public class HibernateCampaignDao extends AbstractDao<Campaign> implements CampaignDao {
 
 	@Autowired
 	public HibernateCampaignDao(SessionFactory session) {

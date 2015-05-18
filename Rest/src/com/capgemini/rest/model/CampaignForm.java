@@ -2,28 +2,31 @@ package com.capgemini.rest.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.Future;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 
 public class CampaignForm {
-	@NotEmpty
 	private boolean twitterConnection;
 	
-	@NotEmpty
 	private boolean facebookConnection;
 	
-	@NotEmpty
+	@NotEmpty(message = "{camp.err.name}")
 	private String name;
 	
-	@Size(max = 500)
+	@Size(max = 500, message = "{camp.err.desc}")
 	private String description;
 	
-	@NotEmpty
+	@NotNull(message = "{camp.err.startDate}")
+//	@Future(message = "{camp.err.startDateFuture}")
 	private Date startDate;
 	
-	@NotEmpty
+	@NotNull(message = "{camp.err.endDate}")
+//	@Future(message = "{camp.err.endDateFuture}")
 	private Date endDate;
 	
 	private String hashTag;
@@ -69,7 +72,7 @@ public class CampaignForm {
 		return hashTag;
 	}
 	public void setHashTag(String hashTag) {
-		this.hashTag = hashTag;
+		this.hashTag = hashTag.replaceAll("\\s+", "");
 	}
 	
 }

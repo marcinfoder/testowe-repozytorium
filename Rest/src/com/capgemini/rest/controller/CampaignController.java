@@ -1,13 +1,21 @@
 package com.capgemini.rest.controller;
 
 import java.security.Principal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,7 +43,13 @@ public class CampaignController {
 
 	@Autowired
 	UserService userService;
-
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+	}
+	
 	@RequestMapping(method = RequestMethod.GET, value = "/campaigns")
 	public String getCampaignsPage(Model model, Principal principal) {
 		User user = userService.getUserByLogin(principal.getName());
@@ -84,8 +98,13 @@ public class CampaignController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-add")
 	public String getCampaignCreationPage(
-			@ModelAttribute CampaignForm campaignForm, Model model,
+			@Valid @ModelAttribute("campaignForm") CampaignForm campaignForm, BindingResult bindingResult, Model model,
 			Principal principal) {
+		
+		if(bindingResult.hasErrors()) {
+			return "campaign-add";
+		}
+		
 		User user = userService.getUserByLogin(principal.getName());
 		
 		Campaign campaign = new Campaign();
@@ -262,8 +281,13 @@ public class CampaignController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/campaign-step-add")
 	public String getCreationPage(
-			@ModelAttribute CampaignStepForm campaignForm, Model model,
+			@Valid @ModelAttribute CampaignStepForm campaignForm, BindingResult result, Model model,
 			Principal principal) {
+		
+		if(result.hasErrors()) {
+			return "campaign-step-add";
+		}
+		
 		CampaignStep campaign = new CampaignStep();
 		campaign.setCampaignId(campaignForm.getCampaignId());
 		campaign.setName(campaignForm.getName());

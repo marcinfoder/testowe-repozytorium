@@ -35,6 +35,12 @@
 						<form:form modelAttribute="campaignForm"
 						 name="campaignForm" action="${actionUrl}" method="post" >
 						
+							<form:errors element="div" path="name" class="msg error-msg"/>
+							<form:errors element="div" path="description" class="msg error-msg"/>
+							<form:errors element="div" path="hashTag" class="msg error-msg"/>
+							<form:errors element="div" path="startDate" class="msg error-msg"/>
+							<form:errors element="div" path="endDate" class="msg error-msg"/>
+							
 							<div class="form-item">
 								<label>Nazwa kampanii: </label>
 								<form:input path="name" type="text" placeholder="Moja kampania" />
@@ -73,6 +79,7 @@
 							<div class="form-item">
 								<input type="submit" class="button" value="Dodaj kampanię">
 							</div>	
+
 						</form:form>
 						</c:when>
 						<c:otherwise>

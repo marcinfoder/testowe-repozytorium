@@ -9,7 +9,7 @@
 			<a href="#"><i class="fa fa-bar-chart"></i>
 				<spring:message code="nav.statistics" text="Statistics" /></a>
 			<ul class="submenu">
-				<li ${ page eq 'displays' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-eye"></i>
+				<li ${ page eq 'displays' ? 'class="current-page"' : '' }><a href="<spring:url value='/service/displays' htmlEscape='true' />"><i class="fa fa-eye"></i>
 						<spring:message code="nav.displays" text="Displays" /></a>
 				</li>
 				<li ${ page eq 'options' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-comments-o"></i>
