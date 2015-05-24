@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -53,13 +54,48 @@ public class MessagesController
 	private TwitterAccessService twitterAccessService;
 	
 	@Autowired
-	CampaignService campService;
+	private CampaignService campService;
 
 	@Autowired
-	UserService userService;
+	private UserService userService;
 	
 	@Autowired
-	MessageService messageService;
+	private MessageService messageService;
+	
+	private class HashAndSteps
+	{
+		private List<CampaignStep> stepsList;
+		private String hashtag;
+		
+		public List<CampaignStep> getStepsList() {
+			return stepsList;
+		}
+		public void setStepsList(List<CampaignStep> stepsList) {
+			this.stepsList = stepsList;
+		}
+		public String getHashtag() {
+			return hashtag;
+		}
+		public void setHashtag(String hashtag) {
+			this.hashtag = hashtag;
+		}
+		
+		
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/campaign-hashtag")
+	@ResponseBody
+	public HashAndSteps getCampaignHashtag(@RequestParam long campaignId)
+	{
+		Campaign camp = campService.getCampaignById(campaignId);
+		List<CampaignStep> stepsList = (List<CampaignStep>) campService.getStepsByCampaignId(campaignId);
+		
+		HashAndSteps has = new HashAndSteps();
+		has.setHashtag(camp.getHashTag());
+		has.setStepsList(stepsList);
+		return has;
+	}
+
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/messages")
 	public String getMessages(Model model, Principal principal) {
@@ -69,8 +105,9 @@ public class MessagesController
 		model.addAttribute("campaignList", campaignList); 
 		model.addAttribute("campaignStepList", campaignStepList); 
 		model.addAttribute("MessageForm", new MessageForm());
-		model.addAttribute("currDate", new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Date()));
-		
+		model.addAttribute("currDate", new SimpleDateFormat("dd-mm-yyyy HH:mm:ss").format(new Date()));
+
+		//All messages
 		List<Message> messageList = (List<Message>) messageService.getMessageByCampaignId(campaignList.get(0).getCampaignId());
 	    Collections.sort(messageList, new DateComparator());
 	    

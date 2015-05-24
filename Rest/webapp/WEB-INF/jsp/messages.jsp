@@ -34,14 +34,13 @@
 						
 							<div class="form-item">
 								<label>Kampania: </label>
-								<form:select path="campaignId"  name="button" items="${campaignList}" itemLabel="name" itemValue="campaignId" value="${campId}" selected="true" onchange="this.MessageForm.submit()">
-								</form:select>													
-								
+								<form:select path="campaignId" id="CampaignIdSelect" name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId">
+								</form:select>
 							</div>
 							
 							<div class="form-item">
 								<label>Krok: </label>
-								<form:select path="stepId" name="stepId"  items="${campaignStepList}" itemLabel="name" itemValue="stepId" >
+								<form:select path="stepId" id="StepIdSelect" name="stepId"  items="${campaignStepList}" itemLabel="name" itemValue="stepId" >
 								</form:select>
 							</div>
 												
@@ -52,7 +51,9 @@
 							
 							<div class="form-item">
 								<label>Treść: </label>
-								<form:input path="text" type="text" name="text"  />
+								<input type="hidden" name="Hashtag" id="Hashtag" value="${hashtag}"/>
+								<form:textarea path="text" name="TwitterContent" maxlength="140" id="TwitterContent" />
+								<div id="pozostale-znaki"></div>
 							</div>
 														
 							<div class="form-item">
@@ -102,8 +103,8 @@
 			</div>
 		</section>
 	</div>	
-	
-
+	<div>
+		<section>
 			<div id="content" class="grid">
 				
 			<table>
@@ -117,19 +118,48 @@
 				        </tr>
 				    </c:forEach>
 			</table>
-				
-				
 			</div>
 		</section>
 	</div>	
-	
 
-		
-		
-		 
+	<script type="text/javascript" src="/rest/static/js/jquery.js"></script>
+	<script type="text/javascript">
+	jQuery(document).ready(function () {
+		jQuery('#TwitterContent').keyup(function () {
+			var max = 140 - jQuery("#Hashtag").val().length;
+			jQuery(this).attr("maxlength", max);
+			var len = jQuery(this).val().length;
+			if (len >= max) {
+			  jQuery('#pozostale-znaki').text('Wykorzystałeś limit!');
+			} 
+			else {
+			  var char = max - len;
+			  jQuery('#pozostale-znaki').text('Pozostało ' + char + ' znaków.');
+			}
+		});
+		jQuery('#CampaignIdSelect').change(function() {
+			<spring:url value="/service/campaign-hashtag" htmlEscape="true" var="getCampaignHashTag" />
+		    jQuery.ajax({
+		        type:"GET",
+		        url : "${getCampaignHashTag}",
+		        data : { campaignId: jQuery('#CampaignIdSelect').val()},
+		        success : function(data) {
+		        	jQuery('#StepIdSelect').empty();
+					for(var i = 0; i < data.stepsList.length; i++){
+                    	var newOption = jQuery('<option value="' + data.stepsList[i].stepId + '">' + data.stepsList[i].name + '</option>');
+                        jQuery('#StepIdSelect').append(newOption);
+					}   
+		        	
+		            jQuery('#Hashtag').val(data.hashtag);
+		        },
+		        error: function() {
+		            alert('Error occured');
+		        }
+		    });
+		});
+	});
+
+	</script>
 	</body>
-	
-
-
 
 </html>

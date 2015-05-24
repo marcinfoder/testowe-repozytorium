@@ -2,21 +2,19 @@ package com.capgemini.rest.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-
-import org.hibernate.validator.constraints.NotEmpty;
 
 public class MessageForm {
 
-	@NotEmpty
 	private long campaignId;
 	
-	@NotEmpty
 	private long stepId;
 	
 	private Date publishDate;
 	
-	@Size(max = 120)
+	@Size(max = 140, message = "{mess.text.size}")
 	private String text;
 	
 	

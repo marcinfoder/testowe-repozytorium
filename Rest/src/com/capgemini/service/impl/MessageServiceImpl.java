@@ -48,24 +48,14 @@ public class MessageServiceImpl implements MessageService{
 	@Override
 	@Transactional
 	public boolean addMessage(Message message) {
-		this.message.add(message);
-		return true;
+		return this.message.add(message);
 	}
 
 	@Override
 	@Transactional
 	public boolean deleteMessageById(long messageId) {
-		
 		Message ms = message.deleteWith(messageId);
-		
-		if(ms == null)
-		{
-			return false;
-		}
-		else 
-		return true;
-		
-		
+		return ms == null ? false : true;
 	}
 
 }
