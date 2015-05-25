@@ -2,9 +2,14 @@ package com.capgemini.rest.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.capgemini.DateComparator;
 
 public class MessageForm {
 
@@ -12,9 +17,11 @@ public class MessageForm {
 	
 	private long stepId;
 	
+	@DateTimeFormat(pattern = DateComparator.DATE_AND_TIME_FORMAT)
+	@NotNull
 	private Date publishDate;
 	
-	@Size(max = 140, message = "{mess.text.size}")
+	@Size(max = 140, message = "{mess.err.textSize}")
 	private String text;
 	
 	
@@ -34,7 +41,6 @@ public class MessageForm {
 		this.stepId = stepId;
 	}
 
-
 	public Date getPublishDate() {
 		return publishDate;
 	}
@@ -50,6 +56,5 @@ public class MessageForm {
 	public void setText(String text) {
 		this.text = text;
 	}
-	
 	
 }

@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import twitter4j.auth.AccessToken;
 
+import com.capgemini.DateComparator;
 import com.capgemini.NavigationNames;
 import com.capgemini.persistence.CampaignDao;
 import com.capgemini.persistence.domain.Campaign;
@@ -46,7 +47,7 @@ public class CampaignController {
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-	    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+	    DateFormat dateFormat = new SimpleDateFormat(DateComparator.DATE_FORMAT);
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 	
