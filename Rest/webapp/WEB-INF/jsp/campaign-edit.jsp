@@ -35,6 +35,12 @@
 						<form:form modelAttribute="campaignForm"
 						 name="campaignForm" action="${actionUrl}" method="post" >
 						
+							<c:if test="${!updated}">
+									<div class="msg error-msg">
+										Campaign has not been updated! Wrong dates!
+									</div>
+							</c:if>
+						
 							<div class="form-item">
 								<label>Nazwa kampanii: </label>
 								<form:input path="name" type="text" />
@@ -62,26 +68,37 @@
 							
 							<div class="form-item">
 								<label>Start date: </label>
-								<form:input path="startDate" type="date" name="startDate" />
+								<form:input path="startDate" type="date" name="startDate" value="${startDate}" min="${currentDate}" max="${maxDateStart}" disabled="${disableStartDate}" />
 							</div>
 							
 							<div class="form-item">
 								<label>End date: </label>
-								<form:input path="endDate" type="date" name="endDate" />
+								<form:input path="endDate" type="date" name="endDate" value="${endDate}" min="${minDateEnd}" />
 							</div>
 							
 							<div class="form-item">
 							    <input type="hidden" value="${campId}" name="campId">
-								<input type="submit" class="button" value="Aktualizuj" name="button">
-								<input type="submit" class="button button-red" value="Anuluj" name="button">
+								<input type="submit" class="button" value="Update" name="update">
+								<input type="submit" class="button button-red" value="Cancel" name="cancel">
 							</div>	
 						</form:form>
 						</c:when>
 						<c:otherwise>
-							<div class="msg success-msg">
-								Kampania została zaktualizowana!
-							</div>
-							<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Powrót</a>
+							<c:choose>
+								<c:when test="${updated}">
+									<div class="msg success-msg">
+										Campaign has been updated!
+									</div>
+									<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Back to campaigns</a>
+								</c:when>
+								<c:otherwise>
+									<div class="msg error-msg">
+										Campaign has not been updated! Campaign is not active!
+									</div>
+									<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Back to campaigns</a>
+								</c:otherwise>
+							</c:choose>
+							
 						</c:otherwise>
                         </c:choose>
 					</div>

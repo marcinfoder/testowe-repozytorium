@@ -61,9 +61,9 @@ public class MessagesController {
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		DateFormat dateFormat = new SimpleDateFormat(DateComparator.DATE_FORMAT);
-		binder.registerCustomEditor(Date.class, new CustomDateEditor(
-				dateFormat, true));
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    dateFormat.setLenient(false);
+	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -162,7 +162,6 @@ public class MessagesController {
 		
 		if(campaign == null || campStep == null){
 			model.addAttribute("isNull", true);
-			return "messages";
 		}
 		messageForm.setText(campaign.getHashTag() + " " + messageForm.getText());
 
@@ -193,7 +192,8 @@ public class MessagesController {
 				return "messages";
 			}
 		}
-
+		
+		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}
@@ -231,7 +231,8 @@ public class MessagesController {
 			messageService.addMessage(message);
 			model.addAttribute("submited", true);
 		}
-
+		
+		model.addAttribute("MessageForm", form);	
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
 		return "messages";
 	}

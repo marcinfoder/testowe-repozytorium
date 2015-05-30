@@ -34,6 +34,12 @@
 						<form:form modelAttribute="campaignStepForm"
 						 name="campaignStepForm" action="${actionUrl}" method="post" >
 						
+							<c:if test="${!added}">
+									<div class="msg error-msg">
+										Step has not been added! Wrong dates!
+									</div>
+							</c:if>
+						
 							<c:if test="${comboBox}">
 							<div class="form-item">
 								<label>Kampania: </label>
@@ -59,12 +65,12 @@
 							
 							<div class="form-item">
 								<label>Data rozpoczęcia: </label>
-								<form:input path="startDate" type="date" name="StartDate" />
+								<form:input path="startDate" type="date" name="StartDate" value="${minDate}" min="${minDate}" max="${maxDate}"/>
 							</div>
 							
 							<div class="form-item">
 								<label>Data zakończenia: </label>
-								<form:input path="endDate" type="date" name="EndDate" />
+								<form:input path="endDate" type="date" name="EndDate" value="${maxDate}" min="${minDate}" max="${maxDate}" />
 							</div>
 							
 							<c:if test="${!comboBox}">
@@ -72,15 +78,25 @@
 							</c:if>
 							
 							<div class="form-item">
-								<input type="submit" class="button" value="Dodaj krok">
+								<input type="submit" class="button" value="Add step">
 							</div>	
 						</form:form>
 						</c:when>
 						<c:otherwise>
-							<div class="msg success-msg">
-								Krok został poprawnie dodany!
-							</div>
-							<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Dodaj kolejny krok</a>
+							<c:choose>
+								<c:when test="${added}">
+									<div class="msg success-msg">
+											Step has been added!
+									</div>
+									<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Add a new step</a>
+								</c:when>
+								<c:otherwise>
+									<div class="msg error-msg">
+										Step has not been added! 
+									</div>
+									<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Try again </a>
+								</c:otherwise>
+							</c:choose>	
 						</c:otherwise>
 						</c:choose>
 					</div>

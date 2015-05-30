@@ -63,9 +63,14 @@
 										<a class="button" href="<spring:url value='/service/campaign-step-add/${camp.campaignId}' htmlEscape='true'/>">Dodaj kroki</a>
 									</td>
 									<td>
-										<form action="<spring:url value='/service/campaign-edit/${camp.campaignId}' htmlEscape='true'/>" method="GET">
-											<input type="submit" class="button" value="Edytuj">
-										</form>
+										
+											<form action="<spring:url value='/service/campaign-edit/${camp.campaignId}' htmlEscape='true'/>" method="GET">
+											<c:if test="${!camp.expired}">
+												<input type="submit" class="button" value="Edytuj">
+											</c:if>	
+											</form>
+										
+										
 									</td>
 									<td>
 										<form action="<spring:url value='/service/campaign-delete' htmlEscape='true'/>" method="POST">

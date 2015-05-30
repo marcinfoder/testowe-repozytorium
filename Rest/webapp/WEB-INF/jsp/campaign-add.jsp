@@ -41,13 +41,11 @@
 								<form:form modelAttribute="campaignForm" name="campaignForm"
 									action="${actionUrl}" method="post">
 
-									<form:errors element="div" path="name" class="msg error-msg" />
-									<form:errors element="div" path="description"
-										class="msg error-msg" />
-									<form:errors element="div" path="hashTag" class="msg error-msg" />
-									<form:errors element="div" path="startDate"
-										class="msg error-msg" />
-									<form:errors element="div" path="endDate" class="msg error-msg" />
+									<c:if test="${!added}">
+									<div class="msg error-msg">
+										Campaign has not been added! Wrong dates!
+									</div>
+									</c:if>
 
 									<div class="form-item">
 										<label>Nazwa kampanii: </label>
@@ -79,12 +77,12 @@
 
 									<div class="form-item">
 										<label>Start date: </label>
-										<form:input path="startDate" type="date" name="startDate" />
+										<form:input path="startDate" type="date" name="startDate" min="${minDate}"/>
 									</div>
 
 									<div class="form-item">
 										<label>End date: </label>
-										<form:input path="endDate" type="date" name="endDate" />
+										<form:input path="endDate" type="date" name="endDate" min="${minDate}"/>
 									</div>
 
 									<div class="form-item">
@@ -94,11 +92,10 @@
 								</form:form>
 							</c:when>
 							<c:otherwise>
-								<div class="msg success-msg">Kampania została poprawnie
-									dodana!</div>
+								<div class="msg success-msg">Campaign has been added!</div>
 								<a class="button"
-									href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Dodaj
-									step</a>
+									href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Add step
+								</a>
 							</c:otherwise>
 						</c:choose>
 					</div>

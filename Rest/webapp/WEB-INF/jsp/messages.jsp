@@ -79,7 +79,7 @@
 
 									<div class="form-item">
 										<label>Data: </label>
-										<form:input path="publishDate" type="text" name="publishDate" />
+										<form:input path="publishDate" type="text" name="publishDate" id="dataTwitter" />
 									</div>
 
 									<div class="form-item">
@@ -91,8 +91,8 @@
 									</div>
 
 									<div class="form-item">
-										<input type="submit" class="button" value="Wyślij" name="send" />
-										<input type="submit" class="button" value="Dodaj" name="add" />
+										<input type="submit" class="button" value="Send" name="send" />
+										<input type="submit" class="button" value="Add" name="add" />
 									</div>
 								</form:form>
 							</c:when>
@@ -128,10 +128,12 @@
 	</div>
 
 	<script type="text/javascript" src="/rest/static/js/jquery.js"></script>
+	<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
 	<script type="text/javascript">
 		jQuery(document)
 				.ready(
-						function() {
+						function() {		
+							
 							jQuery('#TwitterContent').keyup(
 									function() {
 										var max = 140 - jQuery("#Hashtag")
@@ -144,8 +146,7 @@
 										} else {
 											var char = max - len;
 											jQuery('#pozostale-znaki').text(
-													'Pozostało ' + char
-															+ ' znaków.');
+													  char + ' characters left.');
 										}
 									});
 							jQuery('#CampaignIdSelect')
@@ -189,7 +190,12 @@
 														});
 											});
 						});
+		
+						jQuery("#dataTwitter").datepicker();
 	</script>
+	
+	
+	
 </body>
 
 </html>

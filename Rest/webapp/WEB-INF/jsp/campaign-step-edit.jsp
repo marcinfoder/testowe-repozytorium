@@ -35,6 +35,12 @@
 						<form:form modelAttribute="campaignStepForm"
 						 name="campaignForm" action="${actionUrl}" method="post" >
 						
+							<c:if test="${!updated}">
+									<div class="msg error-msg">
+										Step has not been updated! Wrong dates!
+									</div>
+							</c:if>
+						
 							<div class="form-item">
 								<label>Nazwa kroku: </label>
 								<form:input path="name" type="text" value="${name}" />
@@ -52,26 +58,37 @@
 							
 							<div class="form-item">
 								<label>Start date: </label>
-								<form:input path="startDate" type="date" name="startDate" value="${startDate}" />
+								<form:input path="startDate" type="date" name="startDate" value="${startDate}" min="${minDate}" max="${maxDate}" />
 							</div>
 							
 							<div class="form-item">
 								<label>End date: </label>
-								<form:input path="endDate" type="date" name="endDate" value="${endDate}" />
+								<form:input path="endDate" type="date" name="endDate" value="${endDate}" min="${minDate}" max="${maxDate}" />
 							</div>
 							
 							<div class="form-item">
 								<input type="hidden" value="${stepId}" name="stepId">
-								<input type="submit" class="button" value="Aktualizuj" name="button">
-								<input type="submit" class="button button-red" value="Anuluj" name="button">
+								<input type="submit" class="button" value="Update" name="update">
+								<input type="submit" class="button button-red" value="Cancel" name="cancel">
 							</div>	
 						</form:form>
 						</c:when>
 						<c:otherwise>
-							<div class="msg success-msg">
-								Krok został zaktualizowany!
-							</div>
-							<a class="button" href="<spring:url value='/service/campaign-steps/${campId}' htmlEscape='true' />">Powrót</a>
+							
+							<c:choose>
+								<c:when test="${updated}">
+									<div class="msg success-msg">
+										Step has been updated!
+									</div>
+									<a class="button" href="<spring:url value='/service/campaign-steps/${campId}' htmlEscape='true' />">Back</a>
+								</c:when>
+								<c:otherwise>
+									<div class="msg error-msg">
+										Step has not been updated! Campaign step not active!
+									</div>
+									<a class="button" href="<spring:url value='/service/campaign-steps/${campId}' htmlEscape='true' />">Back to campaign steps</a>
+								</c:otherwise>
+							</c:choose>	
 						</c:otherwise>
                         </c:choose>
 					</div>

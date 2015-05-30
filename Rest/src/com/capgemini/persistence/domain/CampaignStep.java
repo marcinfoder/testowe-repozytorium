@@ -89,4 +89,16 @@ public class CampaignStep {
 		this.hashTag = hashTag;
 	}
 	
+	public boolean isExpired()
+	{
+		if(this.getEndDate().after(new Date()))
+		{
+			return false;
+		}
+		else 
+		{
+			return true;
+		}
+	}
+	
 }

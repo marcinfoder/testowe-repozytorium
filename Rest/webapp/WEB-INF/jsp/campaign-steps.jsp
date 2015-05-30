@@ -25,7 +25,7 @@
 			<div id="content" class="grid">
 				
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Campaign steps for campaign: Campaign name</h2>
+					<h2 class="section-title">Campaign steps for ${campName}</h2>
 					
 					<div class="grid-item-content">
 						<table id="table_privileges">
@@ -55,8 +55,9 @@
 									<td>
 										
 										<form action="<spring:url value='/service/campaign-step-edit/${step.stepId}' />" method="GET">
-											<input type="submit" class="button" value="Edytuj">
-									
+											<c:if test="${!step.expired}">
+												<input type="submit" class="button" value="Edytuj">
+											</c:if>	
 										</form>
 										
 									</td>
