@@ -33,7 +33,7 @@ public class TwitterAccessServiceImpl implements TwitterAccessService {
 
 	@Override
 	@Transactional
-	public void addTwitterAccess(String accessToken, String accessTokenSecret) {
+	public void addTwitterAccess(String accessToken, String accessTokenSecret, long twitterUserId) {
 		String login = SecurityContextHolder.getContext().getAuthentication()
 				.getName();
 		User foundUser = userDao.findByName(login);
@@ -42,6 +42,7 @@ public class TwitterAccessServiceImpl implements TwitterAccessService {
 		ta.setGroupId(foundUser.getGroupId());
 		ta.setAccessToken(accessToken);
 		ta.setAccessTokenSecret(accessTokenSecret);
+		ta.setTwitterUserId(twitterUserId);
 		ta.setActive(true);
 		ta.setCreatedAt(new Date());
 		
@@ -49,6 +50,7 @@ public class TwitterAccessServiceImpl implements TwitterAccessService {
 	}
 
 	@Override
+	@Transactional
 	public void updateTwitterAccess(long twitterAccessId, String accessToken, String accessTokenSecret) {
 		TwitterAccess ta = twitterDao.getWith(twitterAccessId);
 		ta.setAccessToken(accessToken);
@@ -59,6 +61,7 @@ public class TwitterAccessServiceImpl implements TwitterAccessService {
 	}
 
 	@Override
+	@Transactional
 	public void deactivateTwitterAccess(long twitterAccessId) {
 		TwitterAccess ta = twitterDao.getWith(twitterAccessId);
 		ta.setActive(false);

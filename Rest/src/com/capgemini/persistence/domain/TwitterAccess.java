@@ -7,6 +7,7 @@ public class TwitterAccess {
 	private long id;
 	private String accessToken;
 	private String accessTokenSecret;
+	private long twitterUserId;
 	private long groupId;
 	private boolean active;
 	private Date createdAt;
@@ -34,7 +35,14 @@ public class TwitterAccess {
 		.append("updatedAt").append(updatedAt.toString());
 		return builder.toString();
 	}
-	
+
+	public long getTwitterUserId() {
+		return twitterUserId;
+	}
+
+	public void setTwitterUserId(long twitterUserId) {
+		this.twitterUserId = twitterUserId;
+	}
 
 	public long getId() {
 		return id;

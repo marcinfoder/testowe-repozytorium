@@ -13,6 +13,10 @@
 			<column name="GroupId" />
 		</property>
 		
+		<property name="twitterUserId" type="long" not-null="true">
+			<column name="TwitterUserId" />
+		</property>
+		
 		<property name="accessToken" type="string" not-null="true">
 			<column name="AccessToken" length="256" />
 		</property>

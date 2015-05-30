@@ -65,7 +65,7 @@ public class TwitterController {
 			model.addAttribute("isAccessToken", true);
 			model.addAttribute("accessToken", access.getToken());
 			twitterAccessService.addTwitterAccess(access.getToken(),
-					access.getTokenSecret());
+					access.getTokenSecret(), access.getUserId());
 
 		} catch (TwitterException e) {
 			e.printStackTrace();
