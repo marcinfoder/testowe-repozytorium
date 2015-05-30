@@ -21,6 +21,9 @@ public class RegistrationForm {
 	@Size(min = 5, message = "{reg.err.passsize}")
 	private String password;
 	
+	@NotNull(message = "{reg.err.pass2empty}")
+	private String passwordHelper;
+	
 	@NotNull(message = "{reg.err.firstnameempty}")
 	@Size(max = 30, message = "{reg.err.firstnamesize}")
 	private String firstname;
@@ -45,6 +48,14 @@ public class RegistrationForm {
 	@Size(max = 500)
 	private String description;
 	
+	public String getPasswordHelper() {
+		return passwordHelper;
+	}
+
+	public void setPasswordHelper(String passwordHelper) {
+		this.passwordHelper = passwordHelper;
+	}
+
 	public String getGroupname() {
 		return groupname;
 	}

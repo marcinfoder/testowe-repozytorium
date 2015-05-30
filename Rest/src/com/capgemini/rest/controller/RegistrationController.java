@@ -49,6 +49,10 @@ public class RegistrationController {
 			model.addAttribute("exist", true);
 			return "registration";
 		}
+        else if(!form.getPassword().equals(form.getPasswordHelper()) ) {
+        	model.addAttribute("different", true);
+        	return "registration";
+        }
 
 		User user = new User();
 		String hash = createHash(form.getPassword());
@@ -60,7 +64,7 @@ public class RegistrationController {
 		user.setPhoneNumber(form.getPhonenumber());
 		user.setActive(true);	
 		
-		userService.createNewUserAndGroup(user, form.getGroupname(), form.getDescription());
+		userService.newUserWithNewGroupAsAdmin(user, form.getGroupname(), form.getDescription());
 		
 		return "redirect:/service/login";
 	}

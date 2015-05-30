@@ -6,5 +6,5 @@ public interface UserService {
 
 	public User getUserByLogin(String login);
 	
-	public void createNewUserAndGroup(User user, String gname, String desc);
+	public void newUserWithNewGroupAsAdmin(User user, String gname, String desc);
 }

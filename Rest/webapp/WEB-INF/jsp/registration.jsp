@@ -29,6 +29,7 @@
             <div class="login-window-error">
                 <form:errors path="username" element="p" />
                 <form:errors path="password" element="p" />
+                <form:errors path="passwordHelper" element="p" />
                 <form:errors path="firstname" element="p" />
                 <form:errors path="lastname" element="p" />
                 <form:errors path="email" element="p" />
@@ -36,8 +37,11 @@
                 <form:errors path="groupname" element="p" />
                 <form:errors path="description" element="p" />
 
-                <c:if test="exist">
+                <c:if test="${exist}">
                     <spring:message code="register.exist" text="exist" htmlEscape="true"/>
+           		</c:if>
+                <c:if test="${different}">
+                    <spring:message code="register.different" text="different" htmlEscape="true"/>
            		</c:if>
 			</div>
                                 
@@ -48,6 +52,10 @@
             <div class="login-submit-holder">
                     <spring:message code="register.password" text="password" var="passwordVar" />
                     <form:input path="password" name="password" placeholder="${passwordVar}" class="login-text login-username" />
+            </div>
+            <div class="login-submit-holder">
+                    <spring:message code="register.passwordHelper" text="passwordHelper" var="passwordVar" />
+                    <form:input path="passwordHelper" name="passwordHelper" placeholder="${passwordHelperVar}" class="login-text login-username" />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.firstname" text="firstname" var="firstnameVar" />

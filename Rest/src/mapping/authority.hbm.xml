@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field">
+	<class name="Authority" table="Authorities" optimistic-lock="version">
+		<id name="AuthorityId" type="long">
+			<column name="AuthorityId" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="UserId" type="long" not-null="true">
+			<column name="UserId" />
+		</property>
+		
+		<property name="Role" type="string" not-null="true">
+			<column name="Role" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -26,6 +26,7 @@
 		<mapping resource="mapping/gallery.hbm.xml" />		
 		<mapping resource="mapping/twittercount.hbm.xml" />
 		<mapping resource="mapping/group.hbm.xml" />
+		<mapping resource="mapping/authority.hbm.xml" />
 
 	</session-factory>
 </hibernate-configuration>
