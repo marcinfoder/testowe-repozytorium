@@ -40,7 +40,13 @@
 										Campaign has not been updated! Wrong dates!
 									</div>
 							</c:if>
-						
+							
+							<c:if test="${rename}">
+									<div class="msg error-msg">
+										Campaign has not been added! Wrong name!
+									</div>
+									</c:if>
+							
 							<div class="form-item">
 								<label>Nazwa kampanii: </label>
 								<form:input path="name" type="text" />

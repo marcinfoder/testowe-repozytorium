@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import javax.validation.Valid;
 
@@ -114,10 +115,27 @@ public class CampaignController {
 			return "campaign-add";
 		}
 		
+		Boolean rename = false;
+		List<Campaign> campList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
+		for(Campaign camp : campList)
+		{
+			if(camp.getName().equals(campaignForm.getName()))
+			{
+				rename = true;
+				break;
+			}
+		}
+		
 		if(campaignForm.getStartDate().after(campaignForm.getEndDate()))
 		{
 			model.addAttribute("submited", false);
 			model.addAttribute("added", false);
+		}
+		else if(!Pattern.matches("[0-9a-zA-Z_-]{1,}", campaignForm.getName()) || rename)
+		{
+			model.addAttribute("submited", false);
+			model.addAttribute("updated", true);
+			model.addAttribute("rename", true);
 		}
 		else
 		{
@@ -166,10 +184,9 @@ public class CampaignController {
 
 		minDateEnd = date;
 		maxDateStart = camp.getEndDate();
-		System.out.println(minDateEnd);
+
 		if(!stepsList.isEmpty())
 		{
-			System.out.println(minDateEnd + "W srodku");
 			for(CampaignStep cs : stepsList)
 			{
 				if(maxDateStart.after(cs.getStartDate()))
@@ -183,9 +200,7 @@ public class CampaignController {
 				}
 			}
 		}
-		System.out.println(maxDateStart + "na staert");
-		
-		
+				
 		if(date.after(maxDateStart))
 		{
 			disableStartDate = true;
@@ -223,6 +238,18 @@ public class CampaignController {
 		
 		Campaign campaign = campService.getCampaignById(campId);
 		
+		Boolean rename = false;
+		List<Campaign> campList = (List<Campaign>) campService.getCampaignByUserLogin(principal.getName());
+		for(Campaign camp : campList)
+		{
+			if(camp.getName().equals(campaignForm.getName()) && camp.getCampaignId() != campId)
+			{
+				rename = true;
+				break;
+			}
+		}
+		
+		
 		if(campaignForm.getStartDate() == null)
 		{
 			campaignForm.setStartDate(campaign.getStartDate());
@@ -232,14 +259,18 @@ public class CampaignController {
 		{
 			model.addAttribute("updated", false);
 			model.addAttribute("submited", true);
-			model.addAttribute("campId", campaign.getCampaignId());
 		}
 		else if(campaignForm.getStartDate().after(campaignForm.getEndDate()))
 		{
 			model.addAttribute("updated", false);
 			model.addAttribute("submited", false);
 			model.addAttribute("campaignForm", campaignForm);
-			model.addAttribute("campId", campaign.getCampaignId());
+		}
+		else if(!Pattern.matches("[0-9a-zA-Z_-]{1,}", campaignForm.getName()) || rename)
+		{
+			model.addAttribute("submited", false);
+			model.addAttribute("updated", true);
+			model.addAttribute("rename", true);
 		}
 		else
 		{			
@@ -253,6 +284,7 @@ public class CampaignController {
 			campaign.setTwitterConnection(campaignForm.isTwitterConnection());
 			campaign.setHashTag(campaignForm.getHashTag());
 			
+			
 			try
 			{
 				campService.campaignUpdate(campaign);
@@ -262,7 +294,7 @@ public class CampaignController {
 				e.printStackTrace();
 			}
 		}
-		
+		model.addAttribute("campId", campaign.getCampaignId());
 		model.addAttribute("page", NavigationNames.CAMPAIGN_PREVIEW);
 		return "campaign-edit";
 	}
