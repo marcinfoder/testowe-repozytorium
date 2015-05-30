@@ -52,6 +52,9 @@
 						<p>${test}</p>
 					</c:otherwise>
 				</c:choose>
+				<c:if test="${error}">
+					An error has occur. Please logout and login again.
+				</c:if>
 			</div>
 		</section>
 	</div>

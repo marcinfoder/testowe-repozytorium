@@ -1,5 +1,11 @@
 <div id="navigation">
 	<ul id="main-navigation">
+		
+		
+        <c:if test="${sessionScope.connected == false && !(page eq 'connect')}" >
+                <c:redirect url="/service/twitter-login" />
+        </c:if>
+	
 		<li ${ page eq 'home' ? 'class="current-page"' : '' }>
 			<a href="#"><i class="fa fa-home"></i>
 				<spring:message code="nav.home" text="Home" />

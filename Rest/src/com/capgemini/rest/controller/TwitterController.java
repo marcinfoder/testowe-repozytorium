@@ -3,6 +3,8 @@ package com.capgemini.rest.controller;
 import java.security.Principal;
 import java.util.Date;
 
+import javax.servlet.http.HttpSession;
+
 import org.apache.catalina.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,7 +34,7 @@ public class TwitterController {
 	private TwitterAccessService twitterAccessService;
 
 	@RequestMapping(method = RequestMethod.GET, value = "/twitter-login")
-	public String getLoginPage(Model model, Principal user) {
+	public String getLoginPage(Model model, Principal user, HttpSession session) {
 		try {
 			TwitterAccess ta = twitterAccessService.findByLogin(user.getName());
 			model.addAttribute("twitterLoginForm", new TwitterLoginForm());
@@ -43,6 +45,7 @@ public class TwitterController {
 				model.addAttribute("accessTokenSecret", ta.getAccessTokenSecret());
 				twitter.setOAuthAccessToken(new AccessToken(
 						ta.getAccessToken(), ta.getAccessTokenSecret()));
+				session.setAttribute("connected", true);
 			} else {
 				RequestToken requestToken = twitter.getOAuthRequestToken();
 				model.addAttribute("twitterAuthUrl",
@@ -50,6 +53,7 @@ public class TwitterController {
 			}
 		} catch (TwitterException ex) {
 			ex.printStackTrace();
+			model.addAttribute("error", true);
 		}
 		
 		model.addAttribute("page", NavigationNames.CONNECT);
@@ -58,7 +62,7 @@ public class TwitterController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/twitter-login")
 	public String getRegisterAccount(@ModelAttribute TwitterLoginForm tweet,
-			Model model, Principal principal) {
+			Model model, Principal principal, HttpSession session) {
 		try {
 			AccessToken access = twitter.getOAuthAccessToken(tweet
 					.getTwitterPin());
@@ -66,7 +70,7 @@ public class TwitterController {
 			model.addAttribute("accessToken", access.getToken());
 			twitterAccessService.addTwitterAccess(access.getToken(),
 					access.getTokenSecret(), access.getUserId());
-
+			session.setAttribute("connected", true);
 		} catch (TwitterException e) {
 			e.printStackTrace();
 		}
