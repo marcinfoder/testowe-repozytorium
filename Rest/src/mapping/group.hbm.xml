@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field">
+	<class name="Group" table="Groups" optimistic-lock="version">
+		<id name="GroupId" type="long">
+			<column name="GroupId" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		
+		<property name="Name" type="string" not-null="true">
+			<column name="Name" />
+		</property>
+		
+		<property name="Description" type="string" not-null="true">
+			<column name="Description" />
+		</property>
+		
+		<property name="CreatedAt" type="date" not-null="true">
+			<column name="CreatedAt" />
+		</property>
+		
+		<property name="UpdatedAt" type="date">
+			<column name="UpdatedAt" />
+		</property>
+	</class>
+</hibernate-mapping>

@@ -34,6 +34,7 @@
 		<security:intercept-url pattern="/service/search/**" access="hasRole('ADMIN')" />
 		
 		<!-- getsocial pages -->
+		<security:intercept-url pattern="/service/register" access="permitAll"/>
 		<security:intercept-url pattern="/service/twitter-login" access="isAuthenticated()" />
 		<security:intercept-url pattern="/service/start" access="isAuthenticated()" />
 		<security:intercept-url pattern="/service/myaccount" access="isAuthenticated()" />

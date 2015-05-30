@@ -24,4 +24,10 @@ public class HibernateUserDao extends AbstractDao<User> implements UserDao {
 		return (User) criteria.uniqueResult();
 	}
 
+	@Override
+	public boolean addUser(User user) {
+		super.save(user);
+		return true;
+	}
+
 }

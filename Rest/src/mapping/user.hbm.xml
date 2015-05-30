@@ -18,6 +18,22 @@
 			<column name="Password" />
 		</property>
 		
+		<property name="FirstName" type="string" not-null="true">
+			<column name="FirstName" />
+		</property>
+		
+		<property name="LastName" type="string" not-null="true">
+			<column name="LastName" />
+		</property>
+		
+		<property name="Email" type="string" not-null="true">
+			<column name="Email" />
+		</property>
+		
+		<property name="PhoneNumber" type="string" not-null="true">
+			<column name="PhoneNumber" />
+		</property>
+		
 		<property name="groupId" type="long" not-null="true">
 			<column name="GroupId" />
 		</property>
