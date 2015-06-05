@@ -36,8 +36,33 @@ public class AnalyticsServiceImpl implements AnalyticsService {
 	}
 
 	@Override
-	public List getTwitterCountByDateRange(Date start, Date end) {
-		return null;
+	@Transactional
+	public List getTwitterCountsDailyByGroupId(String username) {
+		User user = userDao.findByName(username);
+		return twitterCount.getDailyListByGroupId(user.getGroupId());
+	}
+
+	@Override
+	@Transactional
+	public List getTwitterCountsDailyByGroupId(String username, Date from,
+			Date to) {
+		User user = userDao.findByName(username);
+		return twitterCount.getHourlyListByGroupId(user.getGroupId(), from, to);
+	}
+
+	@Override
+	@Transactional
+	public List getTwitterCountsHourlyByGroupId(String username) {
+		User user = userDao.findByName(username);
+		return twitterCount.getHourlyListByGroupId(user.getGroupId());
+	}
+
+	@Override
+	@Transactional
+	public List getTwitterCountsHourlyByGroupId(String username, Date from,
+			Date to) {
+		User user = userDao.findByName(username);
+		return twitterCount.getHourlyListByGroupId(user.getGroupId(), from, to);
 	}
 
 }

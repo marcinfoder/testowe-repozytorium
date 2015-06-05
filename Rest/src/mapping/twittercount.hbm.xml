@@ -1,33 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
-<hibernate-mapping package="com.capgemini.persistence.domain" default-access="field" schema="Analytics">
-	<class name="TwitterCount" table="TwitterCounts" optimistic-lock="version">
-		<id name="countsId" type="long">
-			<column name="ID" precision="20" scale="0" />
-			<generator class="native">
-				<param name="sequence">id_seq</param>
-			</generator>
-		</id>
-		
-		<property name="groupId" type="long" not-null="true">
-			<column name="GroupId" />
-		</property>
-		
-		<property name="tweets" type="long" not-null="true">
-			<column name="Tweets" />
-		</property>
-		
-		<property name="retweets" type="long" not-null="true">
-			<column name="Retweets" />
-		</property>
-		
-		<property name="favorites" type="long" not-null="true">
-			<column name="Favorites" />
-		</property>
-		
-		<property name="date" type="timestamp" not-null="true">
-			<column name="Date" />
-		</property>
-	</class>
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field"
+ package="com.capgemini.persistence.domain" schema="Analytics">
+ <class entity-name="TwitterCountsAll" name="TwitterCount" table="TwitterCounts">
+  <id name="countsId" type="long">
+   <column name="ID" precision="20" scale="0"/>
+   <generator class="native">
+    <param name="sequence">id_seq</param>
+   </generator>
+  </id>
+  <property generated="never" lazy="false" name="groupId"
+   not-null="true" type="long">
+   <column name="GroupId"/>
+  </property>
+  <property generated="never" lazy="false" name="tweets" not-null="true" type="long">
+   <column name="Tweets"/>
+  </property>
+  <property generated="never" lazy="false" name="retweets"
+   not-null="true" type="long">
+   <column name="Retweets"/>
+  </property>
+  <property generated="never" lazy="false" name="favorites"
+   not-null="true" type="long">
+   <column name="Favorites"/>
+  </property>
+  <property generated="never" lazy="false" name="date" not-null="true" type="timestamp">
+   <column name="Date"/>
+  </property>
+ </class>
+ 
+ <class entity-name="TwitterCountsDaily" name="TwitterCount" table="TwitterCountDaily">
+  <id name="countsId" type="long">
+   <column name="ID" precision="20" scale="0"/>
+   <generator class="native">
+    <param name="sequence">id_seq</param>
+   </generator>
+  </id>
+  <property generated="never" lazy="false" name="groupId"
+   not-null="true" type="long">
+   <column name="GroupId"/>
+  </property>
+  <property generated="never" lazy="false" name="tweets" not-null="true" type="long">
+   <column name="Tweets"/>
+  </property>
+  <property generated="never" lazy="false" name="retweets"
+   not-null="true" type="long">
+   <column name="Retweets"/>
+  </property>
+  <property generated="never" lazy="false" name="favorites"
+   not-null="true" type="long">
+   <column name="Favorites"/>
+  </property>
+  <property generated="never" lazy="false" name="date" not-null="true" type="timestamp">
+   <column name="Date"/>
+  </property>
+ </class>
+ 
+ <class entity-name="TwitterCountsHourly" name="TwitterCount" table="TwitterCountHourly">
+  <id name="countsId" type="long">
+   <column name="ID" precision="20" scale="0"/>
+   <generator class="native">
+    <param name="sequence">id_seq</param>
+   </generator>
+  </id>
+  <property generated="never" lazy="false" name="groupId"
+   not-null="true" type="long">
+   <column name="GroupId"/>
+  </property>
+  <property generated="never" lazy="false" name="tweets" not-null="true" type="long">
+   <column name="Tweets"/>
+  </property>
+  <property generated="never" lazy="false" name="retweets"
+   not-null="true" type="long">
+   <column name="Retweets"/>
+  </property>
+  <property generated="never" lazy="false" name="favorites"
+   not-null="true" type="long">
+   <column name="Favorites"/>
+  </property>
+  <property generated="never" lazy="false" name="date" not-null="true" type="date">
+   <column name="Date"/>
+  </property>
+ </class>
 </hibernate-mapping>

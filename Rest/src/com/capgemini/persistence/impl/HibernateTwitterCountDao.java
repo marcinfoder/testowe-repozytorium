@@ -1,5 +1,6 @@
 package com.capgemini.persistence.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Criteria;
@@ -41,8 +42,48 @@ public class HibernateTwitterCountDao extends AbstractDao<TwitterCount> implemen
 
 	@Override
 	public List getListByGroupId(long groupId) {
-		Criteria crit = createCriteria();
+		Criteria crit = createCriteriaWithEntityName("TwitterCountsAll");
 		crit.add(Restrictions.eq("groupId", groupId));
+		return crit.list();
+	}
+
+	@Override
+	public List getDailyListByGroupId(long groupId) {
+		Criteria crit = createCriteriaWithEntityName("TwitterCountsDaily");
+		crit.add(Restrictions.eq("groupId", groupId));
+		return crit.list();
+	}
+
+	@Override
+	public List getDailyListByGroupId(long groupId, Date from, Date to) {
+		Criteria crit = createCriteriaWithEntityName("TwitterCountsDaily");
+		crit.add(Restrictions.eq("groupId", groupId));
+		if(from != null) {
+			crit.add(Restrictions.ge("date", from));
+		}
+		if(to != null){
+			crit.add(Restrictions.le("date", to));
+		}
+		return crit.list();
+	}
+
+	@Override
+	public List getHourlyListByGroupId(long groupId) {
+		Criteria crit = createCriteriaWithEntityName("TwitterCountsHourly");
+		crit.add(Restrictions.eq("groupId", groupId));
+		return crit.list();
+	}
+
+	@Override
+	public List getHourlyListByGroupId(long groupId, Date from, Date to) {
+		Criteria crit = createCriteriaWithEntityName("TwitterCountsHourly");
+		crit.add(Restrictions.eq("groupId", groupId));
+		if(from != null) {
+			crit.add(Restrictions.ge("date", from));
+		}
+		if(to != null){
+			crit.add(Restrictions.le("date", to));
+		}
 		return crit.list();
 	}
 	

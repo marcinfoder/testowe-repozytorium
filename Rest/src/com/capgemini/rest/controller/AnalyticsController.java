@@ -34,6 +34,42 @@ public class AnalyticsController {
 	@RequestMapping(method = RequestMethod.GET, value = "/displays")
 	public String getTwitterDisplays(Model model, Principal principal) {
 		List<TwitterCount> twitterCounts = (List<TwitterCount>)analyticsService.getTwitterCountsByGroupId(principal.getName());
+		while(twitterCounts.size() > 20)
+		{
+			twitterCounts.remove(0);
+		}
+		model.addAttribute("twitterCountList", twitterCounts);
+		
+		model.addAttribute("page", NavigationNames.DISPLAYS);
+		return "display";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/displays/daily")
+	public String getTwitterDisplaysDaily(Model model, Principal principal) {
+		List<TwitterCount> twitterCounts = (List<TwitterCount>)analyticsService.getTwitterCountsDailyByGroupId(principal.getName());
+		
+		TwitterCount min = twitterCounts.get(0);
+		TwitterCount max = twitterCounts.get(twitterCounts.size()-1);
+		while(twitterCounts.size() > 20)
+		{
+			twitterCounts.remove(0);
+		}
+		model.addAttribute("twitterCountList", twitterCounts);
+		
+		model.addAttribute("page", NavigationNames.DISPLAYS);
+		return "display";
+	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/displays/hourly")
+	public String getTwitterDisplaysHourly(Model model, Principal principal) {
+		List<TwitterCount> twitterCounts = (List<TwitterCount>)analyticsService.getTwitterCountsDailyByGroupId(principal.getName());
+		
+		TwitterCount min = twitterCounts.get(0);
+		TwitterCount max = twitterCounts.get(twitterCounts.size()-1);
+		while(twitterCounts.size() > 20)
+		{
+			twitterCounts.remove(0);
+		}
 		model.addAttribute("twitterCountList", twitterCounts);
 		
 		model.addAttribute("page", NavigationNames.DISPLAYS);

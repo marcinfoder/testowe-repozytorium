@@ -23,6 +23,10 @@ public abstract class AbstractDao<T> {
 	protected Criteria createCriteria() {
 		return getCurrentSession().createCriteria(claz);
 	}
+	
+	protected Criteria createCriteriaWithEntityName(String entity) {
+		return getCurrentSession().createCriteria(entity);
+	}
 
 	private Session getCurrentSession() {
 		return sessionFactory.getCurrentSession();

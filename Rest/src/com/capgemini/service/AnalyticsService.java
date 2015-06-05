@@ -16,8 +16,14 @@ public interface AnalyticsService {
 
 	public List getTwitterCountsByGroupId(String username);
 	
-	public TwitterCount getTwitterCountById(long id);
+	public List getTwitterCountsDailyByGroupId(String username);
 	
-	public List getTwitterCountByDateRange(Date start, Date end);
+	public List getTwitterCountsDailyByGroupId(String username, Date from, Date to);
+
+	public List getTwitterCountsHourlyByGroupId(String username);
+	
+	public List getTwitterCountsHourlyByGroupId(String username, Date from, Date to);
+	
+	public TwitterCount getTwitterCountById(long id);
 	
 }
