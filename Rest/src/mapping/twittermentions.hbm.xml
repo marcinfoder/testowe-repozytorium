@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping default-access="field"
+	package="com.capgemini.persistence.domain" schema="Analytics">
+	<class name="TwitterMentions" table="TwitterMentions">
+	
+		
+		<id name="ID" type="long">
+			<column name="ID" precision="20" scale="0" />
+			<generator class="native">
+				<param name="sequence">id_seq</param>
+			</generator>
+		</id>
+		<property generated="never" lazy="false" name="groupId"
+			not-null="true" type="long">
+			<column name="GroupId" />
+		</property>
+		<property generated="never" lazy="false" name="sentencePolarity"
+			not-null="true" type="float">
+			<column name="SentencePolarity" />
+		</property>
+		<property generated="never" lazy="false" name="text"
+			not-null="true" type="string">
+			<column name="Text" />
+		</property>
+		<property generated="never" lazy="false" name="retweets"
+			not-null="true" type="long">
+			<column name="Retweets" />
+		</property>
+		<property generated="never" lazy="false" name="favorites"
+			not-null="true" type="long">
+			<column name="Favourites" />
+		</property>
+		<property generated="never" lazy="false" name="createdAt"
+			not-null="true" type="date">
+			<column name="CreatedAt" />
+		</property>
+	</class>
+</hibernate-mapping>

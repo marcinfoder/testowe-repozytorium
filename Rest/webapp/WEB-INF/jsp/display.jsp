@@ -60,14 +60,14 @@
 	
 	
 	var daneY =	[
-		<c:forEach items="${twitterCountList}" var="twitterCount" > 
-			${twitterCount.favorites},
+		<c:forEach items="${twitterCountList}" var="twitterCount" varStatus="s"> 
+			${twitterCount.favorites}${s.last ? "" : ","}
         </c:forEach>
 	];
 	
 	var daneX = [
-	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-	"<fmt:formatDate value="${twitterCount.date}" pattern="${pattern}"/>",
+	<c:forEach items="${twitterCountList}" var="twitterCount" varStatus="s"> 
+		"<fmt:formatDate value="${twitterCount.date}" pattern="${pattern}"/>"${s.last ? "" : ","}
 	</c:forEach>
 	];
 	

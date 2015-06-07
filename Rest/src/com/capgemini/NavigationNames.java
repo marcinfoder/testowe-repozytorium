@@ -4,7 +4,7 @@ public class NavigationNames {
 	
 	public static final String HOME = "home";
 	public static final String DISPLAYS = "displays";
-	public static final String OPTIONS = "options";
+	public static final String OPINIONS = "opinions";
 	public static final String LOCALIZATION = "localization";
 	public static final String CAMPAIGN_PREVIEW = "campaign-preview";
 	public static final String CAMPAIGN_ADD = "campaign-add";

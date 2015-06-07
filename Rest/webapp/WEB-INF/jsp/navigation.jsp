@@ -18,7 +18,7 @@
 				<li ${ page eq 'displays' ? 'class="current-page"' : '' }><a href="<spring:url value='/service/displays' htmlEscape='true' />"><i class="fa fa-eye"></i>
 						<spring:message code="nav.displays" text="Displays" /></a>
 				</li>
-				<li ${ page eq 'options' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-comments-o"></i>
+				<li ${ page eq 'opinions' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-comments-o"></i>
 					<spring:message code="nav.opinions" text="Opinions" /></a>
 				</li>
 				<li ${ page eq 'localization' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-globe"></i>

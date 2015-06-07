@@ -1,33 +1,29 @@
-<!DOCTYPE hibernate-configuration SYSTEM
-"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-configuration SYSTEM "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
-	<session-factory>
-		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="connection.url">jdbc:mysql://vps145779.ovh.net:3306/GetSocial?zeroDateTimeBehavior=convertToNull</property>
-		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
-		<property name="connection.username">bartosz</property>
-		<property name="connection.password">bartosz</property>
-
-		<property name="connection.pool_size">5</property>
-				
-		<property name="current_session_context_class">thread</property>
-		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
-		<property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
-		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
-
-		<mapping resource="mapping/user.hbm.xml" />
-		<mapping resource="mapping/twitteraccess.hbm.xml" />
-		<mapping resource="mapping/book.hbm.xml" />		
-		<mapping resource="mapping/campaign.hbm.xml" />
-		<mapping resource="mapping/campaignstep.hbm.xml" />
-		<mapping resource="mapping/message.hbm.xml" />
-		<mapping resource="mapping/photo.hbm.xml" />
-		<mapping resource="mapping/gallery.hbm.xml" />		
-		<mapping resource="mapping/twittercount.hbm.xml" />
-		<mapping resource="mapping/group.hbm.xml" />
-		<mapping resource="mapping/authority.hbm.xml" />
-
-	</session-factory>
+ <session-factory name="">
+  <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="connection.url">jdbc:mysql://vps145779.ovh.net:3306/GetSocial?zeroDateTimeBehavior=convertToNull</property>
+  <property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
+  <property name="connection.username">bartosz</property>
+  <property name="connection.password">bartosz</property>
+  <property name="connection.pool_size">5</property>
+  <property name="current_session_context_class">thread</property>
+  <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+  <property name="transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory</property>
+  <property name="show_sql">true</property>
+  <property name="format_sql">true</property>
+  <mapping resource="mapping/user.hbm.xml"/>
+  <mapping resource="mapping/twitteraccess.hbm.xml"/>
+  <mapping resource="mapping/book.hbm.xml"/>
+  <mapping resource="mapping/campaign.hbm.xml"/>
+  <mapping resource="mapping/campaignstep.hbm.xml"/>
+  <mapping resource="mapping/message.hbm.xml"/>
+  <mapping resource="mapping/photo.hbm.xml"/>
+  <mapping resource="mapping/gallery.hbm.xml"/>
+  <mapping resource="mapping/twittercount.hbm.xml"/>
+  <mapping resource="mapping/group.hbm.xml"/>
+  <mapping resource="mapping/authority.hbm.xml"/>
+  <mapping resource="mapping/twittermentions.hbm.xml"/>
+ </session-factory>
 </hibernate-configuration>
-

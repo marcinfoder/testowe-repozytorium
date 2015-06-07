@@ -268,7 +268,7 @@ a {
 	}
 	
 	.grid-item-4 {
-		width: 39%;
+		width: 38%;
 	}
 	
 	.grid-item-3 {
@@ -508,6 +508,11 @@ textarea {
 	transition: all .3s;
 	color: #999;
 }
+
+	textarea {
+		width: 600px;
+		min-height: 200px;
+	}
 
 input[type="submit"] {
 	width: 160px;
