@@ -67,7 +67,7 @@
 	
 	var daneX = [
 	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-	"<fmt:formatDate value="${twitterCount.date}" pattern="dd/MM/yyyy"/>",
+	"<fmt:formatDate value="${twitterCount.date}" pattern="${pattern}"/>",
 	</c:forEach>
 	];
 	
@@ -98,7 +98,7 @@
 	
 	var daneX2 = [
 	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-	"<fmt:formatDate value="${twitterCount.date}" pattern="dd/MM/yyyy"/>",
+	"<fmt:formatDate value="${twitterCount.date}" pattern="${pattern}"/>",
 	</c:forEach>
 	];
 	
@@ -128,7 +128,7 @@
 	
 	var daneX3 = [
 	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-		"<fmt:formatDate value="${twitterCount.date}" pattern="dd/MM/yyyy"/>",
+		"<fmt:formatDate value="${twitterCount.date}" pattern="${pattern}"/>",
 	</c:forEach>
 	];
 	

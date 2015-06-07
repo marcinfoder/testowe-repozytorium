@@ -10,8 +10,6 @@ public class TwitterCount {
 	private long tweets;
 	private long retweets;
 	private long favorites;
-	
-	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date date;
 	
 	@Override
