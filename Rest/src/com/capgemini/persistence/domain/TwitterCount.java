@@ -2,12 +2,16 @@ package com.capgemini.persistence.domain;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TwitterCount {
 	private long countsId;
 	private long groupId;
 	private long tweets;
 	private long retweets;
 	private long favorites;
+	
+	@DateTimeFormat(pattern="dd/MM/yyyy")
 	private Date date;
 	
 	@Override

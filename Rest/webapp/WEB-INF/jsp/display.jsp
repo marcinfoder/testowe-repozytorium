@@ -51,7 +51,7 @@
 
 			</div>
 		</section>
-	
+		
 	</div>	
 	<!-- Load Javascripts -->
 	<script type="text/javascript" src="/rest/static/js/Chart.min.js"></script>
@@ -67,7 +67,7 @@
 	
 	var daneX = [
 	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-		"${twitterCount.date}",
+	"<fmt:formatDate value="${twitterCount.date}" pattern="dd/MM/yyyy"/>",
 	</c:forEach>
 	];
 	
@@ -98,7 +98,7 @@
 	
 	var daneX2 = [
 	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-		"${twitterCount.date}",
+	"<fmt:formatDate value="${twitterCount.date}" pattern="dd/MM/yyyy"/>",
 	</c:forEach>
 	];
 	
@@ -128,7 +128,7 @@
 	
 	var daneX3 = [
 	<c:forEach items="${twitterCountList}" var="twitterCount" > 
-		"${twitterCount.date}",
+		"<fmt:formatDate value="${twitterCount.date}" pattern="dd/MM/yyyy"/>",
 	</c:forEach>
 	];
 	

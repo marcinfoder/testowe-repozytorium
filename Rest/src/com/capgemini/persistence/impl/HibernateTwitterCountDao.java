@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -43,6 +44,7 @@ public class HibernateTwitterCountDao extends AbstractDao<TwitterCount> implemen
 	@Override
 	public List getListByGroupId(long groupId) {
 		Criteria crit = createCriteriaWithEntityName("TwitterCountsAll");
+		crit.addOrder(Order.asc("date"));
 		crit.add(Restrictions.eq("groupId", groupId));
 		return crit.list();
 	}
@@ -50,6 +52,7 @@ public class HibernateTwitterCountDao extends AbstractDao<TwitterCount> implemen
 	@Override
 	public List getDailyListByGroupId(long groupId) {
 		Criteria crit = createCriteriaWithEntityName("TwitterCountsDaily");
+		crit.addOrder(Order.asc("date"));
 		crit.add(Restrictions.eq("groupId", groupId));
 		return crit.list();
 	}
@@ -58,6 +61,7 @@ public class HibernateTwitterCountDao extends AbstractDao<TwitterCount> implemen
 	public List getDailyListByGroupId(long groupId, Date from, Date to) {
 		Criteria crit = createCriteriaWithEntityName("TwitterCountsDaily");
 		crit.add(Restrictions.eq("groupId", groupId));
+		crit.addOrder(Order.asc("date"));
 		if(from != null) {
 			crit.add(Restrictions.ge("date", from));
 		}
@@ -71,6 +75,7 @@ public class HibernateTwitterCountDao extends AbstractDao<TwitterCount> implemen
 	public List getHourlyListByGroupId(long groupId) {
 		Criteria crit = createCriteriaWithEntityName("TwitterCountsHourly");
 		crit.add(Restrictions.eq("groupId", groupId));
+		crit.addOrder(Order.asc("date"));
 		return crit.list();
 	}
 
@@ -78,6 +83,7 @@ public class HibernateTwitterCountDao extends AbstractDao<TwitterCount> implemen
 	public List getHourlyListByGroupId(long groupId, Date from, Date to) {
 		Criteria crit = createCriteriaWithEntityName("TwitterCountsHourly");
 		crit.add(Restrictions.eq("groupId", groupId));
+		crit.addOrder(Order.asc("date"));
 		if(from != null) {
 			crit.add(Restrictions.ge("date", from));
 		}
