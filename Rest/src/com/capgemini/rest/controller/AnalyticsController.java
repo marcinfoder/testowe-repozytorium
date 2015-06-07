@@ -70,12 +70,12 @@ public class AnalyticsController {
 	
 	@RequestMapping(method = RequestMethod.GET, value = "/displays/hourly")
 	public String getTwitterDisplaysHourly(Model model, Principal principal) {
-		List<TwitterCount> twitterCounts = (List<TwitterCount>)analyticsService.getTwitterCountsDailyByGroupId(principal.getName());
+		List<TwitterCount> twitterCounts = (List<TwitterCount>)analyticsService.getTwitterCountsHourlyByGroupId(principal.getName());
 		
 		model.addAttribute("pattern", DateComparator.DATE_AND_TIME_FORMAT);
-		if(twitterCounts.size() > 20)
+		if(twitterCounts.size() > 48)
 		{
-			model.addAttribute("twitterCountList", twitterCounts.subList(twitterCounts.size()- 21, twitterCounts.size()-1));
+			model.addAttribute("twitterCountList", twitterCounts.subList(twitterCounts.size()- 49, twitterCounts.size()-1));
 		}
 		else
 		{

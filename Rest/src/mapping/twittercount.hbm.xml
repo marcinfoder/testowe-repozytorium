@@ -79,7 +79,7 @@
    not-null="true" type="long">
    <column name="Favorites"/>
   </property>
-  <property generated="never" lazy="false" name="date" not-null="true" type="timestamp">
+  <property generated="never" lazy="false" name="date" not-null="true" type="timestamp" insert="false" update="false">
    <column name="Date"/>
   </property>
  </class>
