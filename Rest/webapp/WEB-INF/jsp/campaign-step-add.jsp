@@ -25,7 +25,7 @@
 			<div id="content" class="grid">
 				
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Campaign steps for campaign: Campaign name</h2>
+					<h2 class="section-title"><spring:message code="name.newstep" text="Content" /></h2>
 					
 					<div class="grid-item-content">
 						<c:choose>
@@ -36,40 +36,41 @@
 						
 							<c:if test="${!added}">
 									<div class="msg error-msg">
+									<spring:message code="message.stepwrongdates" text="StepWrongDates" />
 										Step has not been added! Wrong dates!
 									</div>
 							</c:if>
 						
 							<c:if test="${comboBox}">
 							<div class="form-item">
-								<label>Kampania: </label>
+								<label><spring:message code="name.campaign" text="Campaign" />: </label>
 								<form:select path="campaignId" name="campaignId" items="${campaignList}" itemLabel="name" itemValue="campaignId" >
 								</form:select>
 							</div>
 							</c:if>
 							 
 							<div class="form-item">
-								<label>Nazwa kroku: </label>
-								<form:input path="name" type="text" placeholder="Nazwa kroku" />
+								<label><spring:message code="name.stepname" text="StepName" />: </label>
+								<form:input path="name" type="text" placeholder="New step" />
 							</div>
 							
 							<div class="form-item">
-								<label>Tag: </label>
+								<label><spring:message code="name.tag" text="Tag" />: </label>
 								<form:input path="hashTag" type="text" name="Hashtag" />
 							</div>
 							
 							<div class="form-item">
-								<label>Opis kroku: </label>
-								<form:input path="description" type="text" name="Description" placeholder="Krótki opis kroku" />
+								<label><spring:message code="name.stepdescription" text="StepDeescritpion" />: </label>
+								<form:input path="description" type="text" name="Description" placeholder="Short step description" />
 							</div>
 							
 							<div class="form-item">
-								<label>Data rozpoczęcia: </label>
+								<label><spring:message code="name.startdate" text="StartDate" />: </label>
 								<form:input path="startDate" type="date" name="StartDate" value="${minDate}" min="${minDate}" max="${maxDate}"/>
 							</div>
 							
 							<div class="form-item">
-								<label>Data zakończenia: </label>
+								<label><spring:message code="name.enddate" text="EndDate" />: </label>
 								<form:input path="endDate" type="date" name="EndDate" value="${maxDate}" min="${minDate}" max="${maxDate}" />
 							</div>
 							
@@ -78,7 +79,7 @@
 							</c:if>
 							
 							<div class="form-item">
-								<input type="submit" class="button" value="Add step">
+								<input type="submit" class="button" value="<spring:message code="name.addstep" text="AddStep" />">
 							</div>	
 						</form:form>
 						</c:when>

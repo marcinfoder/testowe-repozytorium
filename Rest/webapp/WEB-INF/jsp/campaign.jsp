@@ -31,19 +31,19 @@
 						<table id="table_privileges">
 							<thead>
 								<tr>
-									<td class="table_cell_username">Nazwa Kampanii</td>
-									<td>Tag</td>
-									<td>Opis</td>
-									<td>Twitter</td>	
-									<td>Facebook</td>										
-									<td>Data utworzenia</td>
-									<td>Data rozpoczęcia</td>	
-									<td>Data ukończenia</td>
-									<td>Galeria</td>
-									<td>Liczba kroków</td>	
-									<td>Dodaj kroki</td>
-									<td>Edytuj</td>			
-									<td>Usuń kampanię</td>	
+									<td class="table_cell_username"><spring:message code="name.campaignname" text="Campaign" /></td>
+									<td><spring:message code="name.tag" text="Tag" /></td>
+									<td><spring:message code="name.description" text="Description" /></td>
+									<td><spring:message code="name.twitter" text="Twitter" /></td>	
+									<td><spring:message code="name.Facebook" text="Facebook" /></td>										
+									<td><spring:message code="name.createdon" text="CreatedOn" /></td>
+									<td><spring:message code="name.startdate" text="StartDate" /></td>	
+									<td><spring:message code="name.enddate" text="EndDate" /></td>
+									<td><spring:message code="name.gallery" text="Gallery" /></td>
+									<td><spring:message code="name.stepnumber" text="Stepnumber" /></td>	
+									<td><spring:message code="name.addsteps" text="AddSteps" /></td>
+									<td><spring:message code="name.edit" text="Edit" /></td>			
+									<td><spring:message code="name.deletecampaign" text="DelCampaign" /></td>	
 								</tr>	
 							</thead>
 							<tbody>
@@ -60,13 +60,15 @@
 									<td><a href="#" class="button"><i class="fa fa-picture-o"></i></a></td>
 									<td><a href="<spring:url value='campaign-steps/${camp.campaignId}' htmlEscape='true' />" class="button">${camp.numberOfSteps}</a></td>
 									<td>
-										<a class="button" href="<spring:url value='/service/campaign-step-add/${camp.campaignId}' htmlEscape='true'/>">Dodaj kroki</a>
+									<c:if test="${!camp.expired}">
+										<a class="button" href="<spring:url value='/service/campaign-step-add/${camp.campaignId}' htmlEscape='true'/>"><spring:message code="name.addsteps" text="Add" /></a>
+									</c:if>
 									</td>
 									<td>
 										
 											<form action="<spring:url value='/service/campaign-edit/${camp.campaignId}' htmlEscape='true'/>" method="GET">
 											<c:if test="${!camp.expired}">
-												<input type="submit" class="button" value="Edytuj">
+												<input type="submit" class="button" value="<spring:message code="name.edit" text="Edit" />">
 											</c:if>	
 											</form>
 										
@@ -75,14 +77,16 @@
 									<td>
 										<form action="<spring:url value='/service/campaign-delete' htmlEscape='true'/>" method="POST">
 											<input type="hidden" value="${camp.campaignId}" name="campaignId"> <!-- Tutaj przechowujemy ID kampanii -->
-											<input type="submit" class="button button-red" value="Usuń">
+											<c:if test="${!camp.expired}">
+											<input type="submit" class="button button-red" value="<spring:message code="name.deletecampaign" text="DelCampaign" />">
+											</c:if>
 										</form>
 									</td>
 								</tr>
 								</c:forEach>
 							</tbody>
 						</table>
-						<a class="button" href="<spring:url value='/service/campaign-add' htmlEscape='true' />">Dodaj nową kampanię</a>
+						<a class="button" href="<spring:url value='/service/campaign-add' htmlEscape='true' />"><spring:message code="name.addnewcampaign" text="AddNewCamp" /></a>
 					</div>			
 				</div>
 			</div>

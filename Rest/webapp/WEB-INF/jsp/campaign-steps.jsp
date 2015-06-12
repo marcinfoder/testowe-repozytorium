@@ -25,21 +25,21 @@
 			<div id="content" class="grid">
 				
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Campaign steps for ${campName}</h2>
+					<h2 class="section-title"><spring:message code="name.campstepsfor" text="CampStepsFor" /> ${campName}</h2>
 					
 					<div class="grid-item-content">
 						<table id="table_privileges">
 							<thead>
 								<tr>
-									<td class="table_cell_username">Nazwa Kroku</td>
-									<td>Tag</td>
-									<td>Opis</td>
-									<td>Data rozpoczęcia</td>	
-									<td>Data ukończenia</td>
-									<td>Kolejność</td>	
-									<td>Pokaż zawartość</td>	
-									<td>Edytuj krok</td>			
-									<td>Usuń krok</td>	
+									<td class="table_cell_username"><spring:message code="name.stepname" text="StepName" />:</td>
+									<td><spring:message code="name.tag" text="Tag" /></td>
+									<td><spring:message code="name.description" text="Description" /></td>
+									<td><spring:message code="name.startdate" text="StartDate" /></td>	
+									<td><spring:message code="name.enddate" text="EndDate" /></td>
+									<td><spring:message code="name.order" text="Order" /></td>	
+									<td><spring:message code="name.showcontent" text="ShowContent" /></td>	
+									<td><spring:message code="name.editstep" text="EditStep" /></td>			
+									<td><spring:message code="name.deletestep" text="DeleteStep" /></td>	
 								</tr>	
 							</thead>
 							<tbody>
@@ -51,12 +51,12 @@
 									<td>${step.startDate}</td>
 									<td>${step.endDate}</td>
 									<td>${step.stepOrder}</td>
-									<td><a class="button" href="<spring:url value='/service/campaign-step-messages/${step.campaignId}/${step.stepId}' htmlEscape='true' />">Pokaż zawartość</a></td>
+									<td><a class="button" href="<spring:url value='/service/campaign-step-messages/${step.campaignId}/${step.stepId}' htmlEscape='true' />"><spring:message code="name.showcontent" text="ShowContent" /></a></td>
 									<td>
 										
 										<form action="<spring:url value='/service/campaign-step-edit/${step.stepId}' />" method="GET">
 											<c:if test="${!step.expired}">
-												<input type="submit" class="button" value="Edytuj">
+												<input type="submit" class="button" value="<spring:message code="name.edit" text="edit" />">
 											</c:if>	
 										</form>
 										
@@ -65,7 +65,7 @@
 										<form action="<spring:url value='/service/campaign-step-delete' htmlEscape='true' />" method="POST">
 											<input type="hidden" value="${step.campaignId}" name="campaignId"> <!-- Tutaj przechowujemy ID step -->
 											<input type="hidden" value="${step.stepId}" name="stepId"> <!-- Tutaj przechowujemy ID step -->
-											<input type="submit" class="button button-red" value="Usuń">
+											<input type="submit" class="button button-red" value="<spring:message code="name.delete" text="Delete" />">
 										</form>
 									</td>
 								</tr>
@@ -73,8 +73,8 @@
 							</tbody>
 						</table>
 						
-						<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Dodaj nowy krok</a>
-						<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Powrót do widoku kampanii</a>
+						<a class="button" href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />"><spring:message code="name.addstep" text="Addstep" /></a>
+						<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />"><spring:message code="name.campaignreturn" text="CampReturn" /></a>
 					</div>			
 				</div>
 			</div>
