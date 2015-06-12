@@ -25,7 +25,7 @@
 			<div id="content" class="grid">
 				
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Campaign edit</h2>
+					<h2 class="section-title"><spring:message code="name.campaignedit" text="CampaignEdit" /></h2>
 					
 					<div class="grid-item-content">
 						
@@ -37,48 +37,48 @@
 						
 							<c:if test="${!updated}">
 									<div class="msg error-msg">
-										Campaign has not been updated! Wrong dates!
+										<spring:message code="message.wrongdates" text="WrongDates" />:
 									</div>
 							</c:if>
 							
 							<c:if test="${rename}">
 									<div class="msg error-msg">
-										Campaign has not been added! Wrong name!
+										<spring:message code="name.wrongname" text="WrongName" />:
 									</div>
 									</c:if>
 							
 							<div class="form-item">
-								<label>Nazwa kampanii: </label>
+								<label><spring:message code="name.campaignname" text="CampaignName" />: </label>
 								<form:input path="name" type="text" />
 							</div>
 							
 							<div class="form-item">
-								<label>Tag: </label>
+								<label><spring:message code="name.tag" text="Tag" />: </label>
 								<form:input path="hashTag" type="text" name="Hashtag" />
 							</div>
 							
 							<div class="form-item">
-								<label>Opis kampanii: </label>
+								<label><spring:message code="name.description" text="Description" />: </label>
 								<form:input path="description" type="text" name="Description" />
 							</div>
 							
 							<div class="form-item">
-								<label>Twitter: </label>
+								<label><spring:message code="name.twitter" text="Twitter" />: </label>
 								<form:checkbox path="twitterConnection" name="twitterChecked" />
 							</div>
 							
 							<div class="form-item">
-								<label>Facebook: </label>
+								<label><spring:message code="name.facebook" text="Facebook" />: </label>
 								<form:checkbox path="facebookConnection" name="facebookChecked" />
 							</div>
 							
 							<div class="form-item">
-								<label>Start date: </label>
+								<label><spring:message code="name.startdate" text="StartDate" />: </label>
 								<form:input path="startDate" type="date" name="startDate" value="${startDate}" min="${currentDate}" max="${maxDateStart}" disabled="${disableStartDate}" />
 							</div>
 							
 							<div class="form-item">
-								<label>End date: </label>
+								<label><spring:message code="name.enddate" text="EndDate" />: </label>
 								<form:input path="endDate" type="date" name="endDate" value="${endDate}" min="${minDateEnd}" />
 							</div>
 							
@@ -93,13 +93,15 @@
 							<c:choose>
 								<c:when test="${updated}">
 									<div class="msg success-msg">
-										Campaign has been updated!
+									<spring:message code="message.updated" text="Updated" />
+
 									</div>
 									<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Back to campaigns</a>
 								</c:when>
 								<c:otherwise>
 									<div class="msg error-msg">
-										Campaign has not been updated! Campaign is not active!
+									<spring:message code="message.notupdated" text="NotUpdated" />
+										
 									</div>
 									<a class="button" href="<spring:url value='/service/campaigns' htmlEscape='true' />">Back to campaigns</a>
 								</c:otherwise>

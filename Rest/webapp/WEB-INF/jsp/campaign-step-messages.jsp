@@ -25,15 +25,15 @@
 			<div id="content" class="grid">
 				
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Messages</h2>
+					<h2 class="section-title"><spring:message code="name.messages" text="Messages" /></h2>
 					
 					<div class="grid-item-content">
 						<table id="table_privileges">
 							<thead>
 								<tr>
 									<td class="table_cell_username">Data</td>
-									<td>Treść</td>
-									<td>Usuń</td>	
+									<td><spring:message code="name.content" text="Content" /></td>
+									<td><spring:message code="name.delete" text="Delete" /></td>	
 
 								</tr>	
 							</thead>
@@ -57,8 +57,8 @@
 							</tbody>
 						</table>
 						
-						<a class="button" href="<spring:url value='/service/messages/${campId}' htmlEscape='true' />">Dodaj nową wiadomość</a>
-						<a class="button" href="<spring:url value='/service/campaign-steps/${campId}' htmlEscape='true' />">Powrót</a>
+						<a class="button" href="<spring:url value='/service/messages/${campId}' htmlEscape='true' />"><spring:message code="name.addmessage" text="AddMessage" /></a>
+						<a class="button" href="<spring:url value='/service/campaign-steps/${campId}' htmlEscape='true' />"><spring:message code="name.return" text="Return" /></a>
 					</div>			
 				</div>
 			</div>

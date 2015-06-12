@@ -37,32 +37,33 @@
 						
 							<c:if test="${!updated}">
 									<div class="msg error-msg">
-										Step has not been updated! Wrong dates!
+									<spring:message code="message.stepnotupdated" text="Tag" />
+										
 									</div>
 							</c:if>
 						
 							<div class="form-item">
-								<label>Nazwa kroku: </label>
+								<label><spring:message code="name.stepname" text="StepName" />: </label>
 								<form:input path="name" type="text" value="${name}" />
 							</div>
 							
 							<div class="form-item">
-								<label>Tag: </label>
+								<label><spring:message code="name.tag" text="Tag" />: </label>
 								<form:input path="hashTag" type="text" name="Hashtag" />
 							</div>
 							
 							<div class="form-item">
-								<label>Opis: </label>
+								<label><spring:message code="name.description" text="Description" />: </label>
 								<form:input path="description" type="text" name="Description" value="${description}" />
 							</div>
 							
 							<div class="form-item">
-								<label>Start date: </label>
+								<label><spring:message code="name.startdate" text="StartDate" />: </label>
 								<form:input path="startDate" type="date" name="startDate" value="${startDate}" min="${minDate}" max="${maxDate}" />
 							</div>
 							
 							<div class="form-item">
-								<label>End date: </label>
+								<label><spring:message code="name.enddate" text="EndDate" />: </label>
 								<form:input path="endDate" type="date" name="endDate" value="${endDate}" min="${minDate}" max="${maxDate}" />
 							</div>
 							

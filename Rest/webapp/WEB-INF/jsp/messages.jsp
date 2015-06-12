@@ -61,7 +61,7 @@
 										<div class="msg error-msg"><spring:message code="message.futureDate" text="should be future" /></div>
 									</c:if>
 									<div class="form-item">
-										<label>Kampania: </label>
+										<label><spring:message code="name.campaign" text="Campaign" />: </label>
 										<form:select path="campaignId" id="CampaignIdSelect"
 											name="campaignId"> 
 											<form:option value="-1">Select campaign</form:option>
@@ -70,20 +70,20 @@
 									</div>
 
 									<div class="form-item">
-										<label>Krok: </label>
+										<label><spring:message code="name.step" text="Step" />: </label>
 										<form:select path="stepId" id="StepIdSelect" name="stepId">
-											<form:option value="-1" label="select campaign" />
+											<form:option value="-1" label="Select step" />
    											<form:options items="${campaignStepList}" itemLabel="name" itemValue="stepId" />
 										</form:select>
 									</div>
 
 									<div class="form-item">
-										<label>Data: </label>
+										<label><spring:message code="name.date" text="Date1" />: </label>
 										<form:input path="publishDate" type="text" name="publishDate" id="dataTwitter" />
 									</div>
 
 									<div class="form-item">
-										<label>Treść: </label> <input type="hidden" name="Hashtag"
+										<label><spring:message code="name.content" text="Content" />: </label> <input type="hidden" name="Hashtag"
 											id="Hashtag" value="${hashtag}" />
 										<form:textarea path="text" name="TwitterContent"
 											maxlength="140" id="TwitterContent" />
@@ -91,16 +91,16 @@
 									</div>
 
 									<div class="form-item">
-										<input type="submit" class="button" value="Send" name="send" />
-										<input type="submit" class="button" value="Add" name="add" />
+										<input type="submit" class="button" value="<spring:message code="name.send" text="Send" />" name="send" />
+										<input type="submit" class="button" value="<spring:message code="name.add" text="Add" />" name="add" />
 									</div>
 								</form:form>
 							</c:when>
 							<c:otherwise>
-								<div class="msg success-msg">Dodano wiadomość!</div>
+								<div class="msg success-msg"><spring:message code="message.add" text="MsgAdd" /></div>
 								<a class="button"
-									href="<spring:url value='/service/messages' htmlEscape='true' />">Dodaj
-									kolejna wiadomość</a>
+									href="<spring:url value='/service/messages' htmlEscape='true' />">
+									<spring:message code="message.addnext" text="MsgAddNext" /></a>
 							</c:otherwise>
 						</c:choose>
 					</div>
@@ -113,9 +113,7 @@
 			<div id="content" class="grid">
 
 				<table>
-					<tr>
-						<th>TWEETY:<br></th>
-					</tr>
+					
 					<c:forEach items="${Tweets}" var="tweet" varStatus="status">
 						<tr>
 							<td>${tweet.twitterPublishAt}</td>

@@ -29,8 +29,7 @@
 			<div id="content" class="grid">
 
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Campaign steps for campaign:
-						Campaign name</h2>
+					<h2 class="section-title"><spring:message code="name.newcampaign" text="NewCamp" /></h2>
 
 					<div class="grid-item-content">
 
@@ -43,64 +42,66 @@
 
 									<c:if test="${!added}">
 									<div class="msg error-msg">
-										Campaign has not been added! Wrong dates!
+									<spring:message code="message.wrongdates" text="Tag" />
+										
 									</div>
 									</c:if>
 									
 									<c:if test="${rename}">
 									<div class="msg error-msg">
-										Campaign has not been added! Wrong name!
+									<spring:message code="message.wrongname" text="Tag" />
+										
 									</div>
 									</c:if>
 
 									<div class="form-item">
-										<label>Nazwa kampanii: </label>
+										<label><spring:message code="name.campaignname" text="CampName" />: </label>
 										<form:input path="name" type="text"
 											placeholder="Moja kampania" />
 									</div>
 
 									<div class="form-item">
-										<label>Tag: </label>
+										<label><spring:message code="name.tag" text="Tag" />: </label>
 										<form:input path="hashTag" type="text" name="Hashtag" />
 									</div>
 
 									<div class="form-item">
-										<label>Opis kampanii: </label>
+										<label><spring:message code="name.description" text="Description" />: </label>
 										<form:input path="description" type="text" name="Description"
-											value="Kowalski" />
+											value="Description" />
 									</div>
 
 									<div class="form-item">
-										<label>Twitter: </label>
+										<label><spring:message code="name.twitter" text="Twitter" />: </label>
 										<form:checkbox path="twitterConnection" name="twitterChecked" />
 									</div>
 
 									<div class="form-item">
-										<label>Facebook: </label>
+										<label><spring:message code="name.facebook" text="Facebook" />: </label>
 										<form:checkbox path="facebookConnection"
 											name="facebookChecked" />
 									</div>
 
 									<div class="form-item">
-										<label>Start date: </label>
+										<label><spring:message code="name.startdate" text="StartDate" />: </label>
 										<form:input path="startDate" type="date" name="startDate" min="${minDate}"/>
 									</div>
 
 									<div class="form-item">
-										<label>End date: </label>
+										<label><spring:message code="name.enddate" text="EndDate" />: </label>
 										<form:input path="endDate" type="date" name="endDate" min="${minDate}"/>
 									</div>
 
 									<div class="form-item">
-										<input type="submit" class="button" value="Dodaj kampanię">
+										<input type="submit" class="button" value="<spring:message code="name.addnewcampaign" text="AddNewCamp" />">
 									</div>
 
 								</form:form>
 							</c:when>
 							<c:otherwise>
-								<div class="msg success-msg">Campaign has been added!</div>
+								<div class="msg success-msg"><spring:message code="message.add" text="Add" />:</div>
 								<a class="button"
-									href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />">Add step
+									href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />"><spring:message code="name.addstep" text="AddStep" />:
 								</a>
 							</c:otherwise>
 						</c:choose>
