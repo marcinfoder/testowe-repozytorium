@@ -148,8 +148,19 @@ public class MessagesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/messages", params = { "send" })
-	public String sendMessage(Model model, @ModelAttribute("messageForm") @Valid MessageForm messageForm,
+	public String sendMessage(Model model, @ModelAttribute("MessageForm") @Valid MessageForm messageForm,
 			@RequestParam String send, Principal principal, BindingResult bind) {
+
+        List<Campaign> campaignList = (List<Campaign>) campService
+                        .getCampaignByUserLogin(principal.getName());
+        model.addAttribute("campaignList", campaignList);
+        
+        if(campaignList.isEmpty() == false) {
+        	model.addAttribute("hashtag", campaignList.get(0).getHashTag());
+        	List<CampaignStep> campaignStepList = (List<CampaignStep>) campService
+                        .getStepsByCampaignId(campaignList.get(0).getCampaignId());
+        	model.addAttribute("campaignStepList", campaignStepList);
+		}
 		
 		if(bind.hasErrors()) {
 			return "messages";
@@ -195,28 +206,23 @@ public class MessagesController {
 		
 		
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
-		//..
-			List<Campaign> campaignList = (List<Campaign>) campService
-					.getCampaignByUserLogin(principal.getName());
-			model.addAttribute("campaignList", campaignList);
-			
-			if(campaignList.isEmpty() == false) {
-				model.addAttribute("hashtag", campaignList.get(0).getHashTag());
-				List<CampaignStep> campaignStepList = (List<CampaignStep>) campService
-						.getStepsByCampaignId(campaignList.get(0).getCampaignId());
-				model.addAttribute("campaignStepList", campaignStepList);
-		
-				List<Message> messageList = (List<Message>) messageService
-						.getMessageByCampaignId(campaignList.get(0).getCampaignId());
-				model.addAttribute("Tweets", messageList);
-		}
-		//..
 		return "messages";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/messages", params = { "add" })
-	public String addMessage(@ModelAttribute("form") @Valid MessageForm form,
+	public String addMessage(@ModelAttribute("MessageForm") @Valid MessageForm form,
 			@RequestParam String add, Model model, Principal principal, BindingResult bind) {
+		
+		List<Campaign> campaignList = (List<Campaign>) campService
+				.getCampaignByUserLogin(principal.getName());
+		model.addAttribute("campaignList", campaignList);
+		
+		if(campaignList.isEmpty() == false) {
+			model.addAttribute("hashtag", campaignList.get(0).getHashTag());
+			List<CampaignStep> campaignStepList = (List<CampaignStep>) campService
+					.getStepsByCampaignId(campaignList.get(0).getCampaignId());
+			model.addAttribute("campaignStepList", campaignStepList);
+		}
 
 		if(bind.hasErrors()) {
 			return "messages";
@@ -251,24 +257,6 @@ public class MessagesController {
 		
 		model.addAttribute("MessageForm", form);	
 		model.addAttribute("page", NavigationNames.CAMPAIGN_MESSAGES);
-		
-		//..
-		List<Campaign> campaignList = (List<Campaign>) campService
-				.getCampaignByUserLogin(principal.getName());
-		model.addAttribute("campaignList", campaignList);
-		
-		if(campaignList.isEmpty() == false) {
-			model.addAttribute("hashtag", campaignList.get(0).getHashTag());
-			List<CampaignStep> campaignStepList = (List<CampaignStep>) campService
-					.getStepsByCampaignId(campaignList.get(0).getCampaignId());
-			model.addAttribute("campaignStepList", campaignStepList);
-	
-			List<Message> messageList = (List<Message>) messageService
-					.getMessageByCampaignId(campaignList.get(0).getCampaignId());
-			model.addAttribute("Tweets", messageList);
-		}
-		//..
-		
 		return "messages";
 	}
 

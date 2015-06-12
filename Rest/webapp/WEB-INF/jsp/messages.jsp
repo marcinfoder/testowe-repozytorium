@@ -108,25 +108,6 @@
 			</div>
 		</section>
 	</div>
-<<<<<<< HEAD
-=======
-	<div>
-		<section>
-			<div id="content" class="grid">
-
-				<table>
-					
-					<c:forEach items="${Tweets}" var="tweet" varStatus="status">
-						<tr>
-							<td>${tweet.twitterPublishAt}</td>
-							<td>${tweet.twitterContent}</td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
-		</section>
-	</div>
->>>>>>> ecb34bc9f6b746b2d4481c2e4b538fa6b50bd13f
 
 	<script type="text/javascript" src="/rest/static/js/jquery.js"></script>
 	<script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
