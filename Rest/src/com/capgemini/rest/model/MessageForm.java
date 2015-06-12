@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,8 +18,7 @@ public class MessageForm {
 	
 	private long stepId;
 	
-	@DateTimeFormat(pattern = DateComparator.DATE_AND_TIME_FORMAT)
-	@NotNull
+	@NotNull(message = "{mess.err.null}")
 	private Date publishDate;
 	
 	@Size(max = 140, message = "{mess.err.textSize}")

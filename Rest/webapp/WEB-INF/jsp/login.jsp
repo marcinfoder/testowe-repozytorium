@@ -58,8 +58,9 @@
 
 			</form>
 		</div>
+		<spring:url value="/service/register" var="register" htmlEscape="true" />
 		<div class="login-window-copyright">
-			<a href="#"><spring:message code="login.lostpassword"
+			<a href="${register}"><spring:message code="login.lostpassword"
 					text="lostpassword" /></a>
 		</div>
 	</div>

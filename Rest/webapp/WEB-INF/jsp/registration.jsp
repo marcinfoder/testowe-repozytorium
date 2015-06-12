@@ -21,11 +21,12 @@
 </head>
 
 <body>
-	<div>
+	<div id="register-window">
+			<h2 class="login-heading">Sign in</h2>
 		<spring:url value="/service/register" var="actionUrl" htmlEscape="true" />
 		<form:form modelAttribute="registerForm" name="registerForm" action="${actionUrl}" method="post">
-		<div class="login-window-inner">
-            
+           
+           	<c:if test="${error}">
             <div class="login-window-error">
                 <form:errors path="username" element="p" />
                 <form:errors path="password" element="p" />
@@ -44,42 +45,44 @@
                     <spring:message code="register.different" text="different" htmlEscape="true"/>
            		</c:if>
 			</div>
-                                
+           	</c:if>
+		                                
+		<div class="login-window-inner">
             <div class="login-submit-holder">
                     <spring:message code="register.username" text="username" var="usernameVar" />
-                    <form:input path="username" name="username" placeholder="${usernameVar}" class="login-text login-username" />
+                    <form:input path="username" name="username" placeholder="${usernameVar}" class="login-text" />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.password" text="password" var="passwordVar" />
-                    <form:input path="password" name="password" placeholder="${passwordVar}" class="login-text login-username" />
+                    <form:input type="password" path="password" name="password" placeholder="${passwordVar}" class="login-text" />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.passwordHelper" text="passwordHelper" var="passwordVar" />
-                    <form:input path="passwordHelper" name="passwordHelper" placeholder="${passwordHelperVar}" class="login-text login-username" />
+                    <form:input type="password" path="passwordHelper" name="passwordHelper" placeholder="${passwordHelperVar}" class="login-text" />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.firstname" text="firstname" var="firstnameVar" />
-                    <form:input path="firstname" name="firstname" placeholder="${firstnameVar}" class="login-text login-username" />
+                    <form:input path="firstname" name="firstname" placeholder="${firstnameVar}" class="login-text " />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.lastname" text="lastname" var="lastnameVar" />
-                    <form:input path="lastname" name="lastname" placeholder="${lastnameVar}" class="login-text login-username" />
+                    <form:input path="lastname" name="lastname" placeholder="${lastnameVar}" class="login-text " />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.email" text="email" var="emailVar" />
-                    <form:input path="email" name="email" placeholder="${emailVar}" class="login-text login-username" />
+                    <form:input path="email" name="email" placeholder="${emailVar}" class="login-text " />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.phonenumber" text="phonenumber" var="phonenumberVar" />
-                    <form:input path="phonenumber" name="phonenumber" placeholder="${phonenumberVar}" class="login-text login-username" />
+                    <form:input path="phonenumber" name="phonenumber" placeholder="${phonenumberVar}" class="login-text " />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.groupname" text="groupname" var="groupnameVar" />
-                    <form:input path="groupname" name="groupname" placeholder="${groupnameVar}" class="login-text login-username" />
+                    <form:input path="groupname" name="groupname" placeholder="${groupnameVar}" class="login-text " />
             </div>
             <div class="login-submit-holder">
                     <spring:message code="register.description" text="description" var="descriptionVar" />
-                    <form:input path="description" name="description" placeholder="${descriptionVar}" class="login-text login-username" />
+                    <form:input path="description" name="description" placeholder="${descriptionVar}" class="login-text " />
             </div>
 
             <div class="login-submit-holder">

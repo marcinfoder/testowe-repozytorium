@@ -1,7 +1,5 @@
 <div id="navigation">
 	<ul id="main-navigation">
-		
-		
         <c:if test="${sessionScope.connected == false && !(page eq 'connect')}" >
                 <c:redirect url="/service/twitter-login" />
         </c:if>
@@ -15,14 +13,11 @@
 			<a href="#"><i class="fa fa-bar-chart"></i>
 				<spring:message code="nav.statistics" text="Statistics" /></a>
 			<ul class="submenu">
-				<li ${ page eq 'displays' ? 'class="current-page"' : '' }><a href="<spring:url value='/service/displays' htmlEscape='true' />"><i class="fa fa-eye"></i>
+				<li ${ page eq 'displays' ? 'class="current-page"' : '' }><a href="<spring:url value='/service/displays/daily' htmlEscape='true' />"><i class="fa fa-eye"></i>
 						<spring:message code="nav.displays" text="Displays" /></a>
 				</li>
-				<li ${ page eq 'opinions' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-comments-o"></i>
+				<li ${ page eq 'opinions' ? 'class="current-page"' : '' }><a href="<spring:url value='/service/mentions' htmlEscape='true' />"><i class="fa fa-comments-o"></i>
 					<spring:message code="nav.opinions" text="Opinions" /></a>
-				</li>
-				<li ${ page eq 'localization' ? 'class="current-page"' : '' }><a href="#"><i class="fa fa-globe"></i>
-					<spring:message code="nav.localization" text="Localization" /></a>
 				</li>
 			</ul>
 		</li>
@@ -54,22 +49,18 @@
                 		<spring:message code="nav.messages" text="Messages" />
                 	</a>
                 </li>
-                <li ${ page eq 'campaign-gallery' ? 'class="current-page"' : '' }>
-                	<a href="gallery.html">
-                		<i class="fa fa-photo"></i>
-                		<spring:message code="nav.gallery" text="Gallery" />
-                    </a>
-				</li>
 			</ul>
        	</li>
 		<li ${ page eq 'connect' ? 'class="current-page"' : '' }>
 			<a href="<spring:url value='/service/twitter-login' htmlEscape='true' />"><i class="fa fa-cloud-upload"></i>
 			<spring:message code="nav.connect" text="Connect" /></a>
 		</li>
+		<!-- 
 		<li ${ page eq 'account' ? 'class="current-page"' : '' }>
 			<a href="<spring:url value='/service/myaccount' htmlEscape='true' />"><i class="fa fa-user"></i>
 			<spring:message code="nav.account" text="Account" /></a>
 		</li>
+		 -->
 
 		<li>
 			<a href="<spring:url value='/j_spring_security_logout' htmlEscape='true' />">

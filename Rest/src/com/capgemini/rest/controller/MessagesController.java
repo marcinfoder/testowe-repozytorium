@@ -94,9 +94,9 @@ public class MessagesController {
 					.getStepsByCampaignId(campaignList.get(0).getCampaignId());
 			model.addAttribute("campaignStepList", campaignStepList);
 	
-			List<Message> messageList = (List<Message>) messageService
-					.getMessageByCampaignId(campaignList.get(0).getCampaignId());
-			model.addAttribute("Tweets", messageList);
+//			List<Message> messageList = (List<Message>) messageService
+//					.getMessageByCampaignId(campaignList.get(0).getCampaignId());
+//			model.addAttribute("Tweets", messageList);
 		}
 		MessageForm form = new MessageForm();
 		form.setPublishDate(new Date());
@@ -120,9 +120,9 @@ public class MessagesController {
 				.getStepsByCampaignId(campId);
 		model.addAttribute("campaignStepList", campaignStepList);
 
-		List<Message> messageList = (List<Message>) messageService
-				.getMessageByCampaignId(campId);
-		model.addAttribute("Tweets", messageList);
+//		List<Message> messageList = (List<Message>) messageService
+//				.getMessageByCampaignId(campId);
+//		model.addAttribute("Tweets", messageList);
 
 		MessageForm form = new MessageForm();
 		form.setPublishDate(new Date());
@@ -148,9 +148,12 @@ public class MessagesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/messages", params = { "send" })
-	public String sendMessage(@Valid @ModelAttribute("MessageForm") MessageForm messageForm,
-			@RequestParam String send, Model model, Principal principal, BindingResult bind) {
+	public String sendMessage(Model model, @ModelAttribute("messageForm") @Valid MessageForm messageForm,
+			@RequestParam String send, Principal principal, BindingResult bind) {
 		
+		List<Campaign> campaignList = (List<Campaign>) campService
+				.getCampaignByUserLogin(principal.getName());
+		model.addAttribute("campaignList", campaignList);
 		if(bind.hasErrors()) {
 			return "messages";
 		}
@@ -199,8 +202,13 @@ public class MessagesController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/messages", params = { "add" })
-	public String addMessage(@Valid @ModelAttribute("MessageForm") MessageForm form,
+	public String addMessage(@ModelAttribute("form") @Valid MessageForm form,
 			@RequestParam String add, Model model, Principal principal, BindingResult bind) {
+
+		List<Campaign> campaignList = (List<Campaign>) campService
+				.getCampaignByUserLogin(principal.getName());
+		model.addAttribute("campaignList", campaignList);
+		
 		if(bind.hasErrors()) {
 			return "messages";
 		}
