@@ -65,7 +65,9 @@
 										<form action="<spring:url value='/service/campaign-step-delete' htmlEscape='true' />" method="POST">
 											<input type="hidden" value="${step.campaignId}" name="campaignId"> <!-- Tutaj przechowujemy ID step -->
 											<input type="hidden" value="${step.stepId}" name="stepId"> <!-- Tutaj przechowujemy ID step -->
+											<c:if test="${!step.expired}">
 											<input type="submit" class="button button-red" value="<spring:message code="name.delete" text="Delete" />">
+											</c:if>
 										</form>
 									</td>
 								</tr>

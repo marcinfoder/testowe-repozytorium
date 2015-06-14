@@ -190,16 +190,17 @@
 	
 	var dataKolowy = [
 		{
-		    value: ${totalPositive},
-		    color: "#a0d94e",
-		    highlight: "#ade360",
-		    label: "Opinie pozytywne"
-		},
-	    {
-	        value: ${totalNegative},
+			value: ${totalNegative},
 	        color:"#ef1818",
 	        highlight: "#fa5656",
 	        label: "Opinie negatywne"
+		    
+		},
+	    {
+			value: ${totalPositive},
+		    color: "#a0d94e",
+		    highlight: "#ade360",
+		    label: "Opinie pozytywne"
 	    },
 	    
 	]

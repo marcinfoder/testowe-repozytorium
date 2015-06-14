@@ -61,7 +61,7 @@ public class MessagesController {
 
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	    dateFormat.setLenient(false);
 	    binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
 	}
@@ -79,7 +79,7 @@ public class MessagesController {
 		has.setStepsList(stepsList);
 		return has;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.GET, value = "/messages")
 	public String getMessages(Model model, Principal principal) {

@@ -44,12 +44,12 @@ public class MentionsController {
 			SimpleDateFormat sdf = new SimpleDateFormat("MMM yyyy");
 			
 			PositivesNeutralNegatives value = months.getOrDefault(sdf.format(cal.getTime()), new PositivesNeutralNegatives());
-			if(tw.getSentencePolarity() > 0)
+			if(tw.getSentencePolarity() >= 1)
 			{
 				twPositive.add(tw);
 				value.positive++;
 			}
-			else
+			else if(tw.getSentencePolarity() <= -1)
 			{
 				twNegative.add(tw);
 				value.negative++;
