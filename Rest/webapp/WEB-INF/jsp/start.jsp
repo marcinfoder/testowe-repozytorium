@@ -29,7 +29,7 @@
 			<div id="content" class="grid">
 
 				<div class="grid-item grid-item-10 last">
-					<h2 class="section-title">Statystyki Wyświetleń</h2>
+					<h2 class="section-title">Statistics</h2>
 
 					<div class="grid-item-content">
 						<canvas id="wykres" height="220" width="600"></canvas>
@@ -37,7 +37,7 @@
 				</div>
 
 				<div class="grid-item grid-item-5 grid-opinie-pozytywne">
-					<h2 class="section-title">Opinie Pozytywne</h2>
+					<h2 class="section-title">Positive opinions</h2>
 
 					<div class="grid-item-content">
 						<ul class="opinie opinie-pozytywne">
@@ -118,7 +118,7 @@
 				</div>
 
 				<div class="grid-item grid-item-5 last grid-opinie-negatywne">
-					<h2 class="section-title">Opinie Negatywne</h2>
+					<h2 class="section-title">Negative opinions</h2>
 
 					<div class="grid-item-content">
 						<ul class="opinie opinie-negatywne">
@@ -191,8 +191,8 @@
 			return Math.round(Math.random() * 100)
 		};
 		var lineChartData = {
-			labels : [ "Styczeń", "Luty", "Marzec", "Kwiecień", "Maj",
-					"Czerwiec", "Lipiec" ],
+			labels : [ "Januar", "Februar", "March", "April", "Mai",
+					"Juni", "Juli" ],
 			datasets : [
 					{
 						label : "Facebook",
