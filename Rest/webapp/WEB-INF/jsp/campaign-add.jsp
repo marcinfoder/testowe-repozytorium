@@ -99,9 +99,9 @@
 								</form:form>
 							</c:when>
 							<c:otherwise>
-								<div class="msg success-msg"><spring:message code="message.add" text="Add" />:</div>
+								<div class="msg success-msg"><spring:message code="message.campaignadd" text="Add" />:</div>
 								<a class="button"
-									href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />"><spring:message code="name.addstep" text="AddStep" />:
+									href="<spring:url value='/service/campaign-step-add/${campId}' htmlEscape='true' />"><spring:message code="name.addstep" text="AddStep" />
 								</a>
 							</c:otherwise>
 						</c:choose>
