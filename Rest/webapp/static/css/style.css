@@ -159,14 +159,17 @@ body > div > section {
 /* Page Navigation */
 
 section > div:first-child {
-	position: absolute;
-	left: 0;
-	width: 240px;
-	top: 0px;
-	background: #303B4A;
-	padding: 30px 0px;
-	font-weight: 300;
-	font-size: 15px;
+	position: fixed;
+left: 0;
+width: 240px;
+top: 0px;
+bottom: 0px;
+background: #303B4A;
+padding: 30px 0px;
+padding-top: 80px;
+font-weight: 300;
+min-height: 500px;
+font-size: 15px;
 }
 
 	section > div:first-child li {
